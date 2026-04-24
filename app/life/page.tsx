@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
@@ -24,6 +24,14 @@ const allowedTabs = new Set(["overview", "first90", "plan", "checklist", "docume
 const allowedCategories = new Set<ChecklistCategory | "all">(["all", "registration", "telecom", "transport", "banking", "healthcare", "housing", "work_school", "tax", "support"]);
 
 export default function LifePage() {
+  return (
+    <Suspense>
+      <LifePageContent />
+    </Suspense>
+  );
+}
+
+function LifePageContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();

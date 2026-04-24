@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search, ShoppingBag, HeartPulse } from "lucide-react";
@@ -26,6 +27,14 @@ const allowedCategories = new Set<PlaceCategory | "all">([
 ]);
 
 export default function ExplorePage() {
+  return (
+    <Suspense>
+      <ExplorePageContent />
+    </Suspense>
+  );
+}
+
+function ExplorePageContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();

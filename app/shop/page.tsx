@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PageSkeleton } from "@/components/common/page-skeleton";
 import { AppShell } from "@/components/layout/app-shell";
@@ -24,6 +24,14 @@ const allowedTabs = new Set(["overview", "stores", "checker", "receipts", "guide
 const defaultInput: RefundEligibilityInput = { stayLengthCategory: "under-6-months", purchaseAmount: 30000, itemOpened: false, departureWithin3Months: true, residentStatus: "tourist", itemCategory: "beauty" };
 
 export default function ShopPage() {
+  return (
+    <Suspense>
+      <ShopPageContent />
+    </Suspense>
+  );
+}
+
+function ShopPageContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();

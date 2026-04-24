@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
@@ -24,6 +24,14 @@ import { useLocalizedText } from "@/lib/text-localizer";
 const allowedTabs = new Set(["overview", "arrival", "first72", "companions", "launchers", "phrases", "saved"]);
 
 export default function PassPage() {
+  return (
+    <Suspense>
+      <PassPageContent />
+    </Suspense>
+  );
+}
+
+function PassPageContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();

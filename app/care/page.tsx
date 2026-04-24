@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PageSkeleton } from "@/components/common/page-skeleton";
 import { AppShell } from "@/components/layout/app-shell";
@@ -23,6 +23,14 @@ const providerCategories = new Set<CareProviderCategory | "all">(["all", "pharma
 const defaultInput: CareTriageInput = { symptomCategory: "fever-cold", severityLevel: "mild", isBreathingIssue: false, isHeavyBleeding: false, hasChestPain: false, isNightTime: false, userType: "traveler" };
 
 export default function CarePage() {
+  return (
+    <Suspense>
+      <CarePageContent />
+    </Suspense>
+  );
+}
+
+function CarePageContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();

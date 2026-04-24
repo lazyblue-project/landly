@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
@@ -23,6 +24,14 @@ const allowed = new Set<PhraseCategory | "all">([
 ]);
 
 export default function AssistantPage() {
+  return (
+    <Suspense>
+      <AssistantPageContent />
+    </Suspense>
+  );
+}
+
+function AssistantPageContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
