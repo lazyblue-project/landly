@@ -1,0 +1,77 @@
+import { Arrival72Task } from "@/types";
+
+export const arrival72Tasks: Arrival72Task[] = [
+  {
+    id: "arrival72_001",
+    phase: "before_landing",
+    title: "Save your airport route before the plane lands",
+    description: "Lock in one route, one backup route, and the area name you need to show a driver.",
+    href: "/pass?tab=arrival",
+    note: "Do this while you still have calm time and stable Wi‑Fi.",
+  },
+  {
+    id: "arrival72_002",
+    phase: "before_landing",
+    title: "Prepare the phrases you will need first",
+    description: "Keep taxi, station, lost-item, and emergency phrases ready for fast use.",
+    href: "/pass?tab=phrases",
+  },
+  {
+    id: "arrival72_003",
+    phase: "arrival_day",
+    title: "Check which transport option fits your real condition",
+    description: "Heavy luggage, children, late-night arrival, and long immigration lines can change the best route.",
+    href: "/pass?tab=arrival",
+  },
+  {
+    id: "arrival72_004",
+    phase: "arrival_day",
+    title: "Open the exact map route you chose",
+    description: "Use the route picker once instead of searching from zero outside the airport.",
+    href: "/pass?tab=arrival",
+  },
+  {
+    id: "arrival72_005",
+    phase: "first_night",
+    title: "Keep one pharmacy or clinic backup nearby",
+    description: "Jet lag, stomach issues, and sudden fever happen most often on the first night.",
+    href: "/care?tab=providers",
+    note: "Especially useful after long flights or late arrivals.",
+    idealFor: ["evening", "late_night"],
+  },
+  {
+    id: "arrival72_006",
+    phase: "first_night",
+    title: "Save your lodging area and nearest landmark",
+    description: "If you get turned around, the area name matters more than the full address.",
+    href: "/explore?category=transport",
+  },
+  {
+    id: "arrival72_007",
+    phase: "day_2",
+    title: "Decide if you need a transit card or simple pay-as-you-go",
+    description: "Make the decision after your first real ride, not only from guesswork.",
+    href: "/pass?tab=overview",
+  },
+  {
+    id: "arrival72_008",
+    phase: "day_2",
+    title: "Pin the places you will revisit",
+    description: "Save your hotel, station, pharmacy, and one food stop so you can reopen them fast.",
+    href: "/explore",
+  },
+  {
+    id: "arrival72_009",
+    phase: "day_3",
+    title: "Move your confirmed plans into Calendar",
+    description: "Keep transport, check-in, shopping, and care-related plans in one place.",
+    href: "/calendar",
+  },
+  {
+    id: "arrival72_010",
+    phase: "day_3",
+    title: "Bookmark one SOS fallback flow",
+    description: "Lost item, missed last train, and emergency support should stay one tap away.",
+    href: "/sos",
+  },
+];

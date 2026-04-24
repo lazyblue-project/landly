@@ -1,0 +1,62 @@
+import { StayResource } from "@/types";
+
+export const stayResources: StayResource[] = [
+  {
+    id: "stay_resource_001",
+    type: "immigration",
+    title: "Hi Korea & 1345",
+    provider: "Korea Immigration Service",
+    contactLabel: "Call",
+    contactValue: "1345",
+    link: "https://www.hikorea.go.kr/Main.pt?locale=en",
+    description: "Use for immigration basics, electronic civil applications, and multilingual immigration guidance.",
+  },
+  {
+    id: "stay_resource_002",
+    type: "nhis",
+    title: "NHIS foreign resident guide",
+    provider: "National Health Insurance Service",
+    link: "https://www.nhis.or.kr/english/wbheaa02900m01.do",
+    description: "Start here for foreign resident health insurance basics and official NHIS support.",
+  },
+  {
+    id: "stay_resource_003",
+    type: "student",
+    title: "Study in Korea",
+    provider: "National Institute for International Education",
+    link: "https://www.studyinkorea.go.kr/",
+    description: "Student-focused visa, school, housing, and 생활 information in one place.",
+  },
+  {
+    id: "stay_resource_004",
+    type: "support-center",
+    title: "Seoul global portal",
+    provider: "Seoul Metropolitan Government",
+    link: "https://global.seoul.go.kr/web/main.do?lang=en",
+    description: "City-level living, tax, labor, counseling, and resident support information for Seoul.",
+  },
+  {
+    id: "stay_resource_005",
+    type: "housing",
+    title: "Housing & real estate support",
+    provider: "Seoul foreign resident support",
+    link: "https://global.seoul.go.kr/web/main.do?lang=en",
+    description: "Use official housing and real-estate guidance before signing a contract or paying a deposit.",
+  },
+  {
+    id: "stay_resource_006",
+    type: "tax",
+    title: "Tax & local resident basics",
+    provider: "Seoul global portal",
+    link: "https://global.seoul.go.kr/web/main.do?lang=en",
+    description: "Start with official tax guidance before acting on community advice or social media posts.",
+  },
+  {
+    id: "stay_resource_007",
+    type: "labor",
+    title: "Labor counseling & basics",
+    provider: "Seoul foreign resident support",
+    link: "https://global.seoul.go.kr/web/main.do?lang=en",
+    description: "Understand contract basics, work conditions, and where to ask for help when something feels off.",
+  },
+];
