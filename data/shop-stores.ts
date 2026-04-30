@@ -3,6 +3,11 @@ import { ShopStore } from "@/types";
 export const shopStores: ShopStore[] = [
   {
     id: "shop_001",
+    trustLevel: "partner",
+    sourceLabel: "Brand site",
+    sourceUrl: "https://www.oliveyoung.com/",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Olive Young Myeongdong Town",
     category: "beauty",
     district: "Myeong-dong",
@@ -19,6 +24,9 @@ export const shopStores: ShopStore[] = [
   },
   {
     id: "shop_002",
+    trustLevel: "demo",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "LOHB's Hongdae",
     category: "beauty",
     district: "Hongdae",
@@ -34,6 +42,11 @@ export const shopStores: ShopStore[] = [
   },
   {
     id: "shop_003",
+    trustLevel: "partner",
+    sourceLabel: "Lotte Duty Free",
+    sourceUrl: "https://en.lottedfs.com/",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Lotte Duty Free Main Store",
     category: "duty-free",
     district: "Sogong-dong",
@@ -50,6 +63,9 @@ export const shopStores: ShopStore[] = [
   },
   {
     id: "shop_004",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Shinsegae Department Store Gangnam",
     category: "department-store",
     district: "Gangnam",
@@ -65,6 +81,9 @@ export const shopStores: ShopStore[] = [
   },
   {
     id: "shop_005",
+    trustLevel: "demo",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Insadong Craft House",
     category: "souvenir",
     district: "Insadong",
@@ -80,6 +99,9 @@ export const shopStores: ShopStore[] = [
   },
   {
     id: "shop_006",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "CU Myeongdong Central",
     category: "convenience",
     district: "Myeong-dong",
@@ -95,6 +117,9 @@ export const shopStores: ShopStore[] = [
   },
   {
     id: "shop_007",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Onnuri Pharmacy Myeongdong",
     category: "pharmacy",
     district: "Myeong-dong",
@@ -110,6 +135,9 @@ export const shopStores: ShopStore[] = [
   },
   {
     id: "shop_008",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Olive Young Seongsu",
     category: "beauty",
     district: "Seongsu",

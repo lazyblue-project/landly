@@ -45,3 +45,5 @@ next-env.d.ts
 /backup/
 /old_patch/
 /_patch_*/
+
+.vercel

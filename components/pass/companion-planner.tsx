@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Users, Baby, BriefcaseMedical, Accessibility, Trash2 } from "lucide-react";
 import { CompanionProfile, CompanionRelation, Language, MobilityNeed } from "@/types";
+import { getLanguageLabel } from "@/lib/i18n-support";
 import { useAppStore } from "@/store/app-store";
 import { useLocalizedText } from "@/lib/text-localizer";
 
@@ -60,7 +61,7 @@ export function CompanionPlanner({ onApplyGroupSize }: CompanionPlannerProps) {
         <div className="mt-3 grid grid-cols-2 gap-3">
           <label className="col-span-2 space-y-1.5"><span className="text-xs font-medium text-gray-600">{lt("Name or label")}</span><input value={draft.name} onChange={(event) => setDraft((prev) => ({ ...prev, name: event.target.value }))} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none" placeholder={lt("Mom / Child / Friend 1")} /></label>
           <label className="space-y-1.5"><span className="text-xs font-medium text-gray-600">{lt("Relation")}</span><select value={draft.relation} onChange={(event) => setDraft((prev) => ({ ...prev, relation: event.target.value as CompanionRelation }))} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none">{relationOptions.map((option) => <option key={option.value} value={option.value}>{lt(option.label)}</option>)}</select></label>
-          <label className="space-y-1.5"><span className="text-xs font-medium text-gray-600">{lt("Main language")}</span><select value={draft.language ?? "en"} onChange={(event) => setDraft((prev) => ({ ...prev, language: event.target.value as Language }))} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none">{languageOptions.map((lang) => <option key={lang} value={lang}>{lt(lang)}</option>)}</select></label>
+          <label className="space-y-1.5"><span className="text-xs font-medium text-gray-600">{lt("Main language")}</span><select value={draft.language ?? "en"} onChange={(event) => setDraft((prev) => ({ ...prev, language: event.target.value as Language }))} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none">{languageOptions.map((lang) => <option key={lang} value={lang}>{getLanguageLabel(lang, "combined")}</option>)}</select></label>
           <label className="col-span-2 space-y-1.5"><span className="text-xs font-medium text-gray-600">{lt("Mobility")}</span><select value={draft.mobilityNeed} onChange={(event) => setDraft((prev) => ({ ...prev, mobilityNeed: event.target.value as MobilityNeed }))} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none">{mobilityOptions.map((option) => <option key={option.value} value={option.value}>{lt(option.label)}</option>)}</select></label>
         </div>
         <div className="mt-3 grid grid-cols-1 gap-2 text-sm text-gray-700 sm:grid-cols-3">

@@ -12,15 +12,15 @@ export function PassHero() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm text-sky-100">{lt("Landly Pass")}</p>
-            <h2 className="mt-1 text-2xl font-bold leading-tight">{lt("Travel smarter from the moment you land.")}</h2>
-            <p className="mt-2 max-w-xs text-sm leading-relaxed text-sky-100">{lt("Compare airport rail, bus, taxi, and the pass that actually fits your Korea trip. Then use the first-72-hours flow so the next step stays obvious.")}</p>
+            <h2 className="mt-1 text-2xl font-bold leading-tight">{lt("Your airport arrival assistant.")}</h2>
+            <p className="mt-2 max-w-xs text-sm leading-relaxed text-sky-100">{lt("Start with one clear airport action path: choose a route, keep the Korean destination phrase ready, save the plan, and continue into your first 72 hours.")}</p>
           </div>
           <div className="rounded-2xl bg-white/15 p-3"><Plane size={26} className="text-white" /></div>
         </div>
 
         <div className="mt-4 grid grid-cols-4 gap-2 text-xs">
-          <div className="rounded-2xl bg-white/10 p-3"><Train size={16} className="mb-1" />{lt("Airport routes")}</div>
-          <div className="rounded-2xl bg-white/10 p-3"><ShieldCheck size={16} className="mb-1" />{lt("Trusted links")}</div>
+          <div className="rounded-2xl bg-white/10 p-3"><Train size={16} className="mb-1" />{lt("Action path")}</div>
+          <div className="rounded-2xl bg-white/10 p-3"><ShieldCheck size={16} className="mb-1" />{lt("Map + help")}</div>
           <Link href="/pass?tab=first72" className="rounded-2xl bg-white/10 p-3"><ShieldCheck size={16} className="mb-1" />{lt("First 72h")}</Link>
           <Link href="/pass?tab=companions" className="rounded-2xl bg-white p-3 font-semibold text-sky-700"><Users size={16} className="mb-1" />{lt("Companions")}</Link>
         </div>

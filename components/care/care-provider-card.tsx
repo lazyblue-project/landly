@@ -2,6 +2,7 @@
 
 import { Globe2, MapPin, MoonStar, Stethoscope } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { SourceDisclosure } from "@/components/common/source-disclosure";
 import { TrustBadgeRow } from "@/components/common/trust-badge-row";
 import { useAppStore } from "@/store/app-store";
 import { CareProvider } from "@/types";
@@ -31,11 +32,13 @@ export function CareProviderCard({ provider, onOpen }: { provider: CareProvider;
 
       <p className="mt-2 text-xs leading-relaxed text-gray-600">{lt(provider.description)}</p>
       <TrustBadgeRow badges={trustBadges} compact />
+      <SourceDisclosure metadata={provider} compact className="mt-3" />
 
       <div className="mt-3 flex flex-wrap gap-1.5">
-        {provider.internationalCare && <Badge variant="secondary">{lt("International")}</Badge>}
+        {provider.supportedLanguages.includes("en") && <Badge variant="secondary">{lt("English available")}</Badge>}
+        {provider.internationalCare && <Badge variant="secondary">{lt("International clinic")}</Badge>}
         {provider.kahfFriendly && <Badge variant="secondary">{lt("KAHF signal")}</Badge>}
-        {provider.reservationSupported && <Badge variant="secondary">{lt("Reservation")}</Badge>}
+        {provider.reservationSupported ? <Badge variant="secondary">{lt("Reservation")}</Badge> : <Badge variant="secondary">{lt("Walk-in possible")}</Badge>}
         {provider.nightHours && <Badge variant="secondary">{lt("Night hours")}</Badge>}
       </div>
 

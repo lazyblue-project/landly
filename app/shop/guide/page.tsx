@@ -1,9 +1,12 @@
 "use client";
 
+import { SourceDisclosure } from "@/components/common/source-disclosure";
 import { PageSkeleton } from "@/components/common/page-skeleton";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
+import { officialSources } from "@/data/official-sources";
 import { DepartureChecklist } from "@/components/shop/departure-checklist";
+import { ShoppingRoutePlanner } from "@/components/shop/shopping-route-planner";
 import { useAppStore } from "@/store/app-store";
 import { useLocalizedText } from "@/lib/text-localizer";
 
@@ -20,11 +23,21 @@ export default function ShopGuidePage() {
     );
   }
 
+  const refundSource = officialSources.find((source) => source.id === "official_refund");
+
   return (
     <AppShell>
       <TopBar title={lt("Refund Guide")} />
       <div className="space-y-4 px-4 py-4">
+        {refundSource ? (
+          <div className="rounded-3xl border border-emerald-100 bg-white p-4 shadow-sm">
+            <p className="text-sm font-semibold text-gray-900">{lt("Official refund source")}</p>
+            <p className="mt-1 text-xs leading-relaxed text-gray-500">{lt("Use this before checkout because refund participation, limits, and airport processes can change.")}</p>
+            <SourceDisclosure metadata={refundSource.metadata} className="mt-3" />
+          </div>
+        ) : null}
         <DepartureChecklist />
+        <ShoppingRoutePlanner />
         <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
           <p className="text-sm font-semibold text-gray-900">{lt("Immediate vs general refund")}</p>
           <div className="mt-3 space-y-3 text-sm leading-relaxed text-gray-600">

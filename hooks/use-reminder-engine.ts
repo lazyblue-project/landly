@@ -1,48 +1,55 @@
 import { useMemo } from "react";
-import { ReminderItem, ReminderStatus } from "@/types";
+import type { ReminderItem, ReminderStatus } from "@/types";
 import { useAppStore } from "@/store/app-store";
+
+const DAY_MS = 1000 * 60 * 60 * 24;
 
 function startOfToday() {
   const now = new Date();
   return new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
-function parseDate(value?: string) {
+function parseLocalDate(value?: string) {
   if (!value) return null;
-  const parsed = new Date(value);
+  const [year, month, day] = value.split("-").map(Number);
+  if (!year || !month || !day) return null;
+  const parsed = new Date(year, month - 1, day);
   return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 
 function addDays(base: Date, days: number) {
-  const next = new Date(base);
+  const next = new Date(base.getFullYear(), base.getMonth(), base.getDate());
   next.setDate(next.getDate() + days);
   return next;
 }
 
-function formatDate(date: Date) {
-  return date.toISOString().slice(0, 10);
+function formatLocalDate(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 function getStatus(dueDate?: string, done = false): ReminderStatus {
   if (done) return "done";
-  const due = parseDate(dueDate);
+  const due = parseLocalDate(dueDate);
   if (!due) return "upcoming";
   const today = startOfToday();
-  const diff = Math.floor((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  const diff = Math.floor((due.getTime() - today.getTime()) / DAY_MS);
   if (diff < 0) return "overdue";
   if (diff <= 7) return "due-soon";
   return "upcoming";
 }
 
 export function useReminderEngine() {
-  const {
-    manualReminderItems,
-    completedReminderIds,
-    stayDocuments,
-    savedPassPlans,
-    calendarEvents,
-    stayPlanInput,
-  } = useAppStore();
+  const manualReminderItems = useAppStore((state) => state.manualReminderItems);
+  const completedReminderIds = useAppStore((state) => state.completedReminderIds);
+  const stayDocuments = useAppStore((state) => state.stayDocuments);
+  const savedPassPlans = useAppStore((state) => state.savedPassPlans);
+  const calendarEvents = useAppStore((state) => state.calendarEvents);
+  const stayPlanInput = useAppStore((state) => state.stayPlanInput);
+  const receiptRecords = useAppStore((state) => state.receiptRecords);
+  const departureDate = useAppStore((state) => state.departureDate);
 
   return useMemo(() => {
     const derived: ReminderItem[] = [];
@@ -82,13 +89,39 @@ export function useReminderEngine() {
       });
     });
 
+    if (departureDate) {
+      derived.push({
+        id: "departure_review",
+        title: "Departure day review",
+        dueDate: departureDate,
+        source: "departure",
+        description: "Check airport route, tax refund receipts, saved phrases, and final Korea tasks before leaving.",
+        href: "/shop/receipts",
+      });
+    }
+
+    receiptRecords.forEach((receipt) => {
+      if (receipt.refundStatus !== "pending" && receipt.refundStatus !== "needs-check") return;
+      const storeLabel = receipt.storeName ?? "Tax refund receipt";
+      derived.push({
+        id: `receipt_${receipt.id}`,
+        title: `Review ${storeLabel}`,
+        dueDate: departureDate,
+        source: "shop-refund",
+        description: receipt.passportReady
+          ? "Receipt is saved. Re-check refund status before airport or store refund steps."
+          : "Passport check is not marked ready yet. Confirm before departure or checkout.",
+        href: "/shop/receipts",
+      });
+    });
+
     if (stayPlanInput?.entryDate) {
-      const entry = parseDate(stayPlanInput.entryDate);
+      const entry = parseLocalDate(stayPlanInput.entryDate);
       if (entry) {
         derived.push({
           id: "checkpoint_30",
           title: "30-day Korea setup review",
-          dueDate: formatDate(addDays(entry, 30)),
+          dueDate: formatLocalDate(addDays(entry, 30)),
           source: "stay-checkpoint",
           description: "Review telecom, banking, healthcare, and saved documents.",
           href: "/stay?tab=first90",
@@ -96,7 +129,7 @@ export function useReminderEngine() {
         derived.push({
           id: "checkpoint_90",
           title: "90-day Korea setup review",
-          dueDate: formatDate(addDays(entry, 90)),
+          dueDate: formatLocalDate(addDays(entry, 90)),
           source: "stay-checkpoint",
           description: "Double-check official registration, tax, labor, or school-related basics.",
           href: "/stay?tab=first90",
@@ -105,7 +138,9 @@ export function useReminderEngine() {
     }
 
     const manual = manualReminderItems.map((item) => ({ ...item }));
-    const allItems = [...manual, ...derived].sort((a, b) => (a.dueDate ?? "9999-12-31").localeCompare(b.dueDate ?? "9999-12-31"));
+    const allItems = [...manual, ...derived].sort((a, b) =>
+      (a.dueDate ?? "9999-12-31").localeCompare(b.dueDate ?? "9999-12-31")
+    );
 
     const decorated = allItems.map((item) => ({
       ...item,
@@ -121,5 +156,14 @@ export function useReminderEngine() {
         done: decorated.filter((item) => item.status === "done").length,
       },
     };
-  }, [manualReminderItems, completedReminderIds, stayDocuments, savedPassPlans, calendarEvents, stayPlanInput]);
+  }, [
+    manualReminderItems,
+    completedReminderIds,
+    stayDocuments,
+    savedPassPlans,
+    calendarEvents,
+    stayPlanInput,
+    receiptRecords,
+    departureDate,
+  ]);
 }

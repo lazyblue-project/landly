@@ -2,18 +2,14 @@
 
 import en from "@/i18n/messages/en.json";
 import ko from "@/i18n/messages/ko.json";
+import { resolveUiLocale, type UiLocale } from "@/lib/i18n-support";
 import { useAppStore } from "@/store/app-store";
 import { Language } from "@/types";
 
 type Dictionary = Record<string, unknown>;
-type UiLocale = "en" | "ko";
 type Vars = Record<string, string | number>;
 
 const dictionaries: Record<UiLocale, Dictionary> = { en, ko };
-
-function resolveLocale(language: Language): UiLocale {
-  return language === "ko" ? "ko" : "en";
-}
 
 function getNestedValue(source: Dictionary, key: string): unknown {
   return key.split(".").reduce<unknown>((acc, segment) => {
@@ -35,7 +31,7 @@ export function translateUi(
   vars?: Vars,
   fallback?: string
 ): string {
-  const locale = resolveLocale(language);
+  const locale = resolveUiLocale(language);
   const localized = getNestedValue(dictionaries[locale], key);
   const english = getNestedValue(dictionaries.en, key);
   const value = localized ?? english ?? fallback ?? key;
@@ -52,7 +48,7 @@ export function useUiCopy() {
 
   return {
     language,
-    locale: resolveLocale(language),
+    locale: resolveUiLocale(language),
     t: (key: string, vars?: Vars, fallback?: string) =>
       translateUi(language, key, vars, fallback),
   };

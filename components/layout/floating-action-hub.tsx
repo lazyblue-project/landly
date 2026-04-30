@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { AlertTriangle, Cross, MessageSquareText, Sparkles, X } from "lucide-react";
+import { AlertTriangle, Cross, MessageSquarePlus, MessageSquareText, Sparkles, X } from "lucide-react";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { useAppStore } from "@/store/app-store";
 import { triggerHaptic } from "@/lib/haptics";
 import { cn } from "@/lib/utils";
 import { useLocalizedText } from "@/lib/text-localizer";
+
+const FEEDBACK_URL =
+  process.env.NEXT_PUBLIC_FEEDBACK_URL ?? "mailto:hwani.project@gmail.com?subject=Landly%20Feedback";
 
 export function FloatingActionHub() {
   const router = useRouter();
@@ -68,6 +71,7 @@ export function FloatingActionHub() {
           <a href="tel:112" className="flex items-center justify-between rounded-2xl border border-gray-200 px-3 py-3 text-sm font-medium text-gray-800">{lt("Police 112")}<AlertTriangle size={16} className="text-blue-600" /></a>
           <a href="tel:119" className="flex items-center justify-between rounded-2xl border border-gray-200 px-3 py-3 text-sm font-medium text-gray-800">{lt("Ambulance / Fire 119")}<Cross size={16} className="text-red-600" /></a>
           <a href="tel:1330" className="flex items-center justify-between rounded-2xl border border-gray-200 px-3 py-3 text-sm font-medium text-gray-800">{lt("Tourist hotline 1330")}<MessageSquareText size={16} className="text-amber-600" /></a>
+          <a href={FEEDBACK_URL} target="_blank" rel="noreferrer" className="flex items-center justify-between rounded-2xl border border-gray-200 px-3 py-3 text-sm font-medium text-gray-800">{lt("Send feedback")}<MessageSquarePlus size={16} className="text-emerald-600" /></a>
         </div>
       </BottomSheet>
     </>

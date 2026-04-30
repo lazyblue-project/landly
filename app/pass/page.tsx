@@ -12,8 +12,10 @@ import { PassPhrasePack } from "@/components/pass/pass-phrase-pack";
 import { SavedPassPlans } from "@/components/pass/pass-saved-plans";
 import { PassRoutePlannerSheet } from "@/components/pass/pass-route-planner-sheet";
 import { MapAppPickerSheet } from "@/components/pass/map-app-picker-sheet";
+import { FeedbackPrompt } from "@/components/common/feedback-prompt";
 import { Snackbar } from "@/components/common/snackbar";
 import { Arrival72hFlow } from "@/components/pass/arrival-72h-flow";
+import { ArrivalAssistantDashboard } from "@/components/pass/arrival-assistant-dashboard";
 import { CompanionPlanner } from "@/components/pass/companion-planner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { buildCalendarEventFromPassPlan, buildDefaultArrivalInput, buildGoogleMapsDirectionsUrl, buildManualRouteCalendarEvent, buildNaverMapUrl, buildPassPlan, buildTransitMapLinks } from "@/lib/pass-utils";
@@ -69,6 +71,7 @@ function PassPageContent() {
   };
 
   const plan = useMemo(() => buildPassPlan(input, selectedTransitOptionId), [input, selectedTransitOptionId]);
+  const selectedTransitOption = plan.transitOptions.find((option) => option.id === selectedTransitOptionId) ?? plan.transitOptions[0];
 
   useEffect(() => {
     if (plan.transitOptions.length === 0) return;
@@ -136,11 +139,13 @@ function PassPageContent() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
+            <ArrivalAssistantDashboard input={input} selectedTransitOption={selectedTransitOption} recommendedPass={plan.recommendedPass} onOpenRoute={openRoutePicker} onSavePlan={handleSavePlan} onOpenRoutePlanner={() => setPlannerOpen(true)} />
             <PassRecommendationCards transitOptions={plan.transitOptions} recommendedPass={plan.recommendedPass} selectedTransitOptionId={selectedTransitOptionId} onSelectTransit={setSelectedTransitOptionId} onSave={handleSavePlan} onOpenRoute={openRoutePicker} />
             <PassLauncherGrid onOpenRoutePlanner={() => setPlannerOpen(true)} />
           </TabsContent>
           <TabsContent value="arrival" className="space-y-4">
             <PassArrivalForm value={input} onChange={(patch) => setInput((prev) => ({ ...prev, ...patch }))} />
+            <ArrivalAssistantDashboard input={input} selectedTransitOption={selectedTransitOption} recommendedPass={plan.recommendedPass} onOpenRoute={openRoutePicker} onSavePlan={handleSavePlan} onOpenRoutePlanner={() => setPlannerOpen(true)} />
             <PassRecommendationCards transitOptions={plan.transitOptions} recommendedPass={plan.recommendedPass} selectedTransitOptionId={selectedTransitOptionId} onSelectTransit={setSelectedTransitOptionId} onSave={handleSavePlan} onOpenRoute={openRoutePicker} />
           </TabsContent>
           <TabsContent value="first72" className="space-y-4"><Arrival72hFlow input={input} /></TabsContent>
@@ -151,6 +156,7 @@ function PassPageContent() {
         </Tabs>
       </div>
 
+      <FeedbackPrompt context="Pass" compact />
       <PassRoutePlannerSheet open={plannerOpen} onClose={() => setPlannerOpen(false)} onChooseMap={handlePlannerChooseMap} onSave={handlePlannerSave} />
       <MapAppPickerSheet open={!!mapPicker} onClose={() => setMapPicker(null)} title={mapPicker?.title} googleMapsUrl={mapPicker?.googleMapsUrl} naverMapUrl={mapPicker?.naverMapUrl} />
     </AppShell>

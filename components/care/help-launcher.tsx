@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SourceDisclosure } from "@/components/common/source-disclosure";
 import { careSupportResources } from "@/data/care-support";
 import { useLocalizedText } from "@/lib/text-localizer";
 
@@ -18,6 +19,7 @@ export function HelpLauncher() {
             </div>
             <span className="rounded-full bg-gray-100 px-2.5 py-1 text-[11px] font-medium text-gray-600">{lt(resource.tag)}</span>
           </div>
+          <SourceDisclosure metadata={resource} compact className="mt-3" />
         </Link>
       ))}
     </div>

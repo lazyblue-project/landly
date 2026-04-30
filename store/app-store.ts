@@ -13,6 +13,8 @@ import {
   StampGoal,
   CompanionProfile,
   ReminderItem,
+  type BetaMissionId,
+  type BetaFeedbackRecord,
 } from "@/types";
 import { mockUser } from "@/data/mock-user";
 import { shopReceipts } from "@/data/shop-receipts";
@@ -41,10 +43,16 @@ interface AppState {
   interestedPromotionIds: string[];
   savedPromotionIds: string[];
   bookedPromotionIds: string[];
+  savedPartnerOfferIds: string[];
+  requestedPartnerOfferIds: string[];
+  acknowledgedPartnerDisclosureIds: string[];
   departureDate?: string;
   companions: CompanionProfile[];
   completedArrival72TaskIds: string[];
   completedStayMissionIds: string[];
+  completedBetaMissionIds: BetaMissionId[];
+  betaFeedbackRecords: BetaFeedbackRecord[];
+  completedPilotQaCheckIds: string[];
   manualReminderItems: ReminderItem[];
   completedReminderIds: string[];
   hasHydrated: boolean;
@@ -67,6 +75,7 @@ interface AppState {
   toggleSavedCareProvider: (providerId: string) => void;
   addReceiptRecord: (record: ReceiptRecord) => void;
   updateReceiptStatus: (id: string, status: ReceiptRecord["refundStatus"]) => void;
+  updateReceiptRecord: (id: string, patch: Partial<ReceiptRecord>) => void;
   removeReceiptRecord: (id: string) => void;
   saveVisitPrepNote: (note: CareVisitPrepNote) => void;
   removeVisitPrepNote: (id: string) => void;
@@ -82,10 +91,17 @@ interface AppState {
   togglePromotionInterest: (id: string) => void;
   toggleSavedPromotion: (id: string) => void;
   toggleBookedPromotion: (id: string) => void;
+  toggleSavedPartnerOffer: (id: string) => void;
+  toggleRequestedPartnerOffer: (id: string) => void;
+  acknowledgePartnerDisclosure: (id: string) => void;
   saveCompanion: (companion: CompanionProfile) => void;
   removeCompanion: (id: string) => void;
   toggleArrival72Task: (id: string) => void;
   toggleStayMission: (id: string) => void;
+  toggleBetaMissionCompleted: (id: BetaMissionId) => void;
+  addBetaFeedbackRecord: (record: BetaFeedbackRecord) => void;
+  removeBetaFeedbackRecord: (id: string) => void;
+  togglePilotQaCheck: (id: string) => void;
   addManualReminder: (item: ReminderItem) => void;
   removeManualReminder: (id: string) => void;
   toggleReminderDone: (id: string) => void;
@@ -108,10 +124,16 @@ type PersistedAppState = Pick<
   | "interestedPromotionIds"
   | "savedPromotionIds"
   | "bookedPromotionIds"
+  | "savedPartnerOfferIds"
+  | "requestedPartnerOfferIds"
+  | "acknowledgedPartnerDisclosureIds"
   | "departureDate"
   | "companions"
   | "completedArrival72TaskIds"
   | "completedStayMissionIds"
+  | "completedBetaMissionIds"
+  | "betaFeedbackRecords"
+  | "completedPilotQaCheckIds"
   | "manualReminderItems"
   | "completedReminderIds"
 >;
@@ -134,10 +156,16 @@ export const useAppStore = create<AppState>()(
       interestedPromotionIds: [],
       savedPromotionIds: [],
       bookedPromotionIds: [],
+      savedPartnerOfferIds: [],
+      requestedPartnerOfferIds: [],
+      acknowledgedPartnerDisclosureIds: [],
       departureDate: undefined,
       companions: [],
       completedArrival72TaskIds: [],
       completedStayMissionIds: [],
+      completedBetaMissionIds: [],
+      betaFeedbackRecords: [],
+      completedPilotQaCheckIds: [],
       manualReminderItems: [],
       completedReminderIds: [],
       hasHydrated: false,
@@ -223,6 +251,13 @@ export const useAppStore = create<AppState>()(
         set((state) => ({
           receiptRecords: state.receiptRecords.map((record) =>
             record.id === id ? { ...record, refundStatus: status } : record
+          ),
+        })),
+
+      updateReceiptRecord: (id, patch) =>
+        set((state) => ({
+          receiptRecords: state.receiptRecords.map((record) =>
+            record.id === id ? { ...record, ...patch } : record
           ),
         })),
 
@@ -316,6 +351,27 @@ export const useAppStore = create<AppState>()(
             : [id, ...state.bookedPromotionIds],
         })),
 
+      toggleSavedPartnerOffer: (id) =>
+        set((state) => ({
+          savedPartnerOfferIds: state.savedPartnerOfferIds.includes(id)
+            ? state.savedPartnerOfferIds.filter((item) => item !== id)
+            : [id, ...state.savedPartnerOfferIds],
+        })),
+
+      toggleRequestedPartnerOffer: (id) =>
+        set((state) => ({
+          requestedPartnerOfferIds: state.requestedPartnerOfferIds.includes(id)
+            ? state.requestedPartnerOfferIds.filter((item) => item !== id)
+            : [id, ...state.requestedPartnerOfferIds],
+        })),
+
+      acknowledgePartnerDisclosure: (id) =>
+        set((state) => ({
+          acknowledgedPartnerDisclosureIds: state.acknowledgedPartnerDisclosureIds.includes(id)
+            ? state.acknowledgedPartnerDisclosureIds
+            : [id, ...state.acknowledgedPartnerDisclosureIds],
+        })),
+
       saveCompanion: (companion) =>
         set((state) => {
           const rest = state.companions.filter((item) => item.id !== companion.id);
@@ -337,6 +393,26 @@ export const useAppStore = create<AppState>()(
           completedStayMissionIds: state.completedStayMissionIds.includes(id)
             ? state.completedStayMissionIds.filter((item) => item !== id)
             : [id, ...state.completedStayMissionIds],
+        })),
+
+      toggleBetaMissionCompleted: (id) =>
+        set((state) => ({
+          completedBetaMissionIds: state.completedBetaMissionIds.includes(id)
+            ? state.completedBetaMissionIds.filter((item) => item !== id)
+            : [id, ...state.completedBetaMissionIds],
+        })),
+
+      addBetaFeedbackRecord: (record) =>
+        set((state) => ({ betaFeedbackRecords: [record, ...state.betaFeedbackRecords].slice(0, 80) })),
+
+      removeBetaFeedbackRecord: (id) =>
+        set((state) => ({ betaFeedbackRecords: state.betaFeedbackRecords.filter((record) => record.id !== id) })),
+
+      togglePilotQaCheck: (id) =>
+        set((state) => ({
+          completedPilotQaCheckIds: state.completedPilotQaCheckIds.includes(id)
+            ? state.completedPilotQaCheckIds.filter((item) => item !== id)
+            : [id, ...state.completedPilotQaCheckIds],
         })),
 
       addManualReminder: (item) =>
@@ -373,10 +449,16 @@ export const useAppStore = create<AppState>()(
         interestedPromotionIds: state.interestedPromotionIds,
         savedPromotionIds: state.savedPromotionIds,
         bookedPromotionIds: state.bookedPromotionIds,
+        savedPartnerOfferIds: state.savedPartnerOfferIds,
+        requestedPartnerOfferIds: state.requestedPartnerOfferIds,
+        acknowledgedPartnerDisclosureIds: state.acknowledgedPartnerDisclosureIds,
         departureDate: state.departureDate,
         companions: state.companions,
         completedArrival72TaskIds: state.completedArrival72TaskIds,
         completedStayMissionIds: state.completedStayMissionIds,
+        completedBetaMissionIds: state.completedBetaMissionIds,
+        betaFeedbackRecords: state.betaFeedbackRecords,
+        completedPilotQaCheckIds: state.completedPilotQaCheckIds,
         manualReminderItems: state.manualReminderItems,
         completedReminderIds: state.completedReminderIds,
       }),

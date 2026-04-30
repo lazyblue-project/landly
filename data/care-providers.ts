@@ -3,6 +3,11 @@ import { CareProvider } from "@/types";
 export const careProviders: CareProvider[] = [
   {
     id: "care_001",
+    trustLevel: "official",
+    sourceLabel: "Hospital site",
+    sourceUrl: "https://sev.iseverance.com/",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Severance Hospital International Health Care Center",
     category: "hospital",
     district: "Seodaemun-gu, Seoul",
@@ -20,6 +25,9 @@ export const careProviders: CareProvider[] = [
   },
   {
     id: "care_002",
+    trustLevel: "demo",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "ON THE SPOT Pharmacy Itaewon",
     category: "pharmacy",
     district: "Yongsan-gu, Seoul",
@@ -36,6 +44,9 @@ export const careProviders: CareProvider[] = [
   },
   {
     id: "care_003",
+    trustLevel: "demo",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Gangnam Aesthetic Dermatology Clinic",
     category: "dermatology",
     district: "Gangnam-gu, Seoul",
@@ -53,6 +64,9 @@ export const careProviders: CareProvider[] = [
   },
   {
     id: "care_004",
+    trustLevel: "demo",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Seoul Smile Dental Center",
     category: "dentist",
     district: "Jung-gu, Seoul",
@@ -70,6 +84,11 @@ export const careProviders: CareProvider[] = [
   },
   {
     id: "care_005",
+    trustLevel: "official",
+    sourceLabel: "Seoul medical tourism",
+    sourceUrl: "https://medical.visitseoul.net/",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Seoul Medical Tourism Support Center",
     category: "health-checkup",
     district: "Jongno-gu, Seoul",
@@ -87,6 +106,9 @@ export const careProviders: CareProvider[] = [
   },
   {
     id: "care_006",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Mind Link Global Counseling Support",
     category: "mental-health-support",
     district: "Jongno-gu, Seoul",
@@ -104,6 +126,9 @@ export const careProviders: CareProvider[] = [
   },
   {
     id: "care_007",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Incheon Airport Emergency Medical Center",
     category: "clinic",
     district: "Incheon Airport",
@@ -120,6 +145,9 @@ export const careProviders: CareProvider[] = [
   },
   {
     id: "care_008",
+    trustLevel: "demo",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Busan International Clinic",
     category: "clinic",
     district: "Dong-gu, Busan",

@@ -40,6 +40,9 @@ const actionHref: Record<CareTriageResult["nextActions"][number], string> = {
   "find-pharmacy": "/care?tab=providers&category=pharmacy",
   "find-clinic": "/care?tab=providers&category=clinic",
   "find-specialist": "/care?tab=providers&category=dermatology",
+  "open-sos": "/sos",
+  "open-care-phrases": "/care?tab=phrases",
+  "prepare-visit-note": "/care?tab=prep",
 };
 
 const actionLabel: Record<CareTriageResult["nextActions"][number], string> = {
@@ -49,6 +52,9 @@ const actionLabel: Record<CareTriageResult["nextActions"][number], string> = {
   "find-pharmacy": "Find a pharmacy",
   "find-clinic": "Find a clinic",
   "find-specialist": "Find specialist care",
+  "open-sos": "Open SOS",
+  "open-care-phrases": "Open care phrases",
+  "prepare-visit-note": "Prepare visit note",
 };
 
 export function TriageResultCard({ result }: { result: CareTriageResult }) {
@@ -76,6 +82,12 @@ export function TriageResultCard({ result }: { result: CareTriageResult }) {
           ))}
         </ul>
       </div>
+
+      {result.safetyNote ? (
+        <div className="mt-3 rounded-xl bg-white p-3 text-xs font-medium leading-relaxed text-gray-700">
+          {lt(result.safetyNote)}
+        </div>
+      ) : null}
 
       <div className="mt-4 flex flex-wrap gap-2">
         {result.nextActions.map((action) => (

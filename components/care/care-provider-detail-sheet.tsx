@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SourceDisclosure } from "@/components/common/source-disclosure";
 import { ExternalLink, MapPinned, Phone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CareProvider } from "@/types";
@@ -29,6 +30,7 @@ export function CareProviderDetailSheet({ provider, onClose }: CareProviderDetai
         </div>
 
         <p className="mt-3 text-sm leading-relaxed text-gray-600">{lt(provider.description)}</p>
+        <SourceDisclosure metadata={provider} className="mt-4" />
 
         <div className="mt-3 flex flex-wrap gap-1.5">
           {provider.supportedLanguages.map((language) => (
@@ -70,7 +72,7 @@ export function CareProviderDetailSheet({ provider, onClose }: CareProviderDetai
           <Link href="/care?tab=prep" className="inline-flex items-center justify-center rounded-xl bg-rose-600 px-3 py-3 font-medium text-white">
             {lt("Visit prep")}
           </Link>
-          <Link href={provider.officialLink ?? provider.mapLink} className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-3 py-3 font-medium text-white">
+          <Link href={provider.sourceUrl ?? provider.officialLink ?? provider.mapLink} className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-3 py-3 font-medium text-white">
             <ExternalLink size={15} /> {lt("Official link")}
           </Link>
         </div>

@@ -8,6 +8,7 @@ export const mockUser: UserProfile = {
   stayDuration: "1_4weeks",
   city: "Seoul",
   mode: "travel",
+  firstNeed: "airport_transport",
   savedPlaceIds: [],
   savedPhraseIds: [],
   completedChecklistIds: [],

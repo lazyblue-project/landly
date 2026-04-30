@@ -2,6 +2,7 @@
 
 import { Bookmark, BookmarkCheck, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { SourceDisclosure } from "@/components/common/source-disclosure";
 import { TrustBadgeRow } from "@/components/common/trust-badge-row";
 import { ShopStore } from "@/types";
 import { useAppStore } from "@/store/app-store";
@@ -39,6 +40,7 @@ export function ShopStoreCard({ store, onSelect }: ShopStoreCardProps) {
 
       <p className="mt-3 text-sm leading-relaxed text-gray-600">{lt(store.description)}</p>
       <TrustBadgeRow badges={trustBadges} compact />
+      <SourceDisclosure metadata={store} compact className="mt-3" />
 
       <div className="mt-4 flex items-center gap-2">
         <button type="button" onClick={onSelect} className="inline-flex flex-1 items-center justify-center rounded-xl bg-emerald-600 px-3 py-2.5 text-sm font-medium text-white">

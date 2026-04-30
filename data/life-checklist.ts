@@ -140,6 +140,25 @@ export const lifeChecklist: LifeChecklistItem[] = [
     ],
     order: 7,
   },
+  {
+    id: "checklist_008",
+    category: "housing",
+    title: "Understand utilities, trash, and building rules",
+    description: "Learn how your building handles electricity, gas, water, internet, delivery, recycling, and food waste.",
+    difficulty: "medium",
+    estimatedTime: "30–45 min",
+    requiredDocuments: ["Housing contract or building notice if available"],
+    tips: [
+      "Ask your landlord or building manager how bills are paid.",
+      "Take photos of move-in meter readings when possible.",
+      "Trash and recycling rules can differ by district and building.",
+    ],
+    links: [
+      { label: "Seoul global portal", url: "https://global.seoul.go.kr/web/main.do?lang=en" },
+    ],
+    order: 8,
+  },
+
   // Tax
   {
     id: "checklist_009",
@@ -176,5 +195,35 @@ export const lifeChecklist: LifeChecklistItem[] = [
       { label: "Seoul global portal", url: "https://global.seoul.go.kr/web/main.do?lang=en" },
     ],
     order: 10,
+  },
+  {
+    id: "checklist_011",
+    category: "work_school",
+    title: "Save your school or employer admin contact",
+    description: "Know exactly who to ask when a visa, insurance, payroll, attendance, or certificate issue appears.",
+    difficulty: "easy",
+    estimatedTime: "15 min",
+    requiredDocuments: ["School or employer contact if available"],
+    tips: [
+      "Save the office name, email, phone number, and hours.",
+      "Keep certificate request instructions in your document notes.",
+    ],
+    links: [],
+    order: 11,
+  },
+  {
+    id: "checklist_012",
+    category: "support",
+    title: "Add key deadlines to Calendar",
+    description: "Move important registration, appointment, renewal, insurance, and housing dates into Calendar.",
+    difficulty: "easy",
+    estimatedTime: "10 min",
+    requiredDocuments: ["Known appointment or expiry dates"],
+    tips: [
+      "Use Landly Stay timeline checkpoints as a starter.",
+      "Add expiry dates early, not when they are already urgent.",
+    ],
+    links: [],
+    order: 12,
   },
 ];

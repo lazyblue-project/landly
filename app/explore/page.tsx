@@ -8,7 +8,9 @@ import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
 import { ExploreFilters } from "@/components/explore/explore-filters";
 import { PlaceList } from "@/components/explore/place-list";
+import { PageSkeleton } from "@/components/common/page-skeleton";
 import { useUiCopy } from "@/lib/ui-copy";
+import { useAppStore } from "@/store/app-store";
 import { PlaceCategory } from "@/types";
 import { useFilteredPlaces } from "@/hooks/use-filtered-places";
 import { useLocalizedText } from "@/lib/text-localizer";
@@ -40,10 +42,13 @@ function ExplorePageContent() {
   const router = useRouter();
   const { t } = useUiCopy();
   const { lt } = useLocalizedText();
+  const hasHydrated = useAppStore((state) => state.hasHydrated);
   const initialCategory = (searchParams.get("category") ?? "all") as PlaceCategory | "all";
   const safeCategory = allowedCategories.has(initialCategory) ? initialCategory : "all";
   const { places, category, setCategory, filter, toggleFilter, toggleLanguage, search, setSearch } =
     useFilteredPlaces(safeCategory === "all" ? undefined : safeCategory);
+
+  if (!hasHydrated) return <PageSkeleton />;
 
   const handleCategoryChange = (nextCategory: PlaceCategory | "all") => {
     setCategory(nextCategory);

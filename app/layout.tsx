@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import { HtmlLangSync } from "@/components/layout/html-lang-sync";
+import { PwaCacheProvider } from "@/components/layout/pwa-cache-provider";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -23,8 +24,7 @@ export const viewport: Viewport = {
   themeColor: "#0ea5e9",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -36,6 +36,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geist.className} bg-gray-100 antialiased`}>
         <HtmlLangSync />
+        <PwaCacheProvider />
         {children}
       </body>
     </html>

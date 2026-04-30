@@ -1,13 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Award, CheckCircle2, Plus, Sparkles, Target, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { Award, CheckCircle2, ExternalLink, Plus, Sparkles, Target, Trash2 } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
 import { officialStampGoals } from "@/data/stamp-catalog";
 import { useAppStore } from "@/store/app-store";
 import { StampCategory, StampGoal } from "@/types";
 import { useLocalizedText } from "@/lib/text-localizer";
+import { StampRetentionLoop } from "@/components/stamps/stamp-retention-loop";
 
 const categories: Array<{ id: "all" | StampCategory; label: string }> = [
   { id: "all", label: "All" },
@@ -16,6 +18,8 @@ const categories: Array<{ id: "all" | StampCategory; label: string }> = [
   { id: "culture", label: "Culture" },
   { id: "transport", label: "Transport" },
   { id: "life", label: "Life" },
+  { id: "shopping", label: "Shopping" },
+  { id: "care", label: "Care" },
 ];
 
 function getLevel(completedCount: number) {
@@ -39,10 +43,14 @@ function StampGoalCard({ goal, completed, onToggle, onRemove }: { goal: StampGoa
           <p className="mt-3 text-sm font-semibold text-gray-900">{lt(goal.title)}</p>
           <p className="mt-1 text-xs leading-relaxed text-gray-600">{lt(goal.description)}</p>
           {goal.city ? <p className="mt-2 text-[11px] font-medium text-gray-400">{lt("Best in")} {lt(goal.city)}</p> : null}
+          {goal.nudge ? <p className="mt-2 rounded-2xl bg-gray-50 px-3 py-2 text-[11px] leading-relaxed text-gray-500">{lt(goal.nudge)}</p> : null}
         </div>
         {onRemove ? <button type="button" onClick={onRemove} className="rounded-xl border border-gray-200 bg-white p-2 text-gray-500 hover:bg-gray-100" aria-label={lt("Remove")}><Trash2 size={14} /></button> : null}
       </div>
-      <button type="button" onClick={onToggle} className={`mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors ${completed ? "bg-emerald-600 text-white hover:bg-emerald-700" : "bg-sky-600 text-white hover:bg-sky-700"}`}><CheckCircle2 size={16} /> {lt(completed ? "Completed" : "Mark complete")}</button>
+      <div className="mt-4 grid grid-cols-1 gap-2">
+        {goal.href ? <Link href={goal.href} className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gray-100 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-200"><ExternalLink size={16} /> {lt("Open step")}</Link> : null}
+        <button type="button" onClick={onToggle} className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors ${completed ? "bg-emerald-600 text-white hover:bg-emerald-700" : "bg-sky-600 text-white hover:bg-sky-700"}`}><CheckCircle2 size={16} /> {lt(completed ? "Completed" : "Mark complete")}</button>
+      </div>
     </div>
   );
 }
@@ -69,6 +77,8 @@ export default function StampsPage() {
     <AppShell>
       <TopBar title={lt("Stamps")} showBack />
       <div className="space-y-4 px-4 py-4">
+        <StampRetentionLoop />
+
         <section className="rounded-3xl bg-gradient-to-br from-amber-50 via-white to-sky-50 p-5 shadow-sm ring-1 ring-amber-100">
           <div className="flex items-start justify-between gap-3">
             <div>

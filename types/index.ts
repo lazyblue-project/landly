@@ -17,6 +17,14 @@ export type StayDuration =
 
 export type AppMode = "travel" | "life";
 
+export type OnboardingNeed =
+  | "airport_transport"
+  | "shopping_refund"
+  | "hospital_pharmacy"
+  | "korean_phrases"
+  | "long_stay_setup"
+  | "emergency_help";
+
 export interface UserProfile {
   id: string;
   name: string;
@@ -25,6 +33,7 @@ export interface UserProfile {
   stayDuration: StayDuration;
   city: string;
   mode: AppMode;
+  firstNeed?: OnboardingNeed;
   savedPlaceIds: string[];
   savedPhraseIds: string[];
   completedChecklistIds: string[];
@@ -70,11 +79,20 @@ export type PlaceCategory =
   | "transport";
 
 export type TrustBadgeTone = "sky" | "emerald" | "amber" | "violet" | "rose" | "gray";
+export type TrustLevel = "official" | "partner" | "curated" | "demo" | "needs-check";
 
 export interface TrustBadge {
   id: string;
   label: string;
   tone: TrustBadgeTone;
+}
+
+export interface TrustMetadata {
+  trustLevel?: TrustLevel;
+  sourceLabel?: string;
+  sourceUrl?: string;
+  lastCheckedAt?: string;
+  needsConfirmation?: boolean;
 }
 
 export interface PlaceFilter {
@@ -85,7 +103,7 @@ export interface PlaceFilter {
   soloFriendly: boolean;
 }
 
-export interface Place {
+export interface Place extends TrustMetadata {
   id: string;
   name: string;
   category: PlaceCategory;
@@ -263,7 +281,7 @@ export type ShopStoreCategory =
 
 export type ShopRefundType = "immediate" | "general" | "both" | "unknown";
 
-export interface ShopStore {
+export interface ShopStore extends TrustMetadata {
   id: string;
   name: string;
   category: ShopStoreCategory;
@@ -279,15 +297,24 @@ export interface ShopStore {
   officialLink?: string;
 }
 
+export type ReceiptRefundStatus = "pending" | "done" | "needs-check" | "not-eligible";
+export type RefundConfidence = "high" | "medium" | "low";
+
 export interface ReceiptRecord {
   id: string;
   storeId?: string;
+  storeName?: string;
   imageUrl?: string;
   purchaseDate: string;
   amount: number;
+  itemCategory?: RefundEligibilityInput["itemCategory"];
   refundType: Exclude<ShopRefundType, "both">;
-  refundStatus: "pending" | "done" | "needs-check" | "not-eligible";
+  refundStatus: ReceiptRefundStatus;
+  refundConfidence?: RefundConfidence;
+  estimatedRefundAmount?: number;
+  passportReady?: boolean;
   note?: string;
+  createdAt?: string;
 }
 
 export interface RefundEligibilityInput {
@@ -301,7 +328,10 @@ export interface RefundEligibilityInput {
 
 export interface RefundEligibilityResult {
   status: "eligible" | "not-eligible" | "check-in-store";
+  confidence: RefundConfidence;
+  estimatedRefundAmount: number;
   reasons: string[];
+  checklist: string[];
   nextActions: Array<"find-stores" | "save-receipt" | "view-guide">;
 }
 
@@ -323,6 +353,9 @@ export interface ShoppingRoute {
   districts: string[];
   tags: string[];
   stopStoreIds: string[];
+  durationLabel?: string;
+  bestFor?: string;
+  refundTip?: string;
 }
 
 
@@ -338,7 +371,7 @@ export type CareProviderCategory =
   | "wellness"
   | "mental-health-support";
 
-export interface CareProvider {
+export interface CareProvider extends TrustMetadata {
   id: string;
   name: string;
   category: CareProviderCategory;
@@ -380,6 +413,7 @@ export interface CareTriageResult {
   title: string;
   summary: string;
   reasons: string[];
+  safetyNote?: string;
   nextActions: Array<
     "call-119"
     | "call-1339"
@@ -387,6 +421,9 @@ export interface CareTriageResult {
     | "find-pharmacy"
     | "find-clinic"
     | "find-specialist"
+    | "open-sos"
+    | "open-care-phrases"
+    | "prepare-visit-note"
   >;
 }
 
@@ -394,14 +431,19 @@ export interface CareVisitPrepNote {
   id: string;
   providerId?: string;
   symptoms: string;
+  symptomStart?: string;
+  painLevel?: string;
   allergies?: string;
   medications?: string;
+  pregnancyStatus?: string;
+  preferredLanguage?: string;
+  interpreterNeeded?: boolean;
   questions?: string;
   insuranceNote?: string;
   createdAt: string;
 }
 
-export interface CareSupportResource {
+export interface CareSupportResource extends TrustMetadata {
   id: string;
   title: string;
   description: string;
@@ -424,7 +466,7 @@ export interface StayPlanInput {
   withFamily: boolean;
 }
 
-export interface StayResource {
+export interface StayResource extends TrustMetadata {
   id: string;
   type: "immigration" | "nhis" | "student" | "housing" | "tax" | "labor" | "support-center";
   title: string;
@@ -469,7 +511,7 @@ export interface CalendarEvent {
   transportType?: TransitType;
 }
 
-export type StampCategory = "food" | "location" | "culture" | "transport" | "life";
+export type StampCategory = "food" | "location" | "culture" | "transport" | "life" | "shopping" | "care";
 
 export interface StampGoal {
   id: string;
@@ -479,9 +521,12 @@ export interface StampGoal {
   source: "official" | "custom";
   points: number;
   city?: string;
+  href?: string;
+  nudge?: string;
 }
 
 export type PromotionCategory = "festival" | "tour" | "class" | "campaign" | "community";
+export type PromotionAudience = "first_timer" | "shopper" | "student" | "resident" | "wellness";
 
 export interface PromotionEvent {
   id: string;
@@ -496,8 +541,109 @@ export interface PromotionEvent {
   location?: string;
   bookingLink?: string;
   tags: string[];
+  audience: PromotionAudience[];
+  benefit: string;
+  checklist: string[];
 }
 
+export type PartnerOfferCategory = "shopping" | "care" | "stay" | "experience" | "transport";
+export type PartnerOfferStage = "coupon" | "booking" | "inquiry" | "setup";
+export type PartnerRevenueModel = "affiliate" | "referral" | "commission" | "sponsored" | "pilot";
+export type PartnerDisclosureSeverity = "low" | "medium" | "high";
+
+export interface PartnerCommercialDisclosure {
+  severity: PartnerDisclosureSeverity;
+  userImpact: string;
+  rankingNote?: string;
+  priceNote?: string;
+}
+
+export interface PartnerOffer extends TrustMetadata {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  category: PartnerOfferCategory;
+  stage: PartnerOfferStage;
+  revenueModel: PartnerRevenueModel;
+  commercialDisclosure?: PartnerCommercialDisclosure;
+  partnerName: string;
+  city: string;
+  audience: PromotionAudience[];
+  recommendedModes: AppMode[];
+  benefit: string;
+  estimatedValueLabel: string;
+  ctaLabel: string;
+  href: string;
+  checklist: string[];
+  tags: string[];
+  priority: number;
+  validUntil?: string;
+}
+
+
+
+// ─── Landly Beta Testing ─────────────────────────────────────────────────────
+
+export type BetaMissionId = "arrival" | "shop" | "care" | "sos" | "stay" | "assistant";
+export type BetaFeedbackMood = "worked" | "confusing" | "missing" | "idea";
+
+export interface BetaFeedbackRecord {
+  id: string;
+  missionId: BetaMissionId | "general";
+  mood: BetaFeedbackMood;
+  rating: 1 | 2 | 3 | 4 | 5;
+  note: string;
+  createdAt: string;
+}
+
+export type PilotQaCheckCategory = "setup" | "offline" | "journey" | "trust" | "commercial" | "handoff";
+
+export interface PilotQaCheck {
+  id: string;
+  category: PilotQaCheckCategory;
+  title: string;
+  description: string;
+  required: boolean;
+  href?: string;
+}
+
+// ─── Landly Navigation & Map Handoff ─────────────────────────────────────────
+
+export type NavigationHandoffCategory = "arrival" | "place" | "shopping" | "care" | "stay" | "emergency";
+
+export interface NavigationHandoff {
+  id: string;
+  title: string;
+  description: string;
+  category: NavigationHandoffCategory;
+  originLabel: string;
+  destinationLabel: string;
+  transportType: TransitType;
+  priority: number;
+  recommendedModes: AppMode[];
+  checklist: string[];
+  phraseHint: string;
+  href: string;
+}
+
+// ─── Landly Offline Safety Kit ───────────────────────────────────────────────
+
+export type OfflineKitCategory = "emergency" | "language" | "route" | "refund" | "care" | "stay";
+
+export interface OfflineKitItem {
+  id: string;
+  title: string;
+  description: string;
+  category: OfflineKitCategory;
+  href: string;
+  priority: number;
+  recommendedModes: AppMode[];
+  offlineValue: string;
+  checklist: string[];
+  phraseIds?: string[];
+  phoneNumber?: string;
+}
 
 // ─── Landly Stay Missions & Reminders ─────────────────────────────────────────
 
@@ -519,7 +665,7 @@ export interface ReminderItem {
   id: string;
   title: string;
   dueDate?: string;
-  source: "manual" | "document" | "arrival-plan" | "calendar" | "stay-checkpoint";
+  source: "manual" | "document" | "arrival-plan" | "calendar" | "stay-checkpoint" | "shop-refund" | "departure";
   description?: string;
   href?: string;
 }

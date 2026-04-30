@@ -3,12 +3,17 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PageSkeleton } from "@/components/common/page-skeleton";
+import { FeedbackPrompt } from "@/components/common/feedback-prompt";
+import { TrustLayerPanel } from "@/components/common/trust-layer-panel";
+import { PartnerOfferCommandCenter } from "@/components/partners/partner-offer-command-center";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShopHero } from "@/components/shop/shop-hero";
 import { ShopQuickActions } from "@/components/shop/shop-quick-actions";
 import { PromotionStrip } from "@/components/shop/promotion-strip";
+import { RefundWalletDashboard } from "@/components/shop/refund-wallet-dashboard";
+import { ShoppingRoutePlanner } from "@/components/shop/shopping-route-planner";
 import { ShopDiscovery } from "@/components/shop/shop-discovery";
 import { RefundCheckerForm } from "@/components/shop/refund-checker-form";
 import { RefundResultCard } from "@/components/shop/refund-result-card";
@@ -16,7 +21,7 @@ import { ReceiptLocker } from "@/components/shop/receipt-locker";
 import { DepartureChecklist } from "@/components/shop/departure-checklist";
 import { useShopReminder } from "@/hooks/use-shop-reminder";
 import { getRefundEligibility } from "@/hooks/use-refund-eligibility";
-import { RefundEligibilityInput } from "@/types";
+import type { RefundEligibilityInput } from "@/types";
 import { useAppStore } from "@/store/app-store";
 import { useLocalizedText } from "@/lib/text-localizer";
 
@@ -67,16 +72,21 @@ function ShopPageContent() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
+            <RefundWalletDashboard />
+            <TrustLayerPanel description="Landly marks refund stores, routes, and receipt guidance by source type so you know what needs final confirmation at the store or airport." />
             <ShopQuickActions />
+            <PartnerOfferCommandCenter compact category="shopping" />
+            <ShoppingRoutePlanner />
             <div className="px-4"><div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"><p className="text-sm font-semibold text-gray-900">{lt("Departure reminder")}</p><p className="mt-1 text-sm text-gray-600">{lt(reminder.title)}</p><p className="mt-1 text-xs leading-relaxed text-gray-500">{lt(reminder.description)}</p></div></div>
             <PromotionStrip />
           </TabsContent>
-          <TabsContent value="stores" className="space-y-4"><ShopDiscovery /></TabsContent>
+          <TabsContent value="stores" className="space-y-4"><ShopDiscovery /><ShoppingRoutePlanner /></TabsContent>
           <TabsContent value="checker" className="space-y-4"><RefundCheckerForm value={input} onChange={(patch) => setInput((prev) => ({ ...prev, ...patch }))} /><RefundResultCard result={result} /></TabsContent>
-          <TabsContent value="receipts" className="space-y-4"><ReceiptLocker /></TabsContent>
+          <TabsContent value="receipts" className="space-y-4"><RefundWalletDashboard compact /><ReceiptLocker /></TabsContent>
           <TabsContent value="guide" className="space-y-4"><DepartureChecklist /><div className="rounded-2xl border border-gray-100 bg-white p-4 text-sm leading-relaxed text-gray-600 shadow-sm"><p className="font-semibold text-gray-900">{lt("How Landly Shop helps")}</p><p className="mt-2">{lt("Use Landly Shop to understand common tax refund conditions, keep your receipts together, and review departure-day steps before you head to the airport.")}</p><p className="mt-2 text-xs text-gray-500">{lt("Final eligibility and refund approval still depend on official store and airport procedures.")}</p></div></TabsContent>
         </Tabs>
       </div>
+      <FeedbackPrompt context="Shop" compact />
     </AppShell>
   );
 }

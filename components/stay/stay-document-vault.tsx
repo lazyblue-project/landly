@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import { useAppStore } from "@/store/app-store";
 import { StayDocument } from "@/types";
+import { getDocumentReadinessLabel, getDocumentReadinessTone } from "@/lib/stay-utils";
+import { cn } from "@/lib/utils";
 import { useLocalizedText } from "@/lib/text-localizer";
 
 const categories: StayDocument["category"][] = ["passport", "residence", "contract", "insurance", "school", "work", "tax", "other"];
@@ -55,8 +57,12 @@ export function StayDocumentVault() {
                 <div key={item.id} className="rounded-xl bg-gray-50 px-3 py-3">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{item.title}</p>
-                      {item.note ? <p className="mt-1 text-xs leading-relaxed text-gray-500">{item.note}</p> : null}
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="text-sm font-medium text-gray-900">{lt(item.title)}</p>
+                        <span className={cn("rounded-full px-2.5 py-1 text-[11px] font-semibold", getDocumentReadinessTone(item))}>{lt(getDocumentReadinessLabel(item))}</span>
+                      </div>
+                      {item.note ? <p className="mt-1 text-xs leading-relaxed text-gray-500">{lt(item.note)}</p> : null}
+                      {item.tags.length > 0 ? <div className="mt-2 flex flex-wrap gap-1.5">{item.tags.slice(0, 3).map((tag) => <span key={tag} className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-gray-500">#{lt(tag)}</span>)}</div> : null}
                       <div className="mt-2 flex flex-wrap gap-2 text-[11px] text-gray-500">
                         {item.issueDate ? <span className="rounded-full bg-white px-2.5 py-1">{lt("Issued")} {item.issueDate}</span> : null}
                         {item.expiryDate ? <span className="rounded-full bg-white px-2.5 py-1">{lt("Expires")} {item.expiryDate}</span> : null}

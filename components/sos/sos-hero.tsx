@@ -1,6 +1,6 @@
 "use client";
 
-import { ShieldAlert, Siren } from "lucide-react";
+import { Ambulance, Phone, ShieldAlert, Siren } from "lucide-react";
 import { useLocalizedText } from "@/lib/text-localizer";
 
 export function SosHero() {
@@ -21,20 +21,27 @@ export function SosHero() {
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-2">
+        <div className="mt-4 grid grid-cols-3 gap-2">
           <a
-            href="tel:1330"
-            className="inline-flex items-center justify-between rounded-2xl bg-white px-3 py-3 text-sm font-medium text-gray-800 shadow-sm"
+            href="tel:119"
+            className="inline-flex flex-col items-center justify-center rounded-2xl bg-red-600 px-3 py-3 text-center text-xs font-semibold text-white shadow-sm"
           >
-            {lt("Tourist hotline")}
-            <ShieldAlert size={16} className="text-amber-600" />
+            <Ambulance size={16} />
+            <span className="mt-1">119</span>
           </a>
           <a
             href="tel:112"
-            className="inline-flex items-center justify-between rounded-2xl bg-amber-600 px-3 py-3 text-sm font-medium text-white shadow-sm"
+            className="inline-flex flex-col items-center justify-center rounded-2xl bg-blue-600 px-3 py-3 text-center text-xs font-semibold text-white shadow-sm"
           >
-            {lt("Police 112")}
             <ShieldAlert size={16} />
+            <span className="mt-1">112</span>
+          </a>
+          <a
+            href="tel:1330"
+            className="inline-flex flex-col items-center justify-center rounded-2xl bg-white px-3 py-3 text-center text-xs font-semibold text-gray-800 shadow-sm"
+          >
+            <Phone size={16} className="text-amber-600" />
+            <span className="mt-1">1330</span>
           </a>
         </div>
       </div>

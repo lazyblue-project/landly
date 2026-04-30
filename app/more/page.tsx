@@ -4,7 +4,9 @@ import Link from "next/link";
 import { FlaskConical, MessageSquarePlus, ExternalLink } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
+import { PageSkeleton } from "@/components/common/page-skeleton";
 import { moreMenuSections } from "@/data/more-menu";
+import { useAppStore } from "@/store/app-store";
 import { useLocalizedText } from "@/lib/text-localizer";
 
 const FEEDBACK_URL =
@@ -12,6 +14,9 @@ const FEEDBACK_URL =
 
 export default function MorePage() {
   const { lt } = useLocalizedText();
+  const hasHydrated = useAppStore((state) => state.hasHydrated);
+
+  if (!hasHydrated) return <PageSkeleton />;
 
   return (
     <AppShell>
@@ -42,21 +47,21 @@ export default function MorePage() {
 
         {/* Tester section */}
         <section className="rounded-3xl border border-violet-100 bg-violet-50 p-4 shadow-sm">
-          <p className="text-sm font-semibold text-violet-900">Beta Tester</p>
-          <p className="mt-1 text-xs text-violet-600">테스트 시나리오를 빠르게 체험하거나 피드백을 남겨주세요.</p>
+          <p className="text-sm font-semibold text-violet-900">{lt("Beta Tester")}</p>
+          <p className="mt-1 text-xs text-violet-600">{lt("Try key testing scenarios quickly or leave feedback.")}</p>
           <div className="mt-4 space-y-3">
             <Link href="/test" className="flex items-center gap-3 rounded-2xl border border-violet-100 bg-white px-4 py-3 transition-colors hover:bg-violet-50">
               <div className="rounded-2xl bg-violet-100 p-2 text-violet-600 shadow-sm"><FlaskConical size={18} /></div>
               <div>
-                <p className="text-sm font-semibold text-gray-900">Quick Test Guide</p>
-                <p className="mt-0.5 text-xs text-gray-500">주요 기능 테스트 시나리오 바로가기</p>
+                <p className="text-sm font-semibold text-gray-900">{lt("Quick Test Guide")}</p>
+                <p className="mt-0.5 text-xs text-gray-500">{lt("Open key feature testing scenarios")}</p>
               </div>
             </Link>
             <a href={FEEDBACK_URL} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-violet-100 bg-white px-4 py-3 transition-colors hover:bg-violet-50">
               <div className="rounded-2xl bg-emerald-100 p-2 text-emerald-600 shadow-sm"><MessageSquarePlus size={18} /></div>
               <div className="flex-1">
-                <p className="text-sm font-semibold text-gray-900">Send Feedback</p>
-                <p className="mt-0.5 text-xs text-gray-500">버그 · UX · 번역 피드백 제출</p>
+                <p className="text-sm font-semibold text-gray-900">{lt("Send Feedback")}</p>
+                <p className="mt-0.5 text-xs text-gray-500">{lt("Submit bug, UX, or translation feedback")}</p>
               </div>
               <ExternalLink size={14} className="text-gray-400" />
             </a>

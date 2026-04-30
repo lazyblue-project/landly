@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SourceDisclosure } from "@/components/common/source-disclosure";
 import { Badge } from "@/components/ui/badge";
 import { ShopStore } from "@/types";
 import { useAppStore } from "@/store/app-store";
@@ -42,6 +43,7 @@ export function ShopStoreDetailSheet({ store, open, onClose }: ShopStoreDetailSh
         </div>
 
         <p className="mt-4 text-sm leading-relaxed text-gray-700">{lt(store.description)}</p>
+        <SourceDisclosure metadata={store} className="mt-4" />
 
         <div className="mt-4 rounded-2xl bg-gray-50 p-4 text-sm text-gray-700">
           <p className="font-semibold text-gray-900">{lt("Before you pay")}</p>
@@ -67,7 +69,7 @@ export function ShopStoreDetailSheet({ store, open, onClose }: ShopStoreDetailSh
           <Link href="/assistant?category=shopping" className="inline-flex items-center justify-between rounded-xl border border-gray-200 px-3 py-3 text-sm font-medium text-gray-700">
             {lt("Show shopping phrases")}
           </Link>
-          <Link href={store.officialLink ?? store.mapLink} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-xl border border-gray-200 px-3 py-3 text-sm font-medium text-gray-700">
+          <Link href={store.sourceUrl ?? store.officialLink ?? store.mapLink} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between rounded-xl border border-gray-200 px-3 py-3 text-sm font-medium text-gray-700">
             {lt("Official link")}
             <ExternalLink size={16} />
           </Link>

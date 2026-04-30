@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Bookmark, BookmarkCheck, ExternalLink } from "lucide-react";
+import { SourceDisclosure } from "@/components/common/source-disclosure";
 import { TrustBadgeRow } from "@/components/common/trust-badge-row";
 import { StayResource } from "@/types";
 import { useAppStore } from "@/store/app-store";
@@ -31,6 +32,7 @@ export function StayResourceCard({ resource }: StayResourceCardProps) {
       </div>
       <p className="mt-3 text-xs leading-relaxed text-gray-600">{lt(resource.description)}</p>
       <TrustBadgeRow badges={trustBadges} compact />
+      <SourceDisclosure metadata={resource} compact className="mt-3" />
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {resource.contactValue ? <span className="rounded-full bg-gray-100 px-2.5 py-1 text-[11px] font-medium text-gray-600">{lt(resource.contactLabel)}: {resource.contactValue}</span> : null}
         {resource.type ? <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-700">{lt(resource.type)}</span> : null}

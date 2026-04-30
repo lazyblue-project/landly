@@ -30,7 +30,24 @@
     "duration_over_3months": "More than 3 months",
     "btn_next": "Next",
     "btn_done": "Get started",
-    "btn_skip": "Skip"
+    "btn_skip": "Skip",
+    "personalize": "Personalize",
+    "step_need": "What do you need help with first?",
+    "step_need_subtitle": "Landly will place this at the top of your home actions.",
+    "need_airport_transport": "Airport / transportation",
+    "need_airport_transport_desc": "Find airport routes, transit passes, and your first 72-hour checklist.",
+    "need_shopping_refund": "Shopping / tax refund",
+    "need_shopping_refund_desc": "Check refund eligibility, save receipts, and prepare departure steps.",
+    "need_hospital_pharmacy": "Hospital / pharmacy",
+    "need_hospital_pharmacy_desc": "Find care options and prepare phrases before a clinic or pharmacy visit.",
+    "need_korean_phrases": "Korean phrases",
+    "need_korean_phrases_desc": "Keep useful phrases ready for taxis, restaurants, shopping, and emergencies.",
+    "need_long_stay_setup": "Long-stay setup",
+    "need_long_stay_setup_desc": "Plan registration, banking, phone, housing, documents, and daily life.",
+    "need_emergency_help": "Emergency help",
+    "need_emergency_help_desc": "Keep SOS flows, urgent phone numbers, and emergency phrases close.",
+    "launch_preview_label": "Your first Home setup",
+    "launch_city_suffix": "City:"
   },
   "home": {
     "greeting": "Hello, {name}!",
@@ -44,7 +61,28 @@
     "emergency_tourist": "Tourist Hotline",
     "first_day_checklist": "First day checklist",
     "emergency_title": "Emergency",
-    "emergency_subtitle": "Tap to call"
+    "emergency_subtitle": "Tap to call",
+    "situation_first_home": "Situation-first home",
+    "what_need_now": "What do you need now?",
+    "situation_desc": "Start from your real situation, then Landly opens the right route, phrase, checklist, or saved plan.",
+    "action_arrived": "I just arrived in Korea",
+    "action_arrived_desc": "Choose airport rail, bus, taxi, map apps, and your first 72-hour checklist.",
+    "action_arrived_badge": "Start after landing",
+    "action_refund": "I need a tax refund check",
+    "action_refund_desc": "Check eligibility before checkout, then keep receipts ready for departure.",
+    "action_care": "I feel sick or need a pharmacy",
+    "action_care_desc": "Check urgency, find care options, and prepare Korean phrases for staff.",
+    "action_care_badge": "Care path",
+    "action_sos": "I lost something or need urgent help",
+    "action_sos_desc": "Open 112, 119, 1330, lost-item help, and emergency phrase flows.",
+    "action_phrase": "I need to say something in Korean",
+    "action_phrase_desc": "Open taxi, restaurant, shopping, hospital, and emergency phrase sets.",
+    "action_phrase_badge": "Show to staff",
+    "action_stay": "I am staying longer than a trip",
+    "action_stay_desc": "Start your 90-day plan for ARC, phone, banking, housing, and documents.",
+    "action_stay_badge": "Long-stay setup",
+    "recommended_first": "Recommended first",
+    "my_saved_note": "Saved plans, reminders, receipts, and documents stay in My."
   },
   "explore": {
     "title": "Explore",
@@ -80,7 +118,13 @@
     "category_lost_complaint": "Lost & Found",
     "category_emergency": "Emergency",
     "show_mode_title": "Show this to someone",
-    "no_phrases": "No phrases found"
+    "no_phrases": "No phrases found",
+    "category_transport": "Transit",
+    "category_shopping": "Shopping",
+    "category_settlement": "Settlement",
+    "situation_mode": "Situation mode",
+    "what_to_say": "What do you need to say?",
+    "quick_help": "Open the right phrase set, copy Korean, or show a large card to staff."
   },
   "life": {
     "title": "Life Setup",
@@ -108,7 +152,12 @@
     "city": "Current city",
     "version": "Version",
     "saved_places_subtitle": "Places you can quickly open again",
-    "saved_phrases_subtitle": "Frequently used phrases kept in one place"
+    "saved_phrases_subtitle": "Frequently used phrases kept in one place",
+    "command_center": "Landly command center",
+    "continue_title": "Pick up exactly where you left off",
+    "continue_description": "Saved places, phrases, receipts, care options, documents, and dates now live together in My.",
+    "saved_items_hub": "Saved items hub",
+    "saved_items_hub_subtitle": "Everything you saved across Landly is grouped by use case for fast review."
   },
   "common": {
     "loading": "Loading...",
@@ -133,5 +182,149 @@
   "care": {
     "title": "Landly Care",
     "heroTitle": "Get the right help, faster."
-  }
+  },
+  "shop": {
+    "refund_readiness": "Refund readiness",
+    "receipt_locker": "Receipt locker",
+    "add_receipt": "Add receipt",
+    "shopping_routes": "Shopping routes",
+    "save_route_stops": "Save route stops",
+    "estimated_refund": "Estimated refund",
+    "airport_checklist": "Airport checklist",
+    "refund_wallet": "Refund Wallet",
+    "refund_wallet_title": "Your tax refund status at a glance",
+    "refund_wallet_desc": "Keep receipts, passport readiness, estimated refunds, and airport-day actions together.",
+    "mock_receipt_scan": "Mock receipt scan",
+    "mock_receipt_scan_desc": "Try a scan-like flow that fills the form with realistic refund details. Replace it with OCR later.",
+    "passport_status_ready": "Passport status marked ready.",
+    "receipt_saved_wallet": "Receipt saved to refund wallet."
+  },
+  "beta": {
+    "title": "Beta test guide",
+    "subtitle": "Test Landly like a real visitor",
+    "feedback": "Send feedback",
+    "copy_template": "Copy template",
+    "open_form": "Open form"
+  },
+  "retention": {
+    "keep_going": "Keep going",
+    "stamp_loop": "Turn useful actions into small wins",
+    "promo_lane": "Choose your promo lane",
+    "open_step": "Open step"
+  },
+  "pass": {
+    "arrival_assistant": "Arrival assistant",
+    "arrival_assistant_title": "Your airport arrival assistant.",
+    "arrival_assistant_subtitle": "Start with one clear airport action path: choose a route, keep the Korean destination phrase ready, save the plan, and continue into your first 72 hours.",
+    "late_arrival_mode": "Late arrival mode",
+    "luggage_first_mode": "Luggage-first mode",
+    "transit_friendly_mode": "Transit-friendly mode",
+    "airport_action_path": "Airport action path",
+    "show_before_move": "Show this before you move",
+    "copy_korean_phrase": "Copy Korean phrase",
+    "call_1330": "Call 1330",
+    "create_custom_route": "Create a custom route instead"
+  },
+  "care_safety": {
+    "title": "Safety command center",
+    "subtitle": "Use this as an action guide, not a diagnosis. Choose the safest official route first.",
+    "official_numbers": "Official help numbers",
+    "staff_scripts": "Emergency show-to-staff scripts",
+    "clinic_brief": "Clinic visit brief"
+  },
+  "stay": {
+    "settlement_command_center": "Settlement command center",
+    "settlement_command_title": "Your long-stay setup, ordered by what can block you next",
+    "settlement_command_desc": "Use this view to connect entry date, official deadlines, checklist progress, documents, and Calendar reminders.",
+    "priority_lanes": "Priority lanes",
+    "priority_lanes_desc": "Landly reorders the checklist by your stay type so you do not start from a random admin list.",
+    "add_90_day_timeline": "Add 90-day timeline",
+    "core_readiness": "Core readiness",
+    "calendar_sync": "Calendar sync"
+  },
+  "partners": {
+    "title": "Partner offers",
+    "subtitle": "Monetization-ready flows, still user-first",
+    "disclosure": "Some partner lanes may become affiliate, referral, commission, sponsored, or pilot revenue flows. Landly should always label the model and ask users to confirm official details before paying or booking.",
+    "save_offer": "Save offer",
+    "send_interest": "Send interest"
+  },
+  "trust": {
+    "title": "Trust Center",
+    "subtitle": "Official sources, confirmation status, and safer action checks.",
+    "freshness": "Trust & freshness",
+    "command_title": "Know what to trust before you act",
+    "command_desc": "Landly marks official sources, curated guidance, demo data, partner offers, and items that still need confirmation.",
+    "action_checklist": "Action checklist by situation",
+    "official_routes": "Official routes to keep close",
+    "open": "Open trust center"
+  },
+  "smart_actions": {
+    "title": "Smart action engine",
+    "next_best": "Landly picked your next best step",
+    "desc": "Ranked from your onboarding priority, saved items, reminders, receipts, stay plan, and departure setup.",
+    "readiness": "Readiness score",
+    "profile": "Personalization profile",
+    "why": "Why Landly recommends these actions"
+  },
+  "assistant_language": {
+    "title": "Language readiness",
+    "subtitle": "Save essential Korean show-cards and jump into situation-based phrase kits.",
+    "save_essential": "Save essential kit",
+    "translated_coverage": "Translated phrase coverage"
+  },
+  "offline": {
+    "title": "Offline safety kit",
+    "subtitle": "Prepare critical numbers, Korean show-cards, routes, receipts, care notes, and documents before signal gets weak.",
+    "readiness": "Offline readiness",
+    "checklist": "Before you rely on Landly offline",
+    "open": "Open offline kit"
+  },
+  "navigation": {
+    "title": "Map handoff",
+    "subtitle": "Open Google Maps, NAVER Map, Korean phrases, and route backups from one place.",
+    "home_title": "Open the right route faster",
+    "home_desc": "Landly prepares Google Maps, NAVER Map, Korean phrases, and backup checks before you move."
+  },
+  "language": {
+    "support_full_label": "Full UI",
+    "support_phrase_label": "Phrase support",
+    "support_full_desc": "Menus and phrase cards are available in this language.",
+    "support_phrase_desc": "Menus stay in English; phrase cards use this language when available."
+  },
+  "Arrival route first": "Arrival route first",
+  "Start with airport routes, map handoff, and the first 72-hour arrival checklist.": "Start with airport routes, map handoff, and the first 72-hour arrival checklist.",
+  "Open arrival plan": "Open arrival plan",
+  "Run arrival test": "Run arrival test",
+  "Review transport partner lanes": "Review transport partner lanes",
+  "Confirm live pickup points, fares, and map routes before moving.": "Confirm live pickup points, fares, and map routes before moving.",
+  "Refund wallet first": "Refund wallet first",
+  "Check refund eligibility, save receipts, and prepare passport/departure steps before checkout.": "Check refund eligibility, save receipts, and prepare passport/departure steps before checkout.",
+  "Open refund checker": "Open refund checker",
+  "Run refund test": "Run refund test",
+  "Review shopping partner lanes": "Review shopping partner lanes",
+  "Confirm final tax-refund rules at the store or official source before paying.": "Confirm final tax-refund rules at the store or official source before paying.",
+  "Care triage first": "Care triage first",
+  "Separate urgent symptoms from ordinary clinic or pharmacy steps, then prepare a visit note.": "Separate urgent symptoms from ordinary clinic or pharmacy steps, then prepare a visit note.",
+  "Open care triage": "Open care triage",
+  "Run care test": "Run care test",
+  "Review care partner disclosure": "Review care partner disclosure",
+  "Use emergency numbers first for severe symptoms; partner lanes never replace medical judgment.": "Use emergency numbers first for severe symptoms; partner lanes never replace medical judgment.",
+  "Language kit first": "Language kit first",
+  "Save essential show-to-staff phrases for taxis, stores, clinics, and emergency moments.": "Save essential show-to-staff phrases for taxis, stores, clinics, and emergency moments.",
+  "Run phrase test": "Run phrase test",
+  "Review first-timer partner lanes": "Review first-timer partner lanes",
+  "Use translated phrases as communication support, then confirm important details with staff.": "Use translated phrases as communication support, then confirm important details with staff.",
+  "90-day setup first": "90-day setup first",
+  "Start settlement tasks for registration, banking, phone, housing, documents, and deadlines.": "Start settlement tasks for registration, banking, phone, housing, documents, and deadlines.",
+  "Open stay planner": "Open stay planner",
+  "Run 90-day test": "Run 90-day test",
+  "Review settlement partner lanes": "Review settlement partner lanes",
+  "Confirm visa, housing, banking, and immigration details with official sources.": "Confirm visa, housing, banking, and immigration details with official sources.",
+  "SOS clarity first": "SOS clarity first",
+  "Keep 112, 119, 1330, scenarios, and emergency Korean scripts within a few taps.": "Keep 112, 119, 1330, scenarios, and emergency Korean scripts within a few taps.",
+  "Open SOS": "Open SOS",
+  "Run SOS test": "Run SOS test",
+  "Review official-source rules": "Review official-source rules",
+  "Emergency flows should prioritize official numbers and scripts, not commercial offers.": "Emergency flows should prioritize official numbers and scripts, not commercial offers."
 }

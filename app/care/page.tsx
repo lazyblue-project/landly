@@ -3,22 +3,29 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PageSkeleton } from "@/components/common/page-skeleton";
+import { FeedbackPrompt } from "@/components/common/feedback-prompt";
+import { TrustLayerPanel } from "@/components/common/trust-layer-panel";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CareHero } from "@/components/care/care-hero";
 import { CareQuickActions } from "@/components/care/care-quick-actions";
+import { CareEmergencyGate } from "@/components/care/care-emergency-gate";
+import { CarePhraseKit } from "@/components/care/care-phrase-kit";
 import { SymptomTriage } from "@/components/care/symptom-triage";
 import { TriageResultCard } from "@/components/care/triage-result-card";
 import { CareDiscovery } from "@/components/care/care-discovery";
 import { VisitPrep } from "@/components/care/visit-prep";
 import { HelpLauncher } from "@/components/care/help-launcher";
+import { CareSafetyCommandCenter } from "@/components/care/care-safety-command-center";
+import { CareVisitBriefCard } from "@/components/care/care-visit-brief-card";
+import { EmergencyNumberHub } from "@/components/sos/emergency-number-hub";
 import { getCareTriageResult } from "@/hooks/use-care-triage";
 import { CareProviderCategory, CareTriageInput } from "@/types";
 import { useAppStore } from "@/store/app-store";
 import { useLocalizedText } from "@/lib/text-localizer";
 
-const allowedTabs = new Set(["overview", "triage", "providers", "prep", "help"]);
+const allowedTabs = new Set(["overview", "triage", "providers", "prep", "phrases", "help"]);
 const providerCategories = new Set<CareProviderCategory | "all">(["all", "pharmacy", "clinic", "hospital", "dermatology", "dentist", "health-checkup", "wellness", "mental-health-support"]);
 const defaultInput: CareTriageInput = { symptomCategory: "fever-cold", severityLevel: "mild", isBreathingIssue: false, isHeavyBleeding: false, hasChestPain: false, isNightTime: false, userType: "traveler" };
 
@@ -61,15 +68,34 @@ function CarePageContent() {
             <TabsTrigger value="triage">{lt("Triage")}</TabsTrigger>
             <TabsTrigger value="providers">{lt("Providers")}</TabsTrigger>
             <TabsTrigger value="prep">{lt("Visit prep")}</TabsTrigger>
+            <TabsTrigger value="phrases">{lt("Phrases")}</TabsTrigger>
             <TabsTrigger value="help">{lt("Help")}</TabsTrigger>
           </TabsList>
-          <TabsContent value="overview" className="space-y-4"><CareQuickActions /><div className="rounded-2xl border border-gray-100 bg-white p-4 text-sm leading-relaxed text-gray-600 shadow-sm"><p className="font-semibold text-gray-900">{lt("How Landly Care helps")}</p><p className="mt-2">{lt("Use Landly Care to separate urgent situations from everyday clinic needs, find foreigner-friendly providers, prepare the phrases you may need, and keep your visit summary together.")}</p><p className="mt-2 text-xs text-gray-500">{lt("This service is a guide and organizer, not a diagnosis tool or medical advice replacement.")}</p></div></TabsContent>
-          <TabsContent value="triage" className="space-y-4"><SymptomTriage value={input} onChange={(patch) => setInput((prev) => ({ ...prev, ...patch }))} /><TriageResultCard result={result} /></TabsContent>
+          <TabsContent value="overview" className="space-y-4">
+            <CareEmergencyGate />
+            <CareSafetyCommandCenter />
+            <TrustLayerPanel description="Landly Care highlights official hotlines, curated provider guidance, and items that need direct confirmation before a visit." />
+            <CareQuickActions />
+            <div className="rounded-2xl border border-gray-100 bg-white p-4 text-sm leading-relaxed text-gray-600 shadow-sm">
+              <p className="font-semibold text-gray-900">{lt("How Landly Care helps")}</p>
+              <p className="mt-2">{lt("Use Landly Care to separate urgent situations from everyday clinic needs, find foreigner-friendly providers, prepare the phrases you may need, and keep your visit summary together.")}</p>
+              <p className="mt-2 text-xs text-gray-500">{lt("This service is a guide and organizer, not a diagnosis tool or medical advice replacement.")}</p>
+            </div>
+            <CarePhraseKit limit={2} />
+          </TabsContent>
+          <TabsContent value="triage" className="space-y-4">
+            <CareEmergencyGate compact />
+            <SymptomTriage value={input} onChange={(patch) => setInput((prev) => ({ ...prev, ...patch }))} />
+            <TriageResultCard result={result} />
+            <CareSafetyCommandCenter result={result} compact />
+          </TabsContent>
           <TabsContent value="providers" className="space-y-4"><CareDiscovery initialCategory={initialProviderCategory} /></TabsContent>
-          <TabsContent value="prep" className="space-y-4"><VisitPrep /></TabsContent>
-          <TabsContent value="help" className="space-y-4"><HelpLauncher /></TabsContent>
+          <TabsContent value="prep" className="space-y-4"><CareVisitBriefCard /><VisitPrep /></TabsContent>
+          <TabsContent value="phrases" className="space-y-4"><CarePhraseKit /></TabsContent>
+          <TabsContent value="help" className="space-y-4"><EmergencyNumberHub compact /><HelpLauncher /></TabsContent>
         </Tabs>
       </div>
+      <FeedbackPrompt context="Care" compact />
     </AppShell>
   );
 }

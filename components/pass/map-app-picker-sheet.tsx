@@ -17,7 +17,7 @@ export function MapAppPickerSheet({ open, title = "Open route", googleMapsUrl, n
   const openUrl = (url?: string) => { if (!url) return; window.open(url, "_blank", "noopener,noreferrer"); onClose(); };
 
   return (
-    <BottomSheet open={open} onClose={onClose} title={title} description="Choose which map app should open this route.">
+    <BottomSheet open={open} onClose={onClose} title={title} description={lt("Choose which map app should open this route.")}>
       <div className="space-y-3">
         <button type="button" onClick={() => openUrl(googleMapsUrl)} className="flex w-full items-center justify-between rounded-2xl border border-gray-200 bg-white px-4 py-3 text-left hover:bg-gray-50">
           <div><p className="text-sm font-semibold text-gray-900">{lt("Open in Google Maps")}</p><p className="mt-1 text-xs text-gray-500">{lt("Great for browser directions and sharing.")}</p></div>

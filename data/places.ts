@@ -3,6 +3,9 @@ import { Place } from "@/types";
 export const places: Place[] = [
   {
     id: "place_001",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Tosokchon Samgyetang",
     category: "food",
     address: "5 Jahamun-ro 5-gil, Jongno-gu, Seoul",
@@ -20,6 +23,9 @@ export const places: Place[] = [
   },
   {
     id: "place_002",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Cafe Bora",
     category: "cafe",
     address: "21 Insadong 10-gil, Jongno-gu, Seoul",
@@ -37,6 +43,11 @@ export const places: Place[] = [
   },
   {
     id: "place_003",
+    trustLevel: "official",
+    sourceLabel: "Hospital site",
+    sourceUrl: "https://sev.iseverance.com/",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Severance Hospital International Health Care",
     category: "hospital",
     address: "50-1 Yonsei-ro, Seodaemun-gu, Seoul",
@@ -54,6 +65,9 @@ export const places: Place[] = [
   },
   {
     id: "place_004",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "GS25 Itaewon",
     category: "convenience",
     address: "Itaewon-ro, Yongsan-gu, Seoul",
@@ -71,6 +85,9 @@ export const places: Place[] = [
   },
   {
     id: "place_005",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "KEB Hana Bank Currency Exchange",
     category: "exchange",
     address: "Incheon International Airport T1, Incheon",
@@ -88,6 +105,9 @@ export const places: Place[] = [
   },
   {
     id: "place_006",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Gyeongbokgung Palace",
     category: "sightseeing",
     address: "161 Sajik-ro, Jongno-gu, Seoul",
@@ -105,6 +125,9 @@ export const places: Place[] = [
   },
   {
     id: "place_007",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "ON THE SPOT Pharmacy Itaewon",
     category: "pharmacy",
     address: "Itaewon-ro, Yongsan-gu, Seoul",
@@ -122,6 +145,9 @@ export const places: Place[] = [
   },
   {
     id: "place_008",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Lotte Mart Seoul Station",
     category: "shopping",
     address: "405 Hangang-daero, Yongsan-gu, Seoul",
@@ -139,6 +165,9 @@ export const places: Place[] = [
   },
   {
     id: "place_009",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "AREX Seoul Station Travel Center",
     category: "transport",
     address: "Seoul Station B2, Yongsan-gu, Seoul",
@@ -156,6 +185,9 @@ export const places: Place[] = [
   },
   {
     id: "place_010",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Incheon Airport Bus Information Desk",
     category: "transport",
     address: "Incheon International Airport Terminal 1 Arrivals",
@@ -173,6 +205,9 @@ export const places: Place[] = [
   },
   {
     id: "place_011",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Seoul Global Center",
     category: "transport",
     address: "38 Jong-ro, Jongno-gu, Seoul",
@@ -190,6 +225,9 @@ export const places: Place[] = [
   },
   {
     id: "place_012",
+    trustLevel: "curated",
+    lastCheckedAt: "2026-04-29",
+    needsConfirmation: true,
     name: "Busan Station Travel Center",
     category: "transport",
     address: "206 Jungang-daero, Dong-gu, Busan",
