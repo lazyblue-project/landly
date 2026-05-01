@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, BadgePercent, Handshake, Sparkles } from "lucide-react";
 import { partnerOffers } from "@/data/partner-offers";
 import { useAppStore } from "@/store/app-store";
+import { isPartnerOffersEnabled } from "@/lib/feature-flags";
 import { useLocalizedText } from "@/lib/text-localizer";
 import type { PartnerOfferCategory, PromotionAudience } from "@/types";
 
@@ -20,6 +21,7 @@ function getPreferredAudience(visitPurpose: string): PromotionAudience {
 
 export function PartnerOfferCommandCenter({ compact = false, category }: PartnerOfferCommandCenterProps) {
   const user = useAppStore((state) => state.user);
+  const isBetaTester = useAppStore((state) => state.isBetaTester);
   const savedPartnerOfferIds = useAppStore((state) => state.savedPartnerOfferIds);
   const requestedPartnerOfferIds = useAppStore((state) => state.requestedPartnerOfferIds);
   const { lt } = useLocalizedText();
@@ -29,6 +31,10 @@ export function PartnerOfferCommandCenter({ compact = false, category }: Partner
     .filter((offer) => offer.recommendedModes.includes(user.mode) || offer.audience.includes(preferredAudience))
     .sort((a, b) => a.priority - b.priority);
   const topOffer = matchingOffers[0] ?? partnerOffers[0];
+
+  if (!isPartnerOffersEnabled(isBetaTester)) {
+    return null;
+  }
   const commercialCount = partnerOffers.filter((offer) => offer.revenueModel !== "pilot").length;
   const savedCount = savedPartnerOfferIds.length + requestedPartnerOfferIds.length;
   const sectionClassName = compact ? "" : "px-4";

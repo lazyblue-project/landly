@@ -7,6 +7,7 @@ import { TopBar } from "@/components/layout/top-bar";
 import { officialSources } from "@/data/official-sources";
 import { DepartureChecklist } from "@/components/shop/departure-checklist";
 import { ShoppingRoutePlanner } from "@/components/shop/shopping-route-planner";
+import { RefundOperatorHandoff } from "@/components/shop/refund-operator-handoff";
 import { useAppStore } from "@/store/app-store";
 import { useLocalizedText } from "@/lib/text-localizer";
 
@@ -37,6 +38,7 @@ export default function ShopGuidePage() {
           </div>
         ) : null}
         <DepartureChecklist />
+        <RefundOperatorHandoff />
         <ShoppingRoutePlanner />
         <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
           <p className="text-sm font-semibold text-gray-900">{lt("Immediate vs general refund")}</p>

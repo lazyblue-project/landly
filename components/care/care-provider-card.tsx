@@ -3,7 +3,9 @@
 import { Globe2, MapPin, MoonStar, Stethoscope } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { SourceDisclosure } from "@/components/common/source-disclosure";
+import { LiveOpenStatusBadge } from "@/components/common/live-open-status-badge";
 import { TrustBadgeRow } from "@/components/common/trust-badge-row";
+import { MapPreviewCard } from "@/components/common/map-preview-card";
 import { useAppStore } from "@/store/app-store";
 import { CareProvider } from "@/types";
 import { getCareTrustBadges } from "@/lib/trust-badges";
@@ -31,8 +33,19 @@ export function CareProviderCard({ provider, onOpen }: { provider: CareProvider;
       </div>
 
       <p className="mt-2 text-xs leading-relaxed text-gray-600">{lt(provider.description)}</p>
+      <div className="mt-3"><LiveOpenStatusBadge metadata={provider} /></div>
       <TrustBadgeRow badges={trustBadges} compact />
       <SourceDisclosure metadata={provider} compact className="mt-3" />
+      <MapPreviewCard
+        compact
+        className="mt-3"
+        target={{
+          id: provider.id,
+          name: provider.name,
+          district: provider.district,
+          mapLink: provider.mapLink,
+        }}
+      />
 
       <div className="mt-3 flex flex-wrap gap-1.5">
         {provider.supportedLanguages.includes("en") && <Badge variant="secondary">{lt("English available")}</Badge>}

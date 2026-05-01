@@ -6,6 +6,7 @@ import { TopBar } from "@/components/layout/top-bar";
 import { TrustLayerPanel } from "@/components/common/trust-layer-panel";
 import { InfoTrustCommandCenter } from "@/components/trust/info-trust-command-center";
 import { TrustChecklistBoard } from "@/components/trust/trust-checklist-board";
+import { DataProviderReadinessPanel } from "@/components/trust/data-provider-readiness-panel";
 import { useLocalizedText } from "@/lib/text-localizer";
 import { useAppStore } from "@/store/app-store";
 
@@ -27,6 +28,7 @@ export default function TrustPage() {
       <TopBar title={lt("Trust Center")} showBack />
       <div className="space-y-4 px-4 py-4">
         <InfoTrustCommandCenter />
+        <DataProviderReadinessPanel />
         <TrustLayerPanel
           title="How Landly labels information"
           description="Official sources, curated guidance, partner information, and demo data are separated so users can make safer decisions."

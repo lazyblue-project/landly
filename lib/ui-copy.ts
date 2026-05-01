@@ -1,7 +1,9 @@
 "use client";
 
 import en from "@/i18n/messages/en.json";
+import ja from "@/i18n/messages/ja.json";
 import ko from "@/i18n/messages/ko.json";
+import zh from "@/i18n/messages/zh.json";
 import { resolveUiLocale, type UiLocale } from "@/lib/i18n-support";
 import { useAppStore } from "@/store/app-store";
 import { Language } from "@/types";
@@ -9,7 +11,7 @@ import { Language } from "@/types";
 type Dictionary = Record<string, unknown>;
 type Vars = Record<string, string | number>;
 
-const dictionaries: Record<UiLocale, Dictionary> = { en, ko };
+const dictionaries: Record<UiLocale, Dictionary> = { en, ko, zh, ja };
 
 function getNestedValue(source: Dictionary, key: string): unknown {
   return key.split(".").reduce<unknown>((acc, segment) => {

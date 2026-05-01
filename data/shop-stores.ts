@@ -16,6 +16,8 @@ export const shopStores: ShopStore[] = [
     foreignCardSupported: true,
     couponAvailable: true,
     passportNeededAtCheckout: true,
+    openingHoursRules: [{ days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], opensAt: "10:00", closesAt: "22:00", label: "Demo shopping window" }],
+    openingHoursNote: "Store hours and tax-refund desks can differ. Confirm before checkout.",
     tags: ["K-beauty", "tourist favorite", "central Seoul"],
     description:
       "Large flagship-style beauty store with common tourist brands and quick checkout support.",
@@ -35,6 +37,8 @@ export const shopStores: ShopStore[] = [
     foreignCardSupported: true,
     couponAvailable: false,
     passportNeededAtCheckout: true,
+    openingHoursRules: [{ days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], opensAt: "10:00", closesAt: "22:00", label: "Demo shopping window" }],
+    openingHoursNote: "Store hours and tax-refund desks can differ. Confirm before checkout.",
     tags: ["beauty", "late shopping"],
     description:
       "Popular stop for skincare, masks, and travel-sized items near youth shopping streets.",
@@ -55,6 +59,8 @@ export const shopStores: ShopStore[] = [
     foreignCardSupported: true,
     couponAvailable: true,
     passportNeededAtCheckout: true,
+    openingHoursRules: [{ days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], opensAt: "10:00", closesAt: "22:00", label: "Demo shopping window" }],
+    openingHoursNote: "Store hours and tax-refund desks can differ. Confirm before checkout.",
     tags: ["duty free", "luxury", "voucher"],
     description:
       "Major downtown duty-free store for beauty, fashion, and packaged souvenirs.",
@@ -74,6 +80,8 @@ export const shopStores: ShopStore[] = [
     foreignCardSupported: true,
     couponAvailable: true,
     passportNeededAtCheckout: true,
+    openingHoursRules: [{ days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], opensAt: "10:00", closesAt: "22:00", label: "Demo shopping window" }],
+    openingHoursNote: "Store hours and tax-refund desks can differ. Confirm before checkout.",
     tags: ["premium", "department store", "gifts"],
     description:
       "Department store with fashion, beauty, and concierge-style tourist support.",
@@ -92,6 +100,8 @@ export const shopStores: ShopStore[] = [
     foreignCardSupported: true,
     couponAvailable: false,
     passportNeededAtCheckout: false,
+    openingHoursRules: [{ days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], opensAt: "10:00", closesAt: "22:00", label: "Demo shopping window" }],
+    openingHoursNote: "Store hours and tax-refund desks can differ. Confirm before checkout.",
     tags: ["handmade", "traditional", "gift"],
     description:
       "Traditional-style souvenirs, stationery, and small gifts for family and coworkers.",
@@ -110,6 +120,8 @@ export const shopStores: ShopStore[] = [
     foreignCardSupported: true,
     couponAvailable: false,
     passportNeededAtCheckout: true,
+    openingHoursRules: [{ days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], opensAt: "10:00", closesAt: "22:00", label: "Demo shopping window" }],
+    openingHoursNote: "Store hours and tax-refund desks can differ. Confirm before checkout.",
     tags: ["snacks", "quick gifts", "late night"],
     description:
       "Convenience store useful for snacks, packaged gifts, and last-minute daily needs.",
@@ -128,6 +140,8 @@ export const shopStores: ShopStore[] = [
     foreignCardSupported: true,
     couponAvailable: false,
     passportNeededAtCheckout: true,
+    openingHoursRules: [{ days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], opensAt: "10:00", closesAt: "22:00", label: "Demo shopping window" }],
+    openingHoursNote: "Store hours and tax-refund desks can differ. Confirm before checkout.",
     tags: ["OTC", "health", "essentials"],
     description:
       "Convenient stop for OTC items, masks, supplements, and practical short-stay purchases.",
@@ -146,6 +160,8 @@ export const shopStores: ShopStore[] = [
     foreignCardSupported: true,
     couponAvailable: true,
     passportNeededAtCheckout: true,
+    openingHoursRules: [{ days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], opensAt: "10:00", closesAt: "22:00", label: "Demo shopping window" }],
+    openingHoursNote: "Store hours and tax-refund desks can differ. Confirm before checkout.",
     tags: ["trend route", "beauty", "tourist favorite"],
     description:
       "Trend-focused beauty stop near cafes and popup-heavy shopping streets.",

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { SourceDisclosure } from "@/components/common/source-disclosure";
+import { LiveOpenStatusBadge } from "@/components/common/live-open-status-badge";
+import { MapPreviewCard } from "@/components/common/map-preview-card";
 import { ExternalLink, MapPinned, Phone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CareProvider } from "@/types";
@@ -30,7 +32,17 @@ export function CareProviderDetailSheet({ provider, onClose }: CareProviderDetai
         </div>
 
         <p className="mt-3 text-sm leading-relaxed text-gray-600">{lt(provider.description)}</p>
+        <div className="mt-3"><LiveOpenStatusBadge metadata={provider} /></div>
         <SourceDisclosure metadata={provider} className="mt-4" />
+        <MapPreviewCard
+          className="mt-4"
+          target={{
+            id: provider.id,
+            name: provider.name,
+            district: provider.district,
+            mapLink: provider.mapLink,
+          }}
+        />
 
         <div className="mt-3 flex flex-wrap gap-1.5">
           {provider.supportedLanguages.map((language) => (

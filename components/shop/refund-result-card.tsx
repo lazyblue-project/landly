@@ -4,9 +4,11 @@ import Link from "next/link";
 import { AlertTriangle, CheckCircle2, CircleHelp, ArrowRight, ReceiptText } from "lucide-react";
 import type { RefundEligibilityResult } from "@/types";
 import { useLocalizedText } from "@/lib/text-localizer";
+import { RefundOperatorHandoff } from "@/components/shop/refund-operator-handoff";
 
 interface RefundResultCardProps {
   result: RefundEligibilityResult;
+  purchaseAmount?: number;
 }
 
 const statusMap = {
@@ -33,7 +35,7 @@ const actionMap = {
   "view-guide": { href: "/shop/guide", label: "View guide" },
 };
 
-export function RefundResultCard({ result }: RefundResultCardProps) {
+export function RefundResultCard({ result, purchaseAmount }: RefundResultCardProps) {
   const meta = statusMap[result.status];
   const Icon = meta.icon;
   const { lt } = useLocalizedText();
@@ -82,6 +84,10 @@ export function RefundResultCard({ result }: RefundResultCardProps) {
             ))}
           </div>
         </div>
+      ) : null}
+
+      {result.status !== "not-eligible" ? (
+        <RefundOperatorHandoff purchaseAmount={purchaseAmount} compact className="mt-4" />
       ) : null}
 
       <div className="mt-4 grid gap-2">

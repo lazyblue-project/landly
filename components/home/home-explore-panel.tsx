@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { ArrowRight, BadgePercent, BookOpenText, Gift, TestTube2, HeartPulse, Plane, ShieldAlert, ShoppingBag, Sparkles } from "lucide-react";
+import { isBetaToolsEnabled, isPartnerOffersEnabled } from "@/lib/feature-flags";
 import { useLocalizedText } from "@/lib/text-localizer";
+import { useAppStore } from "@/store/app-store";
 
 const serviceItems = [
   { href: "/pass", label: "Pass", description: "Arrival, transit, and first 72 hours", icon: Plane, tone: "bg-sky-50 text-sky-700 ring-sky-100" },
@@ -13,14 +15,20 @@ const serviceItems = [
 ];
 
 const loopItems = [
-  { href: "/stamps", label: "Stamp missions", description: "Turn useful actions into progress", icon: Sparkles, tone: "bg-amber-50 text-amber-700 ring-amber-100" },
-  { href: "/promotions", label: "Promotions", description: "Persona-based events and coupons", icon: Gift, tone: "bg-violet-50 text-violet-700 ring-violet-100" },
-  { href: "/partners", label: "Partner offers", description: "Clearly labeled commercial lanes", icon: BadgePercent, tone: "bg-rose-50 text-rose-700 ring-rose-100" },
-  { href: "/test", label: "Beta test guide", description: "Run missions and collect feedback notes", icon: TestTube2, tone: "bg-blue-50 text-blue-700 ring-blue-100" },
+  { id: "stamps", href: "/stamps", label: "Stamp missions", description: "Turn useful actions into progress", icon: Sparkles, tone: "bg-amber-50 text-amber-700 ring-amber-100" },
+  { id: "promotions", href: "/promotions", label: "Promotions", description: "Persona-based events and coupons", icon: Gift, tone: "bg-violet-50 text-violet-700 ring-violet-100" },
+  { id: "partners", href: "/partners", label: "Partner offers", description: "Clearly labeled commercial lanes", icon: BadgePercent, tone: "bg-rose-50 text-rose-700 ring-rose-100" },
+  { id: "test", href: "/test", label: "Beta test guide", description: "Run missions and collect feedback notes", icon: TestTube2, tone: "bg-blue-50 text-blue-700 ring-blue-100" },
 ];
 
 export function HomeExplorePanel() {
   const { lt } = useLocalizedText();
+  const isBetaTester = useAppStore((state) => state.isBetaTester);
+  const visibleLoopItems = loopItems.filter((item) => {
+    if (item.id === "partners") return isPartnerOffersEnabled(isBetaTester);
+    if (item.id === "test") return isBetaToolsEnabled(isBetaTester);
+    return true;
+  });
 
   return (
     <section className="px-4 py-4">
@@ -53,7 +61,7 @@ export function HomeExplorePanel() {
         </div>
 
         <div className="mt-3 space-y-2">
-          {loopItems.map((item) => {
+          {visibleLoopItems.map((item) => {
             const Icon = item.icon;
             return (
               <Link key={item.href} href={item.href} className="flex items-center gap-3 rounded-3xl bg-gray-50 p-3 transition-colors hover:bg-gray-100">

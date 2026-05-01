@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { HomeHero } from "@/components/home/home-hero";
 import { HomeNowPanel } from "@/components/home/home-now-panel";
+import { GlobalSearchPanel } from "@/components/home/global-search-panel";
 import { HomeReadyPanel } from "@/components/home/home-ready-panel";
 import { HomeExplorePanel } from "@/components/home/home-explore-panel";
 import { HomePilotPanel } from "@/components/home/home-pilot-panel";
@@ -17,6 +18,7 @@ export default function HomePage() {
   const user = useAppStore((state) => state.user);
   const hasHydrated = useAppStore((state) => state.hasHydrated);
   const setMode = useAppStore((state) => state.setMode);
+  const isBetaTester = useAppStore((state) => state.isBetaTester);
 
   useEffect(() => {
     if (hasHydrated && !user.onboardingCompleted) {
@@ -35,9 +37,10 @@ export default function HomePage() {
   return (
     <AppShell>
       <HomeHero name={user.name} mode={user.mode} city={user.city} onToggleMode={handleToggleMode} />
+      <GlobalSearchPanel />
       <HomeNowPanel />
       <HomeReadyPanel />
-      <HomePilotPanel />
+      {isBetaTester ? <HomePilotPanel /> : null}
       <HomeExplorePanel />
       <FeedbackPrompt context="Home" compact />
     </AppShell>

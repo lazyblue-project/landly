@@ -1,4 +1,4 @@
-const LANDLY_SW_VERSION = "v39";
+const LANDLY_SW_VERSION = "v47";
 const LANDLY_CORE_CACHE = `landly-core-${LANDLY_SW_VERSION}`;
 const LANDLY_RUNTIME_CACHE = `landly-runtime-${LANDLY_SW_VERSION}`;
 
@@ -11,10 +11,19 @@ const CORE_ASSETS = [
   "/care",
   "/pass",
   "/shop",
+  "/shop/checker",
+  "/shop/receipts",
+  "/shop/guide",
   "/stay",
-  "/more",
-  "/test",
+  "/life",
+  "/my",
+  "/trust",
   "/partners",
+  "/promotions",
+  "/stamps",
+  "/calendar",
+  "/explore",
+  "/more",
   "/manifest.webmanifest",
   "/icons/icon-192.png",
   "/icons/icon-512.png",

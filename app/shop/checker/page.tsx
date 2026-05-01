@@ -50,7 +50,7 @@ export default function ShopCheckerPage() {
           </div>
         ) : null}
         <RefundCheckerForm value={input} onChange={(patch) => setInput((prev) => ({ ...prev, ...patch }))} />
-        <RefundResultCard result={result} />
+        <RefundResultCard result={result} purchaseAmount={input.purchaseAmount} />
       </div>
     </AppShell>
   );

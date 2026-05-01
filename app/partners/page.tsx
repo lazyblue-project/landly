@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BadgePercent, Filter, Handshake } from "lucide-react";
+import { BadgePercent, Filter, Handshake, LockKeyhole } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
 import { PageSkeleton } from "@/components/common/page-skeleton";
@@ -13,6 +13,7 @@ import { partnerOffers } from "@/data/partner-offers";
 import type { PartnerOfferCategory, PromotionAudience } from "@/types";
 import { useAppStore } from "@/store/app-store";
 import { useLocalizedText } from "@/lib/text-localizer";
+import { isPartnerOffersEnabled } from "@/lib/feature-flags";
 import { isCommercialPartnerOffer } from "@/lib/partner-disclosure";
 
 const categoryFilters: Array<"all" | PartnerOfferCategory> = ["all", "shopping", "transport", "care", "stay", "experience"];
@@ -40,6 +41,7 @@ function applyPartnerQueryFilters(
 
 export default function PartnersPage() {
   const hasHydrated = useAppStore((state) => state.hasHydrated);
+  const isBetaTester = useAppStore((state) => state.isBetaTester);
   const userMode = useAppStore((state) => state.user.mode);
   const savedPartnerOfferIds = useAppStore((state) => state.savedPartnerOfferIds);
   const requestedPartnerOfferIds = useAppStore((state) => state.requestedPartnerOfferIds);
@@ -73,6 +75,28 @@ export default function PartnersPage() {
       <AppShell>
         <TopBar title={lt("Partner offers")} showBack />
         <PageSkeleton />
+      </AppShell>
+    );
+  }
+
+  if (!isPartnerOffersEnabled(isBetaTester)) {
+    return (
+      <AppShell>
+        <TopBar title={lt("Partner offers")} showBack />
+        <div className="px-4 py-4">
+          <section className="rounded-3xl border border-gray-100 bg-white p-5 text-center shadow-sm">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-50 text-gray-600">
+              <LockKeyhole size={20} />
+            </div>
+            <p className="mt-4 text-base font-bold text-gray-950">{lt("Partner offers are in pilot mode")}</p>
+            <p className="mt-2 text-sm leading-relaxed text-gray-600">
+              {lt("This area is hidden from regular users until real partner terms, commercial labels, and support flows are ready.")}
+            </p>
+            <p className="mt-3 rounded-2xl bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-700 ring-1 ring-amber-100">
+              {lt("Enable NEXT_PUBLIC_ENABLE_PARTNERS=true or turn on beta tester mode to review this lane.")}
+            </p>
+          </section>
+        </div>
       </AppShell>
     );
   }

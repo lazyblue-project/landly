@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Clock3, Sparkles, Zap } from "lucide-react";
+import { stay90Missions } from "@/data/stay-90-missions";
 import { useSmartActionEngine } from "@/hooks/use-smart-action-engine";
+import { useAppStore } from "@/store/app-store";
 import type { SmartActionTone } from "@/data/personal-action-rules";
 import { useLocalizedText } from "@/lib/text-localizer";
 import { cn } from "@/lib/utils";
@@ -30,10 +32,13 @@ function getReadinessWidthClass(value: number) {
 export function HomeNowPanel() {
   const { topActions, readinessScore, stats } = useSmartActionEngine();
   const { lt } = useLocalizedText();
+  const userMode = useAppStore((state) => state.user.mode);
+  const completedStayMissionIds = useAppStore((state) => state.completedStayMissionIds);
   const lead = topActions[0];
   const secondaryActions = topActions.slice(1, 3);
   const LeadIcon = lead?.icon ?? Sparkles;
   const attentionCount = stats.reminderFocus + stats.pendingReceipts + stats.passportMissingReceipts;
+  const nextStayMission = stay90Missions.find((mission) => !completedStayMissionIds.includes(mission.id));
 
   return (
     <section className="px-4 pt-4">
@@ -50,6 +55,27 @@ export function HomeNowPanel() {
             <Zap size={20} />
           </div>
         </div>
+
+        {userMode === "life" && nextStayMission ? (
+          <Link
+            href={nextStayMission.href ?? "/stay?tab=first90"}
+            className="mt-4 block rounded-[1.75rem] border border-emerald-100 bg-emerald-50 p-4 text-emerald-950 shadow-sm transition-transform active:scale-[0.99]"
+          >
+            <div className="flex items-start gap-3">
+              <div className="shrink-0 rounded-2xl bg-white p-3 text-emerald-700 ring-1 ring-emerald-100">
+                <CheckCircle2 size={20} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-emerald-700 ring-1 ring-emerald-100">
+                  {lt("Today’s settlement mission")}
+                </span>
+                <p className="mt-3 text-base font-black leading-snug text-gray-950">{lt(nextStayMission.title)}</p>
+                <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-emerald-800">{lt(nextStayMission.description)}</p>
+              </div>
+              <ArrowRight size={18} className="shrink-0 text-emerald-700" />
+            </div>
+          </Link>
+        ) : null}
 
         {lead ? (
           <Link

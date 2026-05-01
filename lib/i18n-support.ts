@@ -1,10 +1,45 @@
+import { phrases } from "@/data/phrases";
 import type { Language } from "@/types";
 
-export type UiLocale = "en" | "ko";
-export type LanguageSupportLevel = "full-ui" | "phrase-support";
+export type UiLocale = "en" | "ko" | "zh" | "ja";
+export type LanguageSupportLevel = "full-ui" | "beta-ui" | "phrase-support" | "partial-phrase-support";
 
 export const fullUiLocales: readonly UiLocale[] = ["en", "ko"];
+export const betaUiLocales: readonly UiLocale[] = ["zh", "ja"];
 export const phraseSupportLocales: readonly Language[] = ["en", "ko", "zh", "ja", "es", "fr"];
+
+const phraseTranslationLanguages: Language[] = ["zh", "ja", "es", "fr"];
+const corePhraseCoverageThreshold = 75;
+
+function calculatePhraseCoverage(language: Language) {
+  if (language === "en" || language === "ko") return 100;
+  if (phrases.length === 0) return 0;
+
+  const translatedCount = phrases.filter((phrase) => Boolean(phrase.translations[language])).length;
+  return Math.round((translatedCount / phrases.length) * 100);
+}
+
+export const languagePhraseCoverage: Record<Language, number> = {
+  en: 100,
+  ko: 100,
+  zh: calculatePhraseCoverage("zh"),
+  ja: calculatePhraseCoverage("ja"),
+  es: calculatePhraseCoverage("es"),
+  fr: calculatePhraseCoverage("fr"),
+};
+
+const translatedPhraseCoverageDetails = Object.fromEntries(
+  phraseTranslationLanguages.map((language) => {
+    const translated = phrases.filter((phrase) => Boolean(phrase.translations[language])).length;
+    return [language, { translated, total: phrases.length, coverage: languagePhraseCoverage[language] }];
+  })
+) as Record<Exclude<Language, "en" | "ko">, { translated: number; total: number; coverage: number }>;
+
+export const languagePhraseCoverageDetails: Record<Language, { translated: number; total: number; coverage: number }> = {
+  en: { translated: phrases.length, total: phrases.length, coverage: 100 },
+  ko: { translated: phrases.length, total: phrases.length, coverage: 100 },
+  ...translatedPhraseCoverageDetails,
+};
 
 export const languageDisplayNames: Record<Language, { native: string; english: string; short: string }> = {
   en: { native: "English", english: "English", short: "EN" },
@@ -16,11 +51,16 @@ export const languageDisplayNames: Record<Language, { native: string; english: s
 };
 
 export function resolveUiLocale(language: Language): UiLocale {
-  return language === "ko" ? "ko" : "en";
+  if (language === "ko") return "ko";
+  if (language === "zh") return "zh";
+  if (language === "ja") return "ja";
+  return "en";
 }
 
 export function getLanguageSupportLevel(language: Language): LanguageSupportLevel {
-  return language === "en" || language === "ko" ? "full-ui" : "phrase-support";
+  if (language === "en" || language === "ko") return "full-ui";
+  if (language === "zh" || language === "ja") return "beta-ui";
+  return languagePhraseCoverage[language] >= corePhraseCoverageThreshold ? "phrase-support" : "partial-phrase-support";
 }
 
 export function hasFullUiSupport(language: Language) {
@@ -38,10 +78,12 @@ export function getLanguageLabel(language: Language, format: "native" | "english
 export function getLanguageSupportCopy(language: Language) {
   const level = getLanguageSupportLevel(language);
   const languageName = getLanguageLabel(language, "english");
+  const coverage = languagePhraseCoverage[language];
 
   if (level === "full-ui") {
     return {
       level,
+      coverage,
       badge: "Full UI",
       title: "Full interface support",
       description: "Landly menus, onboarding, saved items, and phrase cards are supported in this language.",
@@ -49,9 +91,32 @@ export function getLanguageSupportCopy(language: Language) {
     };
   }
 
+  if (level === "beta-ui") {
+    return {
+      level,
+      coverage,
+      badge: `Beta UI · Phrase ${coverage}%`,
+      title: `${languageName} beta interface support`,
+      description: "Core navigation, onboarding, and search are translated in beta. Deeper feature screens may still fall back to English while phrase cards use verified translations.",
+      shortDescription: "Core menus are translated in beta; deeper screens may fall back to English.",
+    };
+  }
+
+  if (level === "partial-phrase-support") {
+    return {
+      level,
+      coverage,
+      badge: `Translation in progress · ${coverage}%`,
+      title: `${languageName} translation in progress`,
+      description: "Landly menus currently stay in English. Essential phrase cards use this language only when a verified translation is available.",
+      shortDescription: "Menus stay in English; essential phrases are partially translated.",
+    };
+  }
+
   return {
     level,
-    badge: "Phrase support",
+    coverage,
+    badge: `Phrase support · ${coverage}%`,
     title: `${languageName} phrase support`,
     description: "Landly menus currently stay in English for this language. Korean show-cards and phrase cards still use your selected language when a translation is available.",
     shortDescription: "Menus stay in English; phrase cards use this language when available.",

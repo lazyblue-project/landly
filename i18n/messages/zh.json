@@ -1,0 +1,71 @@
+{
+  "app": {
+    "name": "Landly",
+    "tagline": "韩国生活指南"
+  },
+  "nav": {
+    "home": "首页",
+    "pass": "通行",
+    "explore": "探索",
+    "assistant": "会话",
+    "life": "生活",
+    "my": "我的",
+    "more": "更多",
+    "shop": "购物",
+    "care": "医疗",
+    "sos": "SOS",
+    "stay": "居留"
+  },
+  "language": {
+    "support_full_label": "完整界面支持",
+    "support_beta_ui_label": "测试版界面 + 短语支持",
+    "support_phrase_label": "短语支持",
+    "support_partial_label": "翻译进行中"
+  },
+  "onboarding": {
+    "personalize": "个性化设置",
+    "step_language": "请选择语言",
+    "subtitle": "为你的韩国行程进行个性化设置",
+    "step_purpose": "你来韩国的目的是什么？",
+    "purpose_tourism": "旅游",
+    "purpose_business": "商务",
+    "purpose_study": "学习",
+    "purpose_work": "工作",
+    "purpose_residence": "长期居留",
+    "step_duration": "你会停留多久？",
+    "duration_under_1week": "少于1周",
+    "duration_1_4weeks": "1–4周",
+    "duration_1_3months": "1–3个月",
+    "duration_over_3months": "超过3个月",
+    "step_city": "你现在在哪个城市？",
+    "step_need": "你最先需要哪种帮助？",
+    "btn_next": "下一步",
+    "btn_done": "开始使用",
+    "btn_skip": "暂时跳过",
+    "v45_fast_start_subtitle": "现在先选择主要模式。停留时间、城市和优先需求之后可以在“我的”中修改。",
+    "v45_optional_title": "可选快速设置",
+    "v45_optional_desc": "现在可以跳过。这些选择只用于调整首页推荐。",
+    "need_airport_transport": "机场 / 交通",
+    "need_shopping_refund": "购物 / 退税",
+    "need_hospital_pharmacy": "医院 / 药店",
+    "need_korean_phrases": "韩语短语",
+    "need_long_stay_setup": "长期居留准备",
+    "need_emergency_help": "紧急帮助"
+  },
+  "global_search": {
+    "eyebrow": "快速搜索",
+    "title": "搜索短语、医疗、地点和SOS",
+    "placeholder": "试试：过敏、出租车、119、退税、护照...",
+    "clear": "清除搜索",
+    "all": "全部",
+    "help": "当你不知道短语、医院、退税步骤、官方来源或紧急流程在哪个页面时，可以从这里快速查找。",
+    "empty": "没有匹配的项目。请尝试更宽泛的关键词。",
+    "category_phrase": "短语",
+    "category_place": "地点",
+    "category_care": "医疗",
+    "category_sos": "SOS",
+    "category_shop": "购物",
+    "category_stay": "居留",
+    "category_official": "官方"
+  }
+}

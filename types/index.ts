@@ -78,6 +78,21 @@ export type PlaceCategory =
   | "sightseeing"
   | "transport";
 
+export type OpeningDay = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
+
+export interface OpeningHoursRule {
+  days: OpeningDay[];
+  opensAt: string;
+  closesAt: string;
+  label?: string;
+}
+
+export interface OpeningHoursMetadata {
+  openingHours?: string;
+  openingHoursRules?: OpeningHoursRule[];
+  openingHoursNote?: string;
+}
+
 export type TrustBadgeTone = "sky" | "emerald" | "amber" | "violet" | "rose" | "gray";
 export type TrustLevel = "official" | "partner" | "curated" | "demo" | "needs-check";
 
@@ -103,7 +118,7 @@ export interface PlaceFilter {
   soloFriendly: boolean;
 }
 
-export interface Place extends TrustMetadata {
+export interface Place extends TrustMetadata, OpeningHoursMetadata {
   id: string;
   name: string;
   category: PlaceCategory;
@@ -147,6 +162,22 @@ export interface PhraseCard {
   english: string;
   translations: Partial<Record<Language, string>>;
   tags: string[];
+}
+
+export type TranslationFeedbackReason = "wrong_translation" | "unnatural" | "missing_language" | "romanization" | "other";
+
+export interface TranslationFeedbackRecord {
+  id: string;
+  phraseId: string;
+  phraseCategory: PhraseCategory;
+  language: Language;
+  reason: TranslationFeedbackReason;
+  note?: string;
+  korean: string;
+  romanization: string;
+  english: string;
+  localizedText: string;
+  createdAt: string;
 }
 
 // ─── Life Checklist Item ─────────────────────────────────────────────────────
@@ -281,7 +312,7 @@ export type ShopStoreCategory =
 
 export type ShopRefundType = "immediate" | "general" | "both" | "unknown";
 
-export interface ShopStore extends TrustMetadata {
+export interface ShopStore extends TrustMetadata, OpeningHoursMetadata {
   id: string;
   name: string;
   category: ShopStoreCategory;
@@ -335,6 +366,35 @@ export interface RefundEligibilityResult {
   nextActions: Array<"find-stores" | "save-receipt" | "view-guide">;
 }
 
+export type RefundOperatorChannel = "mobile" | "web" | "airport-counter" | "kiosk" | "downtown-counter";
+export type RefundAirportCounterType = "service-desk" | "kiosk";
+
+export interface RefundAirportCounter {
+  airport: "Incheon" | "Gimpo" | "Busan" | "Jeju";
+  terminal: string;
+  floor: string;
+  area: string;
+  location: string;
+  operatingHours: string;
+  contact?: string;
+  counterType: RefundAirportCounterType;
+}
+
+export interface RefundOperator extends TrustMetadata {
+  id: string;
+  name: string;
+  summary: string;
+  bestFor: string;
+  webUrl: string;
+  appUrl?: string;
+  minAmount: number;
+  maxAmountPerReceipt?: number;
+  supportedLanguages: Language[];
+  channels: RefundOperatorChannel[];
+  airportCounters: RefundAirportCounter[];
+  checklist: string[];
+}
+
 export interface ShopPromotion {
   id: string;
   title: string;
@@ -371,7 +431,7 @@ export type CareProviderCategory =
   | "wellness"
   | "mental-health-support";
 
-export interface CareProvider extends TrustMetadata {
+export interface CareProvider extends TrustMetadata, OpeningHoursMetadata {
   id: string;
   name: string;
   category: CareProviderCategory;

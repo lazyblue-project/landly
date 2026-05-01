@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { SourceDisclosure } from "@/components/common/source-disclosure";
+import { LiveOpenStatusBadge } from "@/components/common/live-open-status-badge";
+import { MapPreviewCard } from "@/components/common/map-preview-card";
 import { Badge } from "@/components/ui/badge";
 import { ShopStore } from "@/types";
 import { useAppStore } from "@/store/app-store";
@@ -43,7 +45,17 @@ export function ShopStoreDetailSheet({ store, open, onClose }: ShopStoreDetailSh
         </div>
 
         <p className="mt-4 text-sm leading-relaxed text-gray-700">{lt(store.description)}</p>
+        <div className="mt-3"><LiveOpenStatusBadge metadata={store} /></div>
         <SourceDisclosure metadata={store} className="mt-4" />
+        <MapPreviewCard
+          className="mt-4"
+          target={{
+            id: store.id,
+            name: store.name,
+            district: store.district,
+            mapLink: store.mapLink,
+          }}
+        />
 
         <div className="mt-4 rounded-2xl bg-gray-50 p-4 text-sm text-gray-700">
           <p className="font-semibold text-gray-900">{lt("Before you pay")}</p>

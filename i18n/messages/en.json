@@ -10,7 +10,11 @@
     "assistant": "Assistant",
     "life": "Life",
     "my": "My",
-    "more": "More"
+    "more": "More",
+    "shop": "Shop",
+    "care": "Care",
+    "sos": "SOS",
+    "stay": "Stay"
   },
   "onboarding": {
     "welcome": "Welcome to Landly",
@@ -47,7 +51,10 @@
     "need_emergency_help": "Emergency help",
     "need_emergency_help_desc": "Keep SOS flows, urgent phone numbers, and emergency phrases close.",
     "launch_preview_label": "Your first Home setup",
-    "launch_city_suffix": "City:"
+    "launch_city_suffix": "City:",
+    "v45_fast_start_subtitle": "Pick your main mode now. Duration, city, and first need are optional and can be changed later in My.",
+    "v45_optional_title": "Optional quick setup",
+    "v45_optional_desc": "You can skip this now. These choices only tune your Home recommendations."
   },
   "home": {
     "greeting": "Hello, {name}!",
@@ -290,7 +297,10 @@
     "support_full_label": "Full UI",
     "support_phrase_label": "Phrase support",
     "support_full_desc": "Menus and phrase cards are available in this language.",
-    "support_phrase_desc": "Menus stay in English; phrase cards use this language when available."
+    "support_phrase_desc": "Menus stay in English; phrase cards use this language when available.",
+    "support_partial_label": "Translation in progress",
+    "support_partial_desc": "Menus stay in English; essential phrases are partially translated.",
+    "support_beta_ui_label": "Beta UI + phrase support"
   },
   "Arrival route first": "Arrival route first",
   "Start with airport routes, map handoff, and the first 72-hour arrival checklist.": "Start with airport routes, map handoff, and the first 72-hour arrival checklist.",
@@ -326,5 +336,21 @@
   "Open SOS": "Open SOS",
   "Run SOS test": "Run SOS test",
   "Review official-source rules": "Review official-source rules",
-  "Emergency flows should prioritize official numbers and scripts, not commercial offers.": "Emergency flows should prioritize official numbers and scripts, not commercial offers."
+  "Emergency flows should prioritize official numbers and scripts, not commercial offers.": "Emergency flows should prioritize official numbers and scripts, not commercial offers.",
+  "global_search": {
+    "eyebrow": "Quick find",
+    "title": "Search phrases, care, places, and SOS",
+    "placeholder": "Try allergy, taxi, 119, refund, passport...",
+    "clear": "Clear search",
+    "all": "All",
+    "help": "Use this when you do not remember which tab has a phrase, hospital, refund step, official source, or emergency flow.",
+    "empty": "No matching Landly items yet. Try a broader word.",
+    "category_phrase": "Phrases",
+    "category_place": "Places",
+    "category_care": "Care",
+    "category_sos": "SOS",
+    "category_shop": "Shop",
+    "category_stay": "Stay",
+    "category_official": "Official"
+  }
 }

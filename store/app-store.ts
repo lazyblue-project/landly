@@ -15,6 +15,7 @@ import {
   ReminderItem,
   type BetaMissionId,
   type BetaFeedbackRecord,
+  type TranslationFeedbackRecord,
 } from "@/types";
 import { mockUser } from "@/data/mock-user";
 import { shopReceipts } from "@/data/shop-receipts";
@@ -52,9 +53,11 @@ interface AppState {
   completedStayMissionIds: string[];
   completedBetaMissionIds: BetaMissionId[];
   betaFeedbackRecords: BetaFeedbackRecord[];
+  translationFeedbackRecords: TranslationFeedbackRecord[];
   completedPilotQaCheckIds: string[];
   manualReminderItems: ReminderItem[];
   completedReminderIds: string[];
+  isBetaTester: boolean;
   hasHydrated: boolean;
   snackbar: SnackbarState | null;
   setHasHydrated: (value: boolean) => void;
@@ -65,6 +68,7 @@ interface AppState {
   setLanguage: (language: Language) => void;
   setCity: (city: string) => void;
   setDepartureDate: (value?: string) => void;
+  setBetaTester: (value: boolean) => void;
   completeOnboarding: () => void;
   toggleSavedPlace: (placeId: string) => void;
   toggleSavedPhrase: (phraseId: string) => void;
@@ -101,6 +105,8 @@ interface AppState {
   toggleBetaMissionCompleted: (id: BetaMissionId) => void;
   addBetaFeedbackRecord: (record: BetaFeedbackRecord) => void;
   removeBetaFeedbackRecord: (id: string) => void;
+  addTranslationFeedbackRecord: (record: TranslationFeedbackRecord) => void;
+  removeTranslationFeedbackRecord: (id: string) => void;
   togglePilotQaCheck: (id: string) => void;
   addManualReminder: (item: ReminderItem) => void;
   removeManualReminder: (id: string) => void;
@@ -133,9 +139,11 @@ type PersistedAppState = Pick<
   | "completedStayMissionIds"
   | "completedBetaMissionIds"
   | "betaFeedbackRecords"
+  | "translationFeedbackRecords"
   | "completedPilotQaCheckIds"
   | "manualReminderItems"
   | "completedReminderIds"
+  | "isBetaTester"
 >;
 
 export const useAppStore = create<AppState>()(
@@ -165,9 +173,11 @@ export const useAppStore = create<AppState>()(
       completedStayMissionIds: [],
       completedBetaMissionIds: [],
       betaFeedbackRecords: [],
+      translationFeedbackRecords: [],
       completedPilotQaCheckIds: [],
       manualReminderItems: [],
       completedReminderIds: [],
+      isBetaTester: false,
       hasHydrated: false,
       snackbar: null,
 
@@ -181,6 +191,7 @@ export const useAppStore = create<AppState>()(
       setLanguage: (language) => set((state) => ({ user: { ...state.user, language } })),
       setCity: (city) => set((state) => ({ user: { ...state.user, city } })),
       setDepartureDate: (value) => set({ departureDate: value }),
+      setBetaTester: (value) => set({ isBetaTester: value }),
 
       completeOnboarding: () =>
         set((state) => ({
@@ -408,6 +419,12 @@ export const useAppStore = create<AppState>()(
       removeBetaFeedbackRecord: (id) =>
         set((state) => ({ betaFeedbackRecords: state.betaFeedbackRecords.filter((record) => record.id !== id) })),
 
+      addTranslationFeedbackRecord: (record) =>
+        set((state) => ({ translationFeedbackRecords: [record, ...state.translationFeedbackRecords].slice(0, 120) })),
+
+      removeTranslationFeedbackRecord: (id) =>
+        set((state) => ({ translationFeedbackRecords: state.translationFeedbackRecords.filter((record) => record.id !== id) })),
+
       togglePilotQaCheck: (id) =>
         set((state) => ({
           completedPilotQaCheckIds: state.completedPilotQaCheckIds.includes(id)
@@ -458,9 +475,11 @@ export const useAppStore = create<AppState>()(
         completedStayMissionIds: state.completedStayMissionIds,
         completedBetaMissionIds: state.completedBetaMissionIds,
         betaFeedbackRecords: state.betaFeedbackRecords,
+        translationFeedbackRecords: state.translationFeedbackRecords,
         completedPilotQaCheckIds: state.completedPilotQaCheckIds,
         manualReminderItems: state.manualReminderItems,
         completedReminderIds: state.completedReminderIds,
+        isBetaTester: state.isBetaTester,
       }),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);

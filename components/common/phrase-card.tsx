@@ -1,8 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BookmarkCheck, BookmarkPlus, Check, Copy, Maximize2, Phone } from "lucide-react";
-import { PhraseCard as PhraseCardType } from "@/types";
+import {
+  BookmarkCheck,
+  BookmarkPlus,
+  Check,
+  Copy,
+  Flag,
+  Maximize2,
+  Phone,
+  X,
+} from "lucide-react";
+import { PhraseCard as PhraseCardType, type TranslationFeedbackReason } from "@/types";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/app-store";
 import { triggerHaptic } from "@/lib/haptics";
@@ -13,11 +22,22 @@ interface PhraseCardProps {
   className?: string;
 }
 
+const feedbackReasons: Array<{ value: TranslationFeedbackReason; label: string }> = [
+  { value: "wrong_translation", label: "Wrong meaning" },
+  { value: "unnatural", label: "Unnatural wording" },
+  { value: "missing_language", label: "Missing selected language" },
+  { value: "romanization", label: "Romanization issue" },
+  { value: "other", label: "Other" },
+];
+
 export function PhraseCard({ phrase, className }: PhraseCardProps) {
-  const { user, toggleSavedPhrase, showSnackbar } = useAppStore();
+  const { user, toggleSavedPhrase, showSnackbar, addTranslationFeedbackRecord } = useAppStore();
   const isSaved = user.savedPhraseIds.includes(phrase.id);
   const [copied, setCopied] = useState(false);
   const [showMode, setShowMode] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedbackReason, setFeedbackReason] = useState<TranslationFeedbackReason>("wrong_translation");
+  const [feedbackNote, setFeedbackNote] = useState("");
   const { lt } = useLocalizedText();
   const isEmergencyPhrase = phrase.category === "emergency" || phrase.tags.includes("119") || phrase.tags.includes("112");
 
@@ -48,6 +68,27 @@ export function PhraseCard({ phrase, className }: PhraseCardProps) {
     );
   };
 
+  const handleSubmitFeedback = () => {
+    addTranslationFeedbackRecord({
+      id: `translation_feedback_${Date.now()}_${phrase.id}`,
+      phraseId: phrase.id,
+      phraseCategory: phrase.category,
+      language: user.language,
+      reason: feedbackReason,
+      note: feedbackNote.trim() || undefined,
+      korean: phrase.korean,
+      romanization: phrase.romanization,
+      english: phrase.english,
+      localizedText,
+      createdAt: new Date().toISOString(),
+    });
+    triggerHaptic("success");
+    showSnackbar(lt("Translation feedback saved for beta review."), "success");
+    setFeedbackOpen(false);
+    setFeedbackReason("wrong_translation");
+    setFeedbackNote("");
+  };
+
   if (showMode) {
     return (
       <div className="fixed inset-0 z-[90] flex cursor-pointer flex-col items-center justify-center bg-white p-8" onClick={() => setShowMode(false)}>
@@ -58,7 +99,8 @@ export function PhraseCard({ phrase, className }: PhraseCardProps) {
           </p>
         ) : null}
         <p className="text-center text-4xl font-bold leading-relaxed text-gray-900">{phrase.korean}</p>
-        <p className="mt-4 text-center text-lg text-gray-400">{showModeTranslation}</p>
+        <p className="mt-4 text-center text-base font-medium text-gray-500">{phrase.romanization}</p>
+        <p className="mt-2 text-center text-lg text-gray-400">{showModeTranslation}</p>
         {isEmergencyPhrase ? (
           <div className="mt-8 grid w-full max-w-xs grid-cols-2 gap-2">
             <a
@@ -104,7 +146,53 @@ export function PhraseCard({ phrase, className }: PhraseCardProps) {
           </span>
         ) : null}
       </div>
-      <div className="mt-4 flex items-center gap-2">
+
+      {feedbackOpen ? (
+        <div className="mt-4 rounded-2xl border border-amber-100 bg-amber-50 p-3">
+          <div className="flex items-start justify-between gap-2">
+            <div>
+              <p className="text-xs font-bold text-amber-900">{lt("Report translation issue")}</p>
+              <p className="mt-1 text-[11px] leading-relaxed text-amber-700">
+                {lt("Saved locally and included in beta exports. No server upload is used.")}
+              </p>
+            </div>
+            <button type="button" onClick={() => setFeedbackOpen(false)} className="rounded-full bg-white p-1 text-amber-700">
+              <X size={13} />
+            </button>
+          </div>
+          <div className="mt-3 flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {feedbackReasons.map((reason) => (
+              <button
+                key={reason.value}
+                type="button"
+                onClick={() => setFeedbackReason(reason.value)}
+                className={cn(
+                  "shrink-0 rounded-full px-3 py-1.5 text-[11px] font-bold",
+                  feedbackReason === reason.value ? "bg-amber-900 text-white" : "bg-white text-amber-700 ring-1 ring-amber-100"
+                )}
+              >
+                {lt(reason.label)}
+              </button>
+            ))}
+          </div>
+          <textarea
+            value={feedbackNote}
+            onChange={(event) => setFeedbackNote(event.target.value)}
+            rows={2}
+            placeholder={lt("Optional note: what should be fixed?")}
+            className="mt-2 w-full resize-none rounded-2xl border border-amber-100 bg-white px-3 py-2 text-xs text-gray-800 outline-none placeholder:text-gray-400"
+          />
+          <button
+            type="button"
+            onClick={handleSubmitFeedback}
+            className="mt-2 w-full rounded-2xl bg-gray-900 px-3 py-2 text-xs font-bold text-white active:scale-[0.99]"
+          >
+            {lt("Save feedback")}
+          </button>
+        </div>
+      ) : null}
+
+      <div className="mt-4 flex flex-wrap items-center gap-2">
         <button
           onClick={handleCopy}
           className={cn(
@@ -126,6 +214,14 @@ export function PhraseCard({ phrase, className }: PhraseCardProps) {
         >
           <Maximize2 size={13} />
           {lt("Show large")}
+        </button>
+        <button
+          type="button"
+          onClick={() => setFeedbackOpen((value) => !value)}
+          className="flex items-center gap-1.5 rounded-lg border border-amber-100 bg-amber-50 px-3 py-1.5 text-xs text-amber-700 transition-all active:scale-[0.97] hover:bg-amber-100"
+        >
+          <Flag size={13} />
+          {lt("Report")}
         </button>
         <button
           onClick={handleSave}

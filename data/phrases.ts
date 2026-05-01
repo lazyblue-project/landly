@@ -26,7 +26,8 @@ export const phrases: PhraseCard[] = [
     translations: {
       zh: "请给我一个这个。",
       ja: "これを一つお願いします。",
-      es: "Uno de esto, por favor.",
+      es: "Uno de esto, por favor.",      fr: "Un de celui-ci, s’il vous plaît.",
+
     },
     tags: ["restaurant", "ordering", "basic"],
   },
@@ -40,7 +41,8 @@ export const phrases: PhraseCard[] = [
     translations: {
       zh: "我对花生过敏。",
       ja: "私はピーナッツアレルギーがあります。",
-      es: "Tengo alergia al cacahuete.",
+      es: "Tengo alergia al cacahuete.",      fr: "Je suis allergique aux cacahuètes.",
+
     },
     tags: ["allergy", "restaurant", "food"],
   },
@@ -54,7 +56,8 @@ export const phrases: PhraseCard[] = [
     translations: {
       zh: "我想办理入住。",
       ja: "チェックインしたいです。",
-      es: "Me gustaría hacer el check-in.",
+      es: "Me gustaría hacer el check-in.",      fr: "Je voudrais faire le check-in.",
+
     },
     tags: ["hotel", "check-in", "accommodation"],
   },
@@ -68,7 +71,8 @@ export const phrases: PhraseCard[] = [
     translations: {
       zh: "请放在门口。",
       ja: "ドアの前に置いてください。",
-      es: "Por favor, déjelo en la puerta.",
+      es: "Por favor, déjelo en la puerta.",      fr: "Veuillez le laisser devant la porte.",
+
     },
     tags: ["delivery", "food", "door"],
   },
@@ -81,7 +85,9 @@ export const phrases: PhraseCard[] = [
     english: "Do you accept foreign cards?",
     translations: {
       zh: "可以刷外国信用卡吗？",
-      ja: "海外カードは使えますか？",
+      ja: "海外カードは使えますか？",      es: "¿Aceptan tarjetas extranjeras?",
+      fr: "Acceptez-vous les cartes étrangères ?",
+
     },
     tags: ["shopping", "card", "payment"],
   },
@@ -94,7 +100,9 @@ export const phrases: PhraseCard[] = [
     english: "Where is the airport rail platform?",
     translations: {
       zh: "机场铁路乘车处在哪里？",
-      ja: "空港鉄道の乗り場はどこですか？",
+      ja: "空港鉄道の乗り場はどこですか？",      es: "¿Dónde está el andén del tren del aeropuerto?",
+      fr: "Où est le quai du train de l’aéroport ?",
+
     },
     tags: ["transport", "airport-rail", "station"],
   },
@@ -107,7 +115,9 @@ export const phrases: PhraseCard[] = [
     english: "Does this train go to Seoul Station?",
     translations: {
       zh: "这趟列车去首尔站吗？",
-      ja: "この列車はソウル駅に行きますか？",
+      ja: "この列車はソウル駅に行きますか？",      es: "¿Este tren va a la estación de Seúl?",
+      fr: "Ce train va-t-il à la gare de Séoul ?",
+
     },
     tags: ["train", "station", "route"],
   },
@@ -120,7 +130,9 @@ export const phrases: PhraseCard[] = [
     english: "Where is the luggage storage?",
     translations: {
       zh: "行李寄存处在哪里？",
-      ja: "荷物預かり所はどこですか？",
+      ja: "荷物預かり所はどこですか？",      es: "¿Dónde está la consigna de equipaje?",
+      fr: "Où se trouve la consigne à bagages ?",
+
     },
     tags: ["luggage", "storage", "station"],
   },
@@ -133,7 +145,9 @@ export const phrases: PhraseCard[] = [
     english: "I have stomach pain and a fever.",
     translations: {
       zh: "我肚子疼，还有发烧。",
-      ja: "お腹が痛くて熱があります。",
+      ja: "お腹が痛くて熱があります。",      es: "Me duele el estómago y tengo fiebre.",
+      fr: "J’ai mal au ventre et de la fièvre.",
+
     },
     tags: ["hospital", "symptoms", "reception"],
   },
@@ -146,7 +160,9 @@ export const phrases: PhraseCard[] = [
     english: "Is there a doctor who speaks English?",
     translations: {
       zh: "有会说英语的医生吗？",
-      ja: "英語が話せる先生はいますか？",
+      ja: "英語が話せる先生はいますか？",      es: "¿Hay un médico que hable inglés?",
+      fr: "Y a-t-il un médecin qui parle anglais ?",
+
     },
     tags: ["hospital", "english", "doctor"],
   },
@@ -160,7 +176,8 @@ export const phrases: PhraseCard[] = [
     translations: {
       zh: "我丢失了我的东西。",
       ja: "荷物をなくしました。",
-      es: "Perdí mis pertenencias.",
+      es: "Perdí mis pertenencias.",      fr: "J’ai perdu mes affaires.",
+
     },
     tags: ["lost", "item", "report"],
   },
@@ -188,7 +205,9 @@ export const phrases: PhraseCard[] = [
     english: "Is tax refund available?",
     translations: {
       zh: "可以退税吗？",
-      ja: "免税・還付はできますか？",
+      ja: "免税・還付はできますか？",      es: "¿Hay devolución de impuestos?",
+      fr: "La détaxe est-elle disponible ?",
+
     },
     tags: ["shopping", "refund", "cashier"],
   },
@@ -201,7 +220,9 @@ export const phrases: PhraseCard[] = [
     english: "I can show you my passport.",
     translations: {
       zh: "我给您看护照。",
-      ja: "パスポートをお見せします。",
+      ja: "パスポートをお見せします。",      es: "Puedo mostrarle mi pasaporte.",
+      fr: "Je peux vous montrer mon passeport.",
+
     },
     tags: ["shopping", "passport", "checkout"],
   },
@@ -214,7 +235,9 @@ export const phrases: PhraseCard[] = [
     english: "Could I get the receipt again?",
     translations: {
       zh: "可以再给我一次小票吗？",
-      ja: "レシートをもう一度もらえますか？",
+      ja: "レシートをもう一度もらえますか？",      es: "¿Podría darme el recibo otra vez?",
+      fr: "Pourrais-je recevoir le reçu à nouveau ?",
+
     },
     tags: ["shopping", "receipt", "refund"],
   },
@@ -227,7 +250,9 @@ export const phrases: PhraseCard[] = [
     english: "I need to see a doctor.",
     translations: {
       zh: "我想看医生。",
-      ja: "診察を受けたいです。",
+      ja: "診察を受けたいです。",      es: "Necesito ver a un médico.",
+      fr: "J’ai besoin de voir un médecin.",
+
     },
     tags: ["hospital", "check-in", "doctor"],
   },
@@ -240,7 +265,9 @@ export const phrases: PhraseCard[] = [
     english: "I'm allergic to penicillin.",
     translations: {
       zh: "我对青霉素过敏。",
-      ja: "私はペニシリンにアレルギーがあります。",
+      ja: "私はペニシリンにアレルギーがあります。",      es: "Soy alérgico/a a la penicilina.",
+      fr: "Je suis allergique à la pénicilline.",
+
     },
     tags: ["hospital", "allergy", "medicine"],
   },
@@ -253,7 +280,9 @@ export const phrases: PhraseCard[] = [
     english: "Is there an English-speaking staff member?",
     translations: {
       zh: "有会说英语的工作人员吗？",
-      ja: "英語が話せるスタッフはいますか？",
+      ja: "英語が話せるスタッフはいますか？",      es: "¿Hay algún miembro del personal que hable inglés?",
+      fr: "Y a-t-il un membre du personnel qui parle anglais ?",
+
     },
     tags: ["hospital", "english", "staff"],
   },
@@ -266,9 +295,56 @@ export const phrases: PhraseCard[] = [
     english: "Could I get a receipt in English?",
     translations: {
       zh: "可以给我英文收据吗？",
-      ja: "英語の領収書をもらえますか？",
+      ja: "英語の領収書をもらえますか？",      es: "¿Podría darme un recibo en inglés?",
+      fr: "Pourrais-je avoir un reçu en anglais ?",
+
     },
     tags: ["hospital", "receipt", "payment"],
+  },
+  {
+    id: "phrase_021",
+    category: "transport",
+    situation: "Ask where to buy or recharge a transportation card",
+    korean: "교통카드는 어디에서 충전하나요?",
+    romanization: "Gyotongkadeu-neun eodieseo chungjeonhanayo?",
+    english: "Where can I buy or recharge a transportation card?",
+    translations: {
+      zh: "在哪里可以买或充值交通卡？",
+      ja: "交通カードはどこで購入またはチャージできますか？",      es: "¿Dónde puedo comprar o recargar una tarjeta de transporte?",
+      fr: "Où puis-je acheter ou recharger une carte de transport ?",
+
+    },
+    tags: ["transport", "t-money", "recharge"],
+  },
+  {
+    id: "phrase_022",
+    category: "transport",
+    situation: "Ask if this bus or train goes to your destination",
+    korean: "이 버스가 이곳에 가나요?",
+    romanization: "I beoseu-ga igose ganayo?",
+    english: "Does this bus go to this place?",
+    translations: {
+      zh: "这辆公交车去这个地方吗？",
+      ja: "このバスはここに行きますか？",      es: "¿Este autobús va a este lugar?",
+      fr: "Ce bus va-t-il à cet endroit ?",
+
+    },
+    tags: ["transport", "bus", "route"],
+  },
+  {
+    id: "phrase_023",
+    category: "transport",
+    situation: "Ask staff which exit to use",
+    korean: "몇 번 출구로 나가야 하나요?",
+    romanization: "Myeot beon chulgu-ro nagaya hanayo?",
+    english: "Which exit should I use?",
+    translations: {
+      zh: "我应该从几号出口出去？",
+      ja: "何番出口から出ればいいですか？",      es: "¿Qué salida debo usar?",
+      fr: "Quelle sortie dois-je prendre ?",
+
+    },
+    tags: ["transport", "station", "exit"],
   },
   {
     id: "phrase_024",
@@ -279,7 +355,9 @@ export const phrases: PhraseCard[] = [
     english: "Can I get help in English?",
     translations: {
       zh: "可以用英语帮助我吗？",
-      ja: "英語でサポートを受けられますか？",
+      ja: "英語でサポートを受けられますか？",      es: "¿Puedo recibir ayuda en inglés?",
+      fr: "Puis-je obtenir de l’aide en anglais ?",
+
     },
     tags: ["settlement", "government", "english"],
   },
@@ -292,7 +370,9 @@ export const phrases: PhraseCard[] = [
     english: "What documents do I need?",
     translations: {
       zh: "需要什么文件？",
-      ja: "どんな書類が必要ですか？",
+      ja: "どんな書類が必要ですか？",      es: "¿Qué documentos necesito?",
+      fr: "Quels documents me faut-il ?",
+
     },
     tags: ["settlement", "documents", "admin"],
   },
@@ -305,7 +385,9 @@ export const phrases: PhraseCard[] = [
     english: "When is the deadline?",
     translations: {
       zh: "截止日期是什么时候？",
-      ja: "締め切りはいつですか？",
+      ja: "締め切りはいつですか？",      es: "¿Cuándo es la fecha límite?",
+      fr: "Quelle est la date limite ?",
+
     },
     tags: ["settlement", "deadline", "admin"],
   },

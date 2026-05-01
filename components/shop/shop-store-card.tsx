@@ -3,7 +3,9 @@
 import { Bookmark, BookmarkCheck, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { SourceDisclosure } from "@/components/common/source-disclosure";
+import { LiveOpenStatusBadge } from "@/components/common/live-open-status-badge";
 import { TrustBadgeRow } from "@/components/common/trust-badge-row";
+import { MapPreviewCard } from "@/components/common/map-preview-card";
 import { ShopStore } from "@/types";
 import { useAppStore } from "@/store/app-store";
 import { getShopTrustBadges } from "@/lib/trust-badges";
@@ -39,8 +41,19 @@ export function ShopStoreCard({ store, onSelect }: ShopStoreCardProps) {
       </div>
 
       <p className="mt-3 text-sm leading-relaxed text-gray-600">{lt(store.description)}</p>
+      <div className="mt-3"><LiveOpenStatusBadge metadata={store} /></div>
       <TrustBadgeRow badges={trustBadges} compact />
       <SourceDisclosure metadata={store} compact className="mt-3" />
+      <MapPreviewCard
+        compact
+        className="mt-3"
+        target={{
+          id: store.id,
+          name: store.name,
+          district: store.district,
+          mapLink: store.mapLink,
+        }}
+      />
 
       <div className="mt-4 flex items-center gap-2">
         <button type="button" onClick={onSelect} className="inline-flex flex-1 items-center justify-center rounded-xl bg-emerald-600 px-3 py-2.5 text-sm font-medium text-white">

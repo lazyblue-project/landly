@@ -5,11 +5,12 @@ import { ArrowRight, BadgeCheck, BadgePercent, CalendarDays, Gift, Sparkles } fr
 import { promotionEvents } from "@/data/promo-events";
 import { officialStampGoals } from "@/data/stamp-catalog";
 import { partnerOffers } from "@/data/partner-offers";
-import { useAppStore } from "@/store/app-store";
+import { isPartnerOffersEnabled } from "@/lib/feature-flags";
 import { useLocalizedText } from "@/lib/text-localizer";
+import { useAppStore } from "@/store/app-store";
 
 export function RetentionLoopStrip() {
-  const { completedStampGoalIds, interestedPromotionIds, savedPromotionIds, bookedPromotionIds, calendarEvents } = useAppStore();
+  const { completedStampGoalIds, interestedPromotionIds, savedPromotionIds, bookedPromotionIds, calendarEvents, isBetaTester } = useAppStore();
   const { lt } = useLocalizedText();
   const openStampCount = officialStampGoals.filter((goal) => !completedStampGoalIds.includes(goal.id)).length;
   const promoActions = interestedPromotionIds.length + savedPromotionIds.length + bookedPromotionIds.length;
@@ -49,7 +50,7 @@ export function RetentionLoopStrip() {
       icon: CalendarDays,
       tone: "bg-sky-50 text-sky-700 ring-sky-100",
     },
-  ];
+  ].filter((card) => card.id !== "partners" || isPartnerOffersEnabled(isBetaTester));
 
   return (
     <section className="px-4 pb-4">

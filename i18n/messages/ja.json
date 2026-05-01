@@ -1,0 +1,71 @@
+{
+  "app": {
+    "name": "Landly",
+    "tagline": "韓国生活ガイド"
+  },
+  "nav": {
+    "home": "ホーム",
+    "pass": "パス",
+    "explore": "探す",
+    "assistant": "会話",
+    "life": "生活",
+    "my": "マイ",
+    "more": "その他",
+    "shop": "買い物",
+    "care": "医療",
+    "sos": "SOS",
+    "stay": "滞在"
+  },
+  "language": {
+    "support_full_label": "完全UI対応",
+    "support_beta_ui_label": "ベータUI + フレーズ対応",
+    "support_phrase_label": "フレーズ対応",
+    "support_partial_label": "翻訳進行中"
+  },
+  "onboarding": {
+    "personalize": "パーソナライズ",
+    "step_language": "言語を選択してください",
+    "subtitle": "韓国での体験をあなた向けに設定します",
+    "step_purpose": "韓国訪問の目的は何ですか？",
+    "purpose_tourism": "観光",
+    "purpose_business": "ビジネス",
+    "purpose_study": "留学",
+    "purpose_work": "仕事",
+    "purpose_residence": "長期滞在",
+    "step_duration": "滞在期間はどのくらいですか？",
+    "duration_under_1week": "1週間未満",
+    "duration_1_4weeks": "1〜4週間",
+    "duration_1_3months": "1〜3か月",
+    "duration_over_3months": "3か月以上",
+    "step_city": "現在どの都市にいますか？",
+    "step_need": "最初に必要なサポートは？",
+    "btn_next": "次へ",
+    "btn_done": "始める",
+    "btn_skip": "今はスキップ",
+    "v45_fast_start_subtitle": "まずは主なモードだけ選択してください。滞在期間、都市、最初に必要な機能は後でマイページで変更できます。",
+    "v45_optional_title": "任意のクイック設定",
+    "v45_optional_desc": "今はスキップしても大丈夫です。これらの選択はホームのおすすめを調整するためだけに使われます。",
+    "need_airport_transport": "空港 / 交通",
+    "need_shopping_refund": "買い物 / 免税還付",
+    "need_hospital_pharmacy": "病院 / 薬局",
+    "need_korean_phrases": "韓国語フレーズ",
+    "need_long_stay_setup": "長期滞在準備",
+    "need_emergency_help": "緊急ヘルプ"
+  },
+  "global_search": {
+    "eyebrow": "クイック検索",
+    "title": "フレーズ、医療、場所、SOSを検索",
+    "placeholder": "アレルギー、タクシー、119、還付、パスポート...",
+    "clear": "検索をクリア",
+    "all": "すべて",
+    "help": "どのタブにあるか分からないフレーズ、病院、還付手順、公式情報、緊急フローを探すときに使います。",
+    "empty": "一致する項目がありません。別の単語で検索してください。",
+    "category_phrase": "フレーズ",
+    "category_place": "場所",
+    "category_care": "医療",
+    "category_sos": "SOS",
+    "category_shop": "買い物",
+    "category_stay": "滞在",
+    "category_official": "公式"
+  }
+}

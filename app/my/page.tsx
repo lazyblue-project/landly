@@ -7,6 +7,7 @@ import { PageSkeleton } from "@/components/common/page-skeleton";
 import { ProfileSummary } from "@/components/profile/profile-summary";
 import { MyRetentionSnapshot } from "@/components/profile/my-retention-snapshot";
 import { PersonalizationInsightsPanel } from "@/components/profile/personalization-insights-panel";
+import { DataExportCard } from "@/components/profile/data-export-card";
 import { OfflinePrepChecklist } from "@/components/offline/offline-prep-checklist";
 import { SavedItemsHub } from "@/components/profile/saved-items-hub";
 import { ReminderCenter } from "@/components/profile/reminder-center";
@@ -24,6 +25,7 @@ export default function MyPage() {
       {hasHydrated ? (
         <>
           <ProfileSummary />
+          <DataExportCard />
           <MyRetentionSnapshot />
           <PersonalizationInsightsPanel />
           <OfflinePrepChecklist />

@@ -10,7 +10,11 @@
     "assistant": "회화",
     "life": "생활",
     "my": "내 정보",
-    "more": "더보기"
+    "more": "더보기",
+    "shop": "쇼핑",
+    "care": "의료",
+    "sos": "SOS",
+    "stay": "정착"
   },
   "onboarding": {
     "welcome": "Landly에 오신 것을 환영합니다",
@@ -47,7 +51,10 @@
     "need_emergency_help": "긴급 도움",
     "need_emergency_help_desc": "SOS 흐름, 긴급 전화번호, 긴급 문구를 빠르게 열 수 있게 준비합니다.",
     "launch_preview_label": "첫 홈 설정",
-    "launch_city_suffix": "도시:"
+    "launch_city_suffix": "도시:",
+    "v45_fast_start_subtitle": "지금은 핵심 모드만 고르세요. 체류기간, 도시, 첫 필요 기능은 나중에 내 정보에서 바꿀 수 있어요.",
+    "v45_optional_title": "선택 quick setup",
+    "v45_optional_desc": "지금 건너뛰어도 괜찮아요. 이 선택은 홈 추천을 조금 더 맞춤화하는 용도입니다."
   },
   "home": {
     "greeting": "안녕하세요, {name}님!",
@@ -287,10 +294,13 @@
     "home_desc": "Landly가 이동 전 구글 지도, 네이버 지도, 한국어 문구, 백업 체크를 함께 준비해요."
   },
   "language": {
-    "support_full_label": "전체 UI",
-    "support_phrase_label": "문구 번역 지원",
+    "support_full_label": "전체 UI 지원",
+    "support_phrase_label": "문구 지원",
     "support_full_desc": "메뉴와 문구 카드가 이 언어로 제공됩니다.",
-    "support_phrase_desc": "메뉴는 영어로 유지되고, 문구 카드는 가능한 경우 이 언어로 표시됩니다."
+    "support_phrase_desc": "메뉴는 영어로 유지되고, 문구 카드는 가능한 경우 이 언어로 표시됩니다.",
+    "support_partial_label": "번역 진행 중",
+    "support_partial_desc": "메뉴는 영어로 유지되고, 핵심 문구는 일부만 번역되어 있습니다.",
+    "support_beta_ui_label": "베타 UI + 문구 지원"
   },
   "Arrival route first": "도착 경로 먼저",
   "Start with airport routes, map handoff, and the first 72-hour arrival checklist.": "공항 경로, 지도 연결, 도착 후 72시간 체크리스트부터 시작하세요.",
@@ -326,5 +336,21 @@
   "Open SOS": "SOS 열기",
   "Run SOS test": "SOS 테스트 실행",
   "Review official-source rules": "공식 출처 규칙 확인",
-  "Emergency flows should prioritize official numbers and scripts, not commercial offers.": "긴급 흐름은 상업 제안이 아니라 공식 번호와 문구를 우선해야 합니다."
+  "Emergency flows should prioritize official numbers and scripts, not commercial offers.": "긴급 흐름은 상업 제안이 아니라 공식 번호와 문구를 우선해야 합니다.",
+  "global_search": {
+    "eyebrow": "빠른 검색",
+    "title": "문구, 의료, 장소, SOS를 한 번에 검색",
+    "placeholder": "알레르기, 택시, 119, 환급, 여권을 검색해 보세요...",
+    "clear": "검색 지우기",
+    "all": "전체",
+    "help": "어느 탭에 있는지 기억나지 않는 문구, 병원, 환급 단계, 공식 출처, 긴급 흐름을 바로 찾을 때 사용하세요.",
+    "empty": "일치하는 항목이 없습니다. 더 넓은 단어로 검색해 보세요.",
+    "category_phrase": "문구",
+    "category_place": "장소",
+    "category_care": "의료",
+    "category_sos": "SOS",
+    "category_shop": "쇼핑",
+    "category_stay": "정착",
+    "category_official": "공식"
+  }
 }

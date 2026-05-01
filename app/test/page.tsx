@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { CalendarDays, HeartPulse, Languages, LifeBuoy, MessageSquareText, Plane, ReceiptText, ShieldAlert, Sparkles } from "lucide-react";
+import { CalendarDays, HeartPulse, Languages, LifeBuoy, LockKeyhole, MessageSquareText, Plane, ReceiptText, ShieldAlert, Sparkles, ToggleLeft, ToggleRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
@@ -18,7 +18,9 @@ import { getOnboardingLaunchAction } from "@/data/onboarding-launch-actions";
 import { pilotQaChecks } from "@/data/pilot-qa-checks";
 import { useAppStore } from "@/store/app-store";
 import type { BetaMissionId } from "@/types";
+import { isBetaToolsEnabled } from "@/lib/feature-flags";
 import { useLocalizedText } from "@/lib/text-localizer";
+import { cn } from "@/lib/utils";
 
 interface BetaMission {
   id: BetaMissionId;
@@ -133,6 +135,8 @@ export default function TestPage() {
   const completedBetaMissionIds = useAppStore((state) => state.completedBetaMissionIds);
   const betaFeedbackRecords = useAppStore((state) => state.betaFeedbackRecords);
   const completedPilotQaCheckIds = useAppStore((state) => state.completedPilotQaCheckIds);
+  const isBetaTester = useAppStore((state) => state.isBetaTester);
+  const setBetaTester = useAppStore((state) => state.setBetaTester);
   const togglePilotQaCheck = useAppStore((state) => state.togglePilotQaCheck);
   const toggleBetaMissionCompleted = useAppStore((state) => state.toggleBetaMissionCompleted);
   const addBetaFeedbackRecord = useAppStore((state) => state.addBetaFeedbackRecord);
@@ -159,6 +163,25 @@ export default function TestPage() {
     );
   }
 
+  if (!isBetaToolsEnabled(isBetaTester)) {
+    return (
+      <AppShell>
+        <TopBar title={lt("Beta test guide")} showBack />
+        <div className="px-4 py-4">
+          <section className="rounded-3xl border border-gray-100 bg-white p-5 text-center shadow-sm">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-50 text-gray-600">
+              <LockKeyhole size={20} />
+            </div>
+            <p className="mt-4 text-base font-bold text-gray-950">{lt("Beta tools are hidden")}</p>
+            <p className="mt-2 text-sm leading-relaxed text-gray-600">
+              {lt("This testing guide is separated from the regular product experience. Enable NEXT_PUBLIC_ENABLE_BETA_TOOLS=true for tester builds.")}
+            </p>
+          </section>
+        </div>
+      </AppShell>
+    );
+  }
+
   const completedCount = missions.filter((mission) => completedBetaMissionIds.includes(mission.id)).length;
 
   return (
@@ -181,6 +204,31 @@ export default function TestPage() {
         </section>
 
         <BetaTestCommandCenter completedCount={completedCount} feedbackCount={betaFeedbackRecords.length} missionTotal={missions.length} />
+
+        <section className="rounded-3xl border border-gray-100 bg-white p-4 shadow-sm">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">{lt("Home access")}</p>
+              <h2 className="mt-1 text-base font-bold text-gray-950">{lt("Show beta panel on Home")}</h2>
+              <p className="mt-1 text-xs leading-relaxed text-gray-500">
+                {lt("Keep test missions hidden from regular users unless this local tester switch is on.")}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setBetaTester(!isBetaTester)}
+              className={cn(
+                "inline-flex shrink-0 items-center gap-2 rounded-2xl px-3 py-2 text-xs font-bold ring-1 transition-colors",
+                isBetaTester
+                  ? "bg-violet-50 text-violet-700 ring-violet-100"
+                  : "bg-gray-50 text-gray-500 ring-gray-100"
+              )}
+            >
+              {isBetaTester ? <ToggleRight size={18} /> : <ToggleLeft size={18} />}
+              {lt(isBetaTester ? "On" : "Off")}
+            </button>
+          </div>
+        </section>
 
         <PilotQaChecklist
           checks={pilotQaChecks}

@@ -7,6 +7,7 @@ import { SectionHeader } from "@/components/common/section-header";
 import { useAppStore } from "@/store/app-store";
 import { lifeChecklist } from "@/data/life-checklist";
 import { ChecklistCategory } from "@/types";
+import { useLocalizedText } from "@/lib/text-localizer";
 
 const categories: { value: ChecklistCategory | "all"; label: string }[] = [
   { value: "all", label: "All" },
@@ -29,7 +30,9 @@ interface LifeChecklistProps {
 
 export function LifeChecklist({ initialCategory = "all", category: controlledCategory, onCategoryChange }: LifeChecklistProps) {
   const [internalCategory, setInternalCategory] = useState<ChecklistCategory | "all">(initialCategory);
-  const { user, toggleChecklistItem } = useAppStore();
+  const completedChecklistIds = useAppStore((state) => state.user.completedChecklistIds);
+  const toggleChecklistItem = useAppStore((state) => state.toggleChecklistItem);
+  const { lt } = useLocalizedText();
 
   useEffect(() => {
     setInternalCategory(initialCategory);
@@ -48,15 +51,15 @@ export function LifeChecklist({ initialCategory = "all", category: controlledCat
       ? lifeChecklist
       : lifeChecklist.filter((item) => item.category === category);
 
-  const completedCount = user.completedChecklistIds.length;
+  const completedCount = completedChecklistIds.length;
   const totalCount = lifeChecklist.length;
 
   return (
     <div>
       <div className="border-b border-gray-100 bg-white px-4 py-3">
         <SectionHeader
-          title={`${completedCount} / ${totalCount} completed`}
-          subtitle="Tap an item to expand details"
+          title={`${completedCount} / ${totalCount} ${lt("completed")}`}
+          subtitle={lt("Tap an item to expand details")}
         />
         <div className="mt-2 h-2 w-full rounded-full bg-gray-100">
           <div
@@ -70,7 +73,7 @@ export function LifeChecklist({ initialCategory = "all", category: controlledCat
         {categories.map(({ value, label }) => (
           <FilterChip
             key={value}
-            label={label}
+            label={lt(label)}
             active={category === value}
             onClick={() => handleCategoryChange(value)}
           />
@@ -82,7 +85,7 @@ export function LifeChecklist({ initialCategory = "all", category: controlledCat
           <ChecklistItem
             key={item.id}
             item={item}
-            isCompleted={user.completedChecklistIds.includes(item.id)}
+            isCompleted={completedChecklistIds.includes(item.id)}
             onToggle={() => toggleChecklistItem(item.id)}
           />
         ))}
