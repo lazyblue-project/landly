@@ -9,3 +9,7 @@ export function isPartnerOffersEnabled(isBetaTester = false) {
 export function isFeedbackApiEnabled() {
   return process.env.NEXT_PUBLIC_ENABLE_FEEDBACK_API === "true";
 }
+
+export function isAdminToolsEnabled(isBetaTester = false) {
+  return process.env.NEXT_PUBLIC_ENABLE_ADMIN_TOOLS === "true" || isBetaToolsEnabled(isBetaTester);
+}

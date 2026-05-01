@@ -1,6 +1,6 @@
 # Landly — Developer Context for AI-Assisted Development
 
-> Current baseline: **v50** — Beta Launch Feedback Loop  
+> Current baseline: **v51** — Beta Launch Feedback Loop  
 > Date: 2026-05-02
 
 ## Project overview
@@ -33,7 +33,7 @@ npm run build
 
 ## Current data model
 
-Landly is still an MVP/prototype build. It uses static/demo data and localStorage. v47 added API route shells for map preview and place discovery. v48 added local data portability. v49 added release guardrails, health checks, and safe route fallbacks. v50 adds in-app feedback capture and a guarded feedback API shell.
+Landly is still an MVP/prototype build. It uses static/demo data and localStorage. v47 added API route shells for map preview and place discovery. v48 added local data portability. v49 added release guardrails, health checks, and safe route fallbacks. v51 adds in-app feedback capture and a guarded feedback API shell.
 
 Important trust rule: demo/static information must stay clearly labeled and should not be treated as guaranteed live information.
 
@@ -78,7 +78,7 @@ Important trust rule: demo/static information must stay clearly labeled and shou
 - Trust Center release-readiness panel.
 - `scripts/audit-release-readiness.mjs`.
 
-### v50 implementation summary
+### v51 implementation summary
 
 #### 1. In-app feedback capture
 
@@ -112,7 +112,7 @@ New persisted state:
 userFeedbackRecords
 ```
 
-Backups now include `userFeedbackRecords` and use metadata version `v50`.
+Backups now include `userFeedbackRecords` and use metadata version `v51`.
 
 #### 3. My feedback insights
 
@@ -171,9 +171,71 @@ Package command:
 npm run audit:feedback
 ```
 
-## Next recommended direction after v50
+## Next recommended direction after v51
 
 1. Run a closed beta with 5-10 users and collect local feedback exports.
 2. Convert repeated `confusing`, `missing`, and `bug` notes into a v51 product patch.
 3. Only then connect `/api/feedback` to real storage or a private webhook.
 4. Keep live map/place/care APIs in fallback mode until provider terms, caching, quota, and source freshness labels are finalized.
+
+
+### v51 implementation summary
+
+#### 1. Operator Insights route
+
+New files:
+
+```text
+app/admin/page.tsx
+components/admin/operator-insights-dashboard.tsx
+```
+
+The route is guarded by local beta tester mode or `NEXT_PUBLIC_ENABLE_ADMIN_TOOLS=true`. It summarizes feedback, translation QA, saved activity, schedule activity, tester progress, guarded feature status, and exports a local operator snapshot.
+
+#### 2. Admin gate and navigation
+
+Updated files:
+
+```text
+lib/feature-flags.ts
+app/more/page.tsx
+components/layout/bottom-nav.tsx
+.env.example
+```
+
+New feature flag:
+
+```bash
+NEXT_PUBLIC_ENABLE_ADMIN_TOOLS=false
+```
+
+#### 3. Release metadata and audits
+
+Updated files:
+
+```text
+lib/release-metadata.ts
+data/release-readiness.ts
+app/api/health/route.ts
+public/sw.js
+components/profile/data-export-card.tsx
+components/profile/feedback-insights-panel.tsx
+```
+
+New file:
+
+```text
+scripts/audit-admin-readiness.mjs
+```
+
+Package command:
+
+```bash
+npm run audit:admin
+```
+
+## Next recommended direction after v51
+
+1. Run closed-beta sessions and export `landly-operator-snapshot-YYYY-MM-DD.json` from /admin.
+2. Fix the highest-confusion route before adding broad live-data features.
+3. Consider private feedback storage only after privacy copy, retention policy, and operator workflow are defined.

@@ -35,6 +35,7 @@ const morePrefixes = [
   "/promotions",
   "/trust",
   "/my",
+  "/admin",
 ];
 
 function isNavActive(pathname: string, href: string) {

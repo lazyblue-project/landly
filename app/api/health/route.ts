@@ -29,6 +29,7 @@ export async function GET() {
         betaTools: process.env.NEXT_PUBLIC_ENABLE_BETA_TOOLS === "true",
         partners: process.env.NEXT_PUBLIC_ENABLE_PARTNERS === "true",
         feedbackApi: process.env.NEXT_PUBLIC_ENABLE_FEEDBACK_API === "true",
+        adminTools: process.env.NEXT_PUBLIC_ENABLE_ADMIN_TOOLS === "true",
       },
       providerKeys: {
         kakaoRestApiKey: isConfigured(process.env.KAKAO_REST_API_KEY),
@@ -41,6 +42,7 @@ export async function GET() {
         mapPreview: "/api/map-preview",
         placeDiscovery: "/api/place-discovery",
         feedback: "/api/feedback",
+        admin: "/admin",
       },
       dataMode: "fallback-first",
     },

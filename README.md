@@ -1,10 +1,10 @@
-# Landly v50
+# Landly v51
 
 Landly is a mobile-first Next.js PWA for foreigners visiting or settling in Korea. It focuses on practical action flows: airport arrival, transport, tax refund readiness, care/pharmacy help, SOS scripts, Korean phrases, long-stay setup, saved items, offline safety, trust/freshness checks, and beta feedback loops.
 
 ## Current build
 
-- Version focus: **v50 — Beta Launch Feedback Loop**
+- Version focus: **v51 — Operator Insights & Beta Triage**
 - Framework: Next.js 16 App Router + React 19 + TypeScript
 - State: Zustand persisted to localStorage (`landly-app-store`)
 - Styling: Tailwind CSS v4
@@ -26,8 +26,16 @@ Landly is a mobile-first Next.js PWA for foreigners visiting or settling in Kore
 - Added **Feedback loop** insights and JSON export in `/my`.
 - Added guarded `/api/feedback` route shell for future webhook/database wiring.
 - Added `npm run audit:feedback` and included it in release readiness checks.
-- Updated `/api/health` to report feedback API feature flag state and the feedback API shell.
-- Updated service worker cache version and JSON backup metadata to v50.
+
+## What changed in v51
+
+- Added guarded `/admin` Operator Insights dashboard.
+- Added local operator snapshot JSON export.
+- Added admin feature flag `NEXT_PUBLIC_ENABLE_ADMIN_TOOLS`.
+- Added beta-tools entry from More to Operator Insights.
+- Updated `/api/health` to report admin tooling state.
+- Added `npm run audit:admin`.
+- Updated service worker cache version and export metadata to v51.
 
 ## Getting started
 
@@ -47,6 +55,7 @@ http://localhost:3001
 ```bash
 npm run audit:phrases
 npm run audit:feedback
+npm run audit:admin
 npm run audit:release
 npm run lint
 npm run build
@@ -57,6 +66,7 @@ npm run build
 ```text
 /api/health
 /api/feedback      # POST only; validates feedback payloads
+/admin             # guarded operator insights
 /trust
 /my
 /offline
@@ -73,6 +83,7 @@ Copy `.env.example` to `.env.local`.
 NEXT_PUBLIC_APP_ENV=development
 NEXT_PUBLIC_FEEDBACK_URL=https://forms.gle/your-form-id
 NEXT_PUBLIC_ENABLE_FEEDBACK_API=false
+NEXT_PUBLIC_ENABLE_ADMIN_TOOLS=false
 LANDLY_FEEDBACK_WEBHOOK_URL=
 NEXT_PUBLIC_ENABLE_BETA_TOOLS=false
 NEXT_PUBLIC_ENABLE_PARTNERS=false
@@ -91,4 +102,4 @@ WEB_PUSH_VAPID_PRIVATE_KEY=
 
 ## Product notes
 
-Landly still does **not** guarantee live place, map, refund, or medical data. v50 intentionally focuses on beta launch learning: collect user confusion points, export feedback, and use repeated notes to decide the next patch. Keep `/api/feedback` guarded until server-side storage, privacy copy, and webhook/database ownership are finalized.
+Landly still does **not** guarantee live place, map, refund, or medical data. v51 intentionally focuses on closed-beta operation: review local tester signals in `/admin`, export operator snapshots, and use repeated confusion points to decide the next patch. Keep `/api/feedback` guarded until server-side storage, privacy copy, and webhook/database ownership are finalized.

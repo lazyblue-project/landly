@@ -1,9 +1,9 @@
-export const LANDLY_RELEASE_VERSION = "v50";
-export const LANDLY_RELEASE_NAME = "Beta Launch Feedback Loop";
+export const LANDLY_RELEASE_VERSION = "v51";
+export const LANDLY_RELEASE_NAME = "Operator Insights & Beta Triage";
 export const LANDLY_RELEASE_DATE = "2026-05-02";
 
 export const LANDLY_RELEASE_SUMMARY =
-  "Adds a production-safe in-app feedback loop, local feedback insights, and a guarded feedback API stub for beta launch learning.";
+  "Adds a guarded Operator Insights page for beta triage, local release metrics, translation QA summaries, and operator snapshot export.";
 
 export const LANDLY_CORE_ROUTES = [
   "/",
@@ -21,6 +21,7 @@ export const LANDLY_CORE_ROUTES = [
   "/calendar",
   "/explore",
   "/more",
+  "/admin",
 ] as const;
 
 export const LANDLY_RELEASE_CHECKS = [
@@ -37,10 +38,16 @@ export const LANDLY_RELEASE_CHECKS = [
     detail: "/api/health exposes release version, feature flag state, provider key presence, API shells, and core route count.",
   },
   {
+    id: "operator-insights",
+    label: "Operator insights",
+    status: "ready",
+    detail: "A guarded /admin page summarizes feedback, translation QA, saved-item activity, feature flags, and exports an operator snapshot.",
+  },
+  {
     id: "feedback-loop",
     label: "In-app feedback loop",
     status: "ready",
-    detail: "Every FeedbackPrompt can save page-level notes locally, and My shows feedback counts, average score, categories, and JSON export.",
+    detail: "FeedbackPrompt can save page-level notes locally, and My shows feedback counts, average score, categories, and JSON export."
   },
   {
     id: "feedback-api-stub",
