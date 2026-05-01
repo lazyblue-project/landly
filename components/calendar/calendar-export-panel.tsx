@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDown, CheckCircle2, ExternalLink } from "lucide-react";
+import { CalendarIcon, CheckCircle2, ExternalLink } from "lucide-react";
 import type { CalendarEvent } from "@/types";
 import { downloadIcsCalendar } from "@/lib/ics-export";
 import { useLocalizedText } from "@/lib/text-localizer";
@@ -34,7 +34,7 @@ export function CalendarExportPanel({ events }: CalendarExportPanelProps) {
     <section className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 shadow-sm">
       <div className="flex items-start gap-3">
         <div className="rounded-2xl bg-white p-2 text-emerald-700 ring-1 ring-emerald-100">
-          <CalendarDown size={18} />
+          <CalendarIcon size={18} />
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-bold text-gray-950">{lt("Export to external calendar")}</p>
