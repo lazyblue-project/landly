@@ -111,6 +111,7 @@ interface AppState {
   addManualReminder: (item: ReminderItem) => void;
   removeManualReminder: (id: string) => void;
   toggleReminderDone: (id: string) => void;
+  importBackupSnapshot: (snapshot: Record<string, unknown>) => string[];
 }
 
 type PersistedAppState = Pick<
@@ -145,6 +146,51 @@ type PersistedAppState = Pick<
   | "completedReminderIds"
   | "isBetaTester"
 >;
+
+const RESTORABLE_BACKUP_KEYS: Array<keyof PersistedAppState> = [
+  "user",
+  "savedPassPlans",
+  "savedShopStoreIds",
+  "receiptRecords",
+  "savedCareProviderIds",
+  "visitPrepNotes",
+  "stayPlanInput",
+  "stayDocuments",
+  "savedStayResourceIds",
+  "calendarEvents",
+  "customStampGoals",
+  "completedStampGoalIds",
+  "interestedPromotionIds",
+  "savedPromotionIds",
+  "bookedPromotionIds",
+  "savedPartnerOfferIds",
+  "requestedPartnerOfferIds",
+  "acknowledgedPartnerDisclosureIds",
+  "departureDate",
+  "companions",
+  "completedArrival72TaskIds",
+  "completedStayMissionIds",
+  "completedBetaMissionIds",
+  "betaFeedbackRecords",
+  "translationFeedbackRecords",
+  "completedPilotQaCheckIds",
+  "manualReminderItems",
+  "completedReminderIds",
+  "isBetaTester",
+];
+
+function pickRestorableBackupPatch(snapshot: Record<string, unknown>) {
+  const patch: Partial<PersistedAppState> = {};
+
+  RESTORABLE_BACKUP_KEYS.forEach((key) => {
+    const value = snapshot[key as string];
+    if (value !== undefined) {
+      (patch as Record<string, unknown>)[key] = value;
+    }
+  });
+
+  return patch;
+}
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -447,6 +493,17 @@ export const useAppStore = create<AppState>()(
             ? state.completedReminderIds.filter((item) => item !== id)
             : [id, ...state.completedReminderIds],
         })),
+
+      importBackupSnapshot: (snapshot) => {
+        const patch = pickRestorableBackupPatch(snapshot);
+        const appliedKeys = Object.keys(patch);
+
+        if (appliedKeys.length > 0) {
+          set(patch as Partial<AppState>);
+        }
+
+        return appliedKeys;
+      },
     }),
     {
       name: "landly-app-store",

@@ -11,7 +11,7 @@ interface AppShellProps {
 
 export function AppShell({ children, hideNav = false, className }: AppShellProps) {
   return (
-    <div className="relative min-h-screen bg-gray-50 max-w-md mx-auto">
+    <div className="relative min-h-screen bg-gray-50 max-w-md mx-auto dark:bg-gray-950">
       <main className={cn("pb-[calc(5rem+env(safe-area-inset-bottom))]", className)}>{children}</main>
       <SnackbarHost />
       {!hideNav && <FloatingActionHub />}

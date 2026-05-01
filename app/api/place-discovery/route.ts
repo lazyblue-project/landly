@@ -7,6 +7,10 @@ function normalize(value: string) {
   return value.toLowerCase().trim();
 }
 
+function isTourApiConfigured() {
+  return Boolean(process.env.TOURAPI_SERVICE_KEY);
+}
+
 export function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const query = normalize(searchParams.get("q") ?? "");
@@ -19,11 +23,22 @@ export function GET(request: NextRequest) {
     .filter((place) => !category || normalize(place.category) === category)
     .slice(0, 12);
 
+  const tourApiConfigured = isTourApiConfigured();
+
   return NextResponse.json({
     ok: true,
+    version: "v48",
     mode: "static-fallback",
     provider: "landly-curated-data",
-    notice: "TourAPI/live place discovery is not enabled in v47. This endpoint returns curated static data with trust labels so the UI can be wired before API keys are configured.",
+    fallbackUsed: true,
+    providerReadiness: {
+      tourApiConfigured,
+      liveFetchEnabled: false,
+      reason: tourApiConfigured
+        ? "TOURAPI_SERVICE_KEY exists, but live fetching is intentionally disabled until category mapping, caching, and trust/freshness labels are finalized."
+        : "TOURAPI_SERVICE_KEY is not configured.",
+    },
+    notice: "v48 returns curated static data with trust labels. This keeps the frontend contract stable before live provider calls are enabled.",
     query: { q: query, city, category },
     count: filtered.length,
     results: filtered.map((place) => ({

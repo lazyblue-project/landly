@@ -128,3 +128,50 @@
     @apply font-sans;
   }
 }
+
+/* Landly v48 dark-mode bridge.
+   Most MVP components still use Tailwind utility colors directly. These scoped
+   overrides let the app respect the root .dark class before every card is
+   individually refactored with dark: utilities. */
+@layer utilities {
+  .dark .bg-white {
+    background-color: rgb(17 24 39 / 0.98);
+  }
+
+  .dark .bg-gray-50 {
+    background-color: rgb(15 23 42 / 1);
+  }
+
+  .dark .bg-gray-100 {
+    background-color: rgb(2 6 23 / 1);
+  }
+
+  .dark .border-gray-100,
+  .dark .border-gray-200 {
+    border-color: rgb(55 65 81 / 0.9);
+  }
+
+  .dark .text-gray-950,
+  .dark .text-gray-900,
+  .dark .text-gray-800 {
+    color: rgb(248 250 252 / 1);
+  }
+
+  .dark .text-gray-700,
+  .dark .text-gray-600 {
+    color: rgb(203 213 225 / 1);
+  }
+
+  .dark .text-gray-500,
+  .dark .text-gray-400 {
+    color: rgb(148 163 184 / 1);
+  }
+
+  .dark input,
+  .dark textarea,
+  .dark select {
+    background-color: rgb(15 23 42 / 1);
+    color: rgb(248 250 252 / 1);
+    border-color: rgb(55 65 81 / 0.9);
+  }
+}

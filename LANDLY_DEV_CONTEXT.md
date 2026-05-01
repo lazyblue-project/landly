@@ -1,7 +1,7 @@
 # Landly — Developer Context for AI-Assisted Development
 
-> Current baseline: **v47** — API-ready Map & Data Provider Pilot  
-> Date: 2026-04-30
+> Current baseline: **v49** — QA Guardrails & Release Health  
+> Date: 2026-05-02
 
 ## Project overview
 
@@ -25,17 +25,20 @@ Landly is a mobile-first PWA that helps foreigners visit or live in Korea. It is
 npm install
 npm run dev       # http://localhost:3001
 npm run audit:phrases
+npm run audit:release
 npm run lint
 npm run build
 ```
 
 ## Current data model
 
-Landly is still an MVP/prototype build. It uses static/demo data and localStorage. v47 adds API route shells for map preview and place discovery, but live provider integration is not enabled by default.
+Landly is still an MVP/prototype build. It uses static/demo data and localStorage. v47 added API route shells for map preview and place discovery. v48 added local data portability. v49 adds release guardrails, health checks, and safe route fallbacks.
 
 Important trust rule: demo/static information must stay clearly labeled and should not be treated as guaranteed live information.
 
-## v45 summary
+## Version history summary
+
+### v45
 
 - Two-step fast onboarding with optional setup.
 - Mode-based bottom navigation.
@@ -44,78 +47,110 @@ Important trust rule: demo/static information must stay clearly labeled and shou
 - Local JSON export from My.
 - Service worker cache expansion.
 
-## v46 summary
+### v46
 
 - Home global search across phrases, places, care, SOS, shop, stay, and official sources.
 - Translation issue reporting from phrase cards.
 - ja/zh beta UI dictionaries.
 - Translation feedback included in local exports.
 
-## v47 implementation summary
+### v47
 
-### 1. Map handoff and preview shell
+- Reusable Map Preview Pilot card for places, care providers, and shop stores.
+- Generated Naver/Kakao/Google map handoff links.
+- `/api/map-preview` safe route shell.
+- `/api/place-discovery` static fallback endpoint.
+- Trust Center data provider readiness panel.
+
+### v48
+
+- `/my` JSON import/export.
+- `/calendar` `.ics` export.
+- Local System/Light/Dark appearance preference.
+- Dark-mode bridge CSS.
+- API route fallback metadata.
+
+### v49 implementation summary
+
+#### 1. Safe route fallbacks
 
 New files:
 
 ```text
-lib/map-handoff.ts
-components/common/map-preview-card.tsx
-app/api/map-preview/route.ts
+app/error.tsx
+app/not-found.tsx
 ```
 
-The map preview card is now shown on:
+The error fallback lets users retry the current route or jump to Home/SOS. The not-found fallback guides users away from stale links or hidden feature-flagged routes.
 
-```text
-components/common/place-card.tsx
-components/care/care-provider-card.tsx
-components/care/care-provider-detail-sheet.tsx
-components/shop/shop-store-card.tsx
-components/shop/shop-store-detail-sheet.tsx
-```
-
-The card generates Naver/Kakao/Google search links from the place name and area. It does not expose API secrets and does not claim exact live pin accuracy.
-
-### 2. Static fallback place discovery endpoint
+#### 2. Health endpoint
 
 New file:
 
 ```text
-app/api/place-discovery/route.ts
+app/api/health/route.ts
 ```
 
-This endpoint returns curated `data/places.ts` results and exposes a future API contract before TourAPI is enabled.
+The endpoint returns release metadata, core route count, feature flag state, provider key presence, API shell paths, and fallback data mode. It uses `Cache-Control: no-store` and does not expose secret values.
 
-### 3. Data provider readiness in Trust Center
+#### 3. Release metadata and Trust Center readiness
 
 New files:
 
 ```text
-data/data-provider-pilot.ts
-components/trust/data-provider-readiness-panel.tsx
+lib/release-metadata.ts
+data/release-readiness.ts
+components/trust/release-readiness-panel.tsx
 ```
 
-The Trust Center now lists map, TourAPI, Seoul Open Data, and Web Push readiness with required keys, fallback behavior, next steps, and risk notes.
+Updated file:
 
-### 4. Environment variables
+```text
+app/trust/page.tsx
+```
 
-`.env.example` now includes future provider keys:
+Trust Center now shows release-readiness status, guarded live-data notes, and operator checklist items.
+
+#### 4. Release audit script
+
+New file:
+
+```text
+scripts/audit-release-readiness.mjs
+```
+
+Updated file:
+
+```text
+package.json
+```
+
+Run:
 
 ```bash
-KAKAO_REST_API_KEY=
-NAVER_MAP_CLIENT_ID=
-NAVER_MAP_CLIENT_SECRET=
-TOURAPI_SERVICE_KEY=
-SEOUL_OPEN_DATA_KEY=
+npm run audit:release
 ```
 
-Keep these server-side. Do not use non-public provider secrets in client components.
+The audit checks v49 required files, phrase coverage, service worker version, backup metadata version, release docs, API route shells, and Trust Center wiring.
 
-## Recommended next steps
+#### 5. Version updates
 
-### v48
+Updated files:
 
-- Add server-side map provider adapter with geocoding/static map support.
-- Add TourAPI category mapping and cache layer.
-- Add JSON import for local backups.
-- Add .ics export for saved calendar events and deadlines.
-- Add admin/source freshness review flow.
+```text
+public/sw.js
+components/profile/data-export-card.tsx
+.env.example
+README.md
+LANDLY_DEV_CONTEXT.md
+PATCH_NOTES_v49.md
+CHATGPT_HANDOFF_v49.md
+```
+
+## Recommended next step — v50
+
+v50 should focus on a controlled beta handoff package:
+
+1. Add a tester landing page or checklist summary for external reviewers.
+2. Add a lightweight issue-export bundle combining beta feedback, translation feedback, and route readiness.
+3. Start a single live provider pilot only after server-side key handling and source freshness labels are verified.

@@ -7,6 +7,7 @@ import { TrustLayerPanel } from "@/components/common/trust-layer-panel";
 import { InfoTrustCommandCenter } from "@/components/trust/info-trust-command-center";
 import { TrustChecklistBoard } from "@/components/trust/trust-checklist-board";
 import { DataProviderReadinessPanel } from "@/components/trust/data-provider-readiness-panel";
+import { ReleaseReadinessPanel } from "@/components/trust/release-readiness-panel";
 import { useLocalizedText } from "@/lib/text-localizer";
 import { useAppStore } from "@/store/app-store";
 
@@ -28,6 +29,7 @@ export default function TrustPage() {
       <TopBar title={lt("Trust Center")} showBack />
       <div className="space-y-4 px-4 py-4">
         <InfoTrustCommandCenter />
+        <ReleaseReadinessPanel />
         <DataProviderReadinessPanel />
         <TrustLayerPanel
           title="How Landly labels information"

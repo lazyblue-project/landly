@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import { HtmlLangSync } from "@/components/layout/html-lang-sync";
 import { PwaCacheProvider } from "@/components/layout/pwa-cache-provider";
+import { ThemeSync } from "@/components/layout/theme-sync";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -34,9 +35,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geist.className} bg-gray-100 antialiased`}>
+      <body className={`${geist.className} bg-gray-100 antialiased dark:bg-gray-950`}>
         <HtmlLangSync />
         <PwaCacheProvider />
+        <ThemeSync />
         {children}
       </body>
     </html>

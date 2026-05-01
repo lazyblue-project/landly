@@ -32,7 +32,7 @@ export function DataProviderReadinessPanel() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">{lt("Data provider pilot")}</p>
           <h2 className="mt-1 text-lg font-semibold text-gray-950">{lt("API-ready without overpromising live data")}</h2>
           <p className="mt-1 text-sm leading-relaxed text-gray-500">
-            {lt("v47 adds safe map handoff and API route shells first. Live providers should only be enabled after keys, quotas, fallback behavior, and source labels are confirmed.")}
+            {lt("v49 keeps safe map handoff and API route shells, then adds health checks and release-readiness guardrails before live API calls are enabled.")}
           </p>
         </div>
       </div>
