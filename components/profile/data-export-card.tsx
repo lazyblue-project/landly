@@ -31,6 +31,7 @@ const RESTORABLE_KEYS = [
   "completedBetaMissionIds",
   "betaFeedbackRecords",
   "translationFeedbackRecords",
+  "userFeedbackRecords",
   "completedPilotQaCheckIds",
   "manualReminderItems",
   "completedReminderIds",
@@ -73,7 +74,7 @@ export function DataExportCard() {
   const handleExport = () => {
     const snapshot = {
       exportedAt: new Date().toISOString(),
-      version: "v49",
+      version: "v50",
       schema: "landly-local-backup",
       user: state.user,
       savedPassPlans: state.savedPassPlans,
@@ -100,6 +101,7 @@ export function DataExportCard() {
       completedBetaMissionIds: state.completedBetaMissionIds,
       betaFeedbackRecords: state.betaFeedbackRecords,
       translationFeedbackRecords: state.translationFeedbackRecords,
+      userFeedbackRecords: state.userFeedbackRecords,
       completedPilotQaCheckIds: state.completedPilotQaCheckIds,
       manualReminderItems: state.manualReminderItems,
       completedReminderIds: state.completedReminderIds,

@@ -1,9 +1,9 @@
-export const LANDLY_RELEASE_VERSION = "v49";
-export const LANDLY_RELEASE_NAME = "QA Guardrails & Release Health";
+export const LANDLY_RELEASE_VERSION = "v50";
+export const LANDLY_RELEASE_NAME = "Beta Launch Feedback Loop";
 export const LANDLY_RELEASE_DATE = "2026-05-02";
 
 export const LANDLY_RELEASE_SUMMARY =
-  "Adds release-readiness checks, safe error fallbacks, and a lightweight health endpoint before live API rollout.";
+  "Adds a production-safe in-app feedback loop, local feedback insights, and a guarded feedback API stub for beta launch learning.";
 
 export const LANDLY_CORE_ROUTES = [
   "/",
@@ -34,13 +34,25 @@ export const LANDLY_RELEASE_CHECKS = [
     id: "health-endpoint",
     label: "Health endpoint",
     status: "ready",
-    detail: "/api/health exposes release version, feature flag state, provider key presence, and core route count.",
+    detail: "/api/health exposes release version, feature flag state, provider key presence, API shells, and core route count.",
+  },
+  {
+    id: "feedback-loop",
+    label: "In-app feedback loop",
+    status: "ready",
+    detail: "Every FeedbackPrompt can save page-level notes locally, and My shows feedback counts, average score, categories, and JSON export.",
+  },
+  {
+    id: "feedback-api-stub",
+    label: "Feedback API stub",
+    status: "guarded",
+    detail: "/api/feedback validates payloads but does not persist data until a server-side webhook or database is intentionally connected.",
   },
   {
     id: "release-audit",
     label: "Release audit script",
     status: "ready",
-    detail: "npm run audit:release checks phrase coverage, service worker version, required files, docs, and API shells.",
+    detail: "npm run audit:release checks phrase coverage, service worker version, feedback loop files, required docs, and API shells.",
   },
   {
     id: "api-live-data",

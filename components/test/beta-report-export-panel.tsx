@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { ClipboardCheck, Download, FileJson2, Share2 } from "lucide-react";
-import type { BetaFeedbackRecord, BetaMissionId, PilotQaCheck, TranslationFeedbackRecord } from "@/types";
+import type { BetaFeedbackRecord, BetaMissionId, PilotQaCheck, TranslationFeedbackRecord, UserFeedbackRecord } from "@/types";
 import { useAppStore } from "@/store/app-store";
 import { useLocalizedText } from "@/lib/text-localizer";
 
@@ -20,6 +20,7 @@ interface BetaReportExportPanelProps {
   modeLabel: string;
   languageLabel: string;
   translationFeedbackRecords?: TranslationFeedbackRecord[];
+  userFeedbackRecords?: UserFeedbackRecord[];
 }
 
 type ExportStatus = "idle" | "copied" | "downloaded" | "failed";
@@ -61,6 +62,7 @@ function buildReportPayload({
   modeLabel,
   languageLabel,
   translationFeedbackRecords = [],
+  userFeedbackRecords = [],
 }: BetaReportExportPanelProps) {
   const requiredChecks = qaChecks.filter((check) => check.required);
   const requiredDone = requiredChecks.filter((check) => completedQaCheckIds.includes(check.id)).length;
@@ -68,7 +70,7 @@ function buildReportPayload({
   return {
     generatedAt: new Date().toISOString(),
     app: "Landly",
-    version: "v46",
+    version: "v50",
     testerContext: {
       mode: modeLabel,
       language: languageLabel,
@@ -98,6 +100,7 @@ function buildReportPayload({
       missionTitle: missionTitle(missions, record.missionId),
     })),
     translationFeedback: translationFeedbackRecords,
+    userFeedback: userFeedbackRecords,
   };
 }
 
@@ -119,6 +122,14 @@ function buildMarkdownReport(payload: ReturnType<typeof buildReportPayload>) {
     "## Feedback notes",
     payload.feedback.length === 0 ? "No feedback notes yet." : payload.feedback.map((record, index) => [
       `${index + 1}. ${record.missionTitle} · ${record.mood} · ${record.rating}/5`,
+      `Created: ${record.createdAt}`,
+      `Note: ${record.note}`,
+    ].join("\n")).join("\n\n"),
+    "",
+    "## User feedback",
+    payload.userFeedback.length === 0 ? "No user feedback yet." : payload.userFeedback.map((record, index) => [
+      `${index + 1}. ${record.context} · ${record.category} · ${record.rating}/5`,
+      `Path: ${record.path || ""}`,
       `Created: ${record.createdAt}`,
       `Note: ${record.note}`,
     ].join("\n")).join("\n\n"),
@@ -156,11 +167,12 @@ function buildFeedbackCsv(payload: ReturnType<typeof buildReportPayload>) {
 export function BetaReportExportPanel(props: BetaReportExportPanelProps) {
   const { lt } = useLocalizedText();
   const translationFeedbackRecords = useAppStore((state) => state.translationFeedbackRecords);
+  const userFeedbackRecords = useAppStore((state) => state.userFeedbackRecords);
   const [status, setStatus] = useState<ExportStatus>("idle");
-  const payload = useMemo(() => buildReportPayload({ ...props, translationFeedbackRecords }), [props, translationFeedbackRecords]);
+  const payload = useMemo(() => buildReportPayload({ ...props, translationFeedbackRecords, userFeedbackRecords }), [props, translationFeedbackRecords, userFeedbackRecords]);
   const markdownReport = useMemo(() => buildMarkdownReport(payload), [payload]);
   const feedbackCsv = useMemo(() => buildFeedbackCsv(payload), [payload]);
-  const canExport = props.records.length > 0 || props.completedMissionIds.length > 0 || props.completedQaCheckIds.length > 0 || translationFeedbackRecords.length > 0;
+  const canExport = props.records.length > 0 || props.completedMissionIds.length > 0 || props.completedQaCheckIds.length > 0 || translationFeedbackRecords.length > 0 || userFeedbackRecords.length > 0;
 
   const handleCopy = async () => {
     try {
@@ -172,12 +184,12 @@ export function BetaReportExportPanel(props: BetaReportExportPanelProps) {
   };
 
   const handleDownloadJson = () => {
-    downloadTextFile("landly-beta-report-v46.json", JSON.stringify(payload, null, 2), "application/json;charset=utf-8");
+    downloadTextFile("landly-beta-report-v50.json", JSON.stringify(payload, null, 2), "application/json;charset=utf-8");
     setStatus("downloaded");
   };
 
   const handleDownloadCsv = () => {
-    downloadTextFile("landly-beta-feedback-v46.csv", feedbackCsv, "text/csv;charset=utf-8");
+    downloadTextFile("landly-beta-feedback-v50.csv", feedbackCsv, "text/csv;charset=utf-8");
     setStatus("downloaded");
   };
 
@@ -244,7 +256,7 @@ export function BetaReportExportPanel(props: BetaReportExportPanelProps) {
       </div>
 
       <div className="mt-3 rounded-2xl bg-gray-50 p-3 text-xs leading-relaxed text-gray-500">
-        {lt(status === "failed" ? "Copy failed. Use JSON or CSV download instead." : "Reports include mission coverage, QA checklist status, local feedback notes, and translation feedback.")}
+        {lt(status === "failed" ? "Copy failed. Use JSON or CSV download instead." : "Reports include mission coverage, QA checklist status, user feedback, local tester notes, and translation feedback.")}
       </div>
     </section>
   );

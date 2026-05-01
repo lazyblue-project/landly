@@ -16,6 +16,7 @@ import {
   type BetaMissionId,
   type BetaFeedbackRecord,
   type TranslationFeedbackRecord,
+  type UserFeedbackRecord,
 } from "@/types";
 import { mockUser } from "@/data/mock-user";
 import { shopReceipts } from "@/data/shop-receipts";
@@ -54,6 +55,7 @@ interface AppState {
   completedBetaMissionIds: BetaMissionId[];
   betaFeedbackRecords: BetaFeedbackRecord[];
   translationFeedbackRecords: TranslationFeedbackRecord[];
+  userFeedbackRecords: UserFeedbackRecord[];
   completedPilotQaCheckIds: string[];
   manualReminderItems: ReminderItem[];
   completedReminderIds: string[];
@@ -107,6 +109,8 @@ interface AppState {
   removeBetaFeedbackRecord: (id: string) => void;
   addTranslationFeedbackRecord: (record: TranslationFeedbackRecord) => void;
   removeTranslationFeedbackRecord: (id: string) => void;
+  addUserFeedbackRecord: (record: UserFeedbackRecord) => void;
+  removeUserFeedbackRecord: (id: string) => void;
   togglePilotQaCheck: (id: string) => void;
   addManualReminder: (item: ReminderItem) => void;
   removeManualReminder: (id: string) => void;
@@ -141,6 +145,7 @@ type PersistedAppState = Pick<
   | "completedBetaMissionIds"
   | "betaFeedbackRecords"
   | "translationFeedbackRecords"
+  | "userFeedbackRecords"
   | "completedPilotQaCheckIds"
   | "manualReminderItems"
   | "completedReminderIds"
@@ -173,6 +178,7 @@ const RESTORABLE_BACKUP_KEYS: Array<keyof PersistedAppState> = [
   "completedBetaMissionIds",
   "betaFeedbackRecords",
   "translationFeedbackRecords",
+  "userFeedbackRecords",
   "completedPilotQaCheckIds",
   "manualReminderItems",
   "completedReminderIds",
@@ -220,6 +226,7 @@ export const useAppStore = create<AppState>()(
       completedBetaMissionIds: [],
       betaFeedbackRecords: [],
       translationFeedbackRecords: [],
+      userFeedbackRecords: [],
       completedPilotQaCheckIds: [],
       manualReminderItems: [],
       completedReminderIds: [],
@@ -471,6 +478,12 @@ export const useAppStore = create<AppState>()(
       removeTranslationFeedbackRecord: (id) =>
         set((state) => ({ translationFeedbackRecords: state.translationFeedbackRecords.filter((record) => record.id !== id) })),
 
+      addUserFeedbackRecord: (record) =>
+        set((state) => ({ userFeedbackRecords: [record, ...state.userFeedbackRecords].slice(0, 160) })),
+
+      removeUserFeedbackRecord: (id) =>
+        set((state) => ({ userFeedbackRecords: state.userFeedbackRecords.filter((record) => record.id !== id) })),
+
       togglePilotQaCheck: (id) =>
         set((state) => ({
           completedPilotQaCheckIds: state.completedPilotQaCheckIds.includes(id)
@@ -533,6 +546,7 @@ export const useAppStore = create<AppState>()(
         completedBetaMissionIds: state.completedBetaMissionIds,
         betaFeedbackRecords: state.betaFeedbackRecords,
         translationFeedbackRecords: state.translationFeedbackRecords,
+        userFeedbackRecords: state.userFeedbackRecords,
         completedPilotQaCheckIds: state.completedPilotQaCheckIds,
         manualReminderItems: state.manualReminderItems,
         completedReminderIds: state.completedReminderIds,

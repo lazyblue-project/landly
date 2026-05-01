@@ -8,7 +8,8 @@
     "start": "next start --port 3001",
     "lint": "eslint",
     "audit:phrases": "node scripts/audit-phrase-coverage.mjs",
-    "audit:release": "node scripts/audit-release-readiness.mjs"
+    "audit:release": "node scripts/audit-release-readiness.mjs",
+    "audit:feedback": "node scripts/audit-feedback-readiness.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

@@ -8,6 +8,7 @@ import { ProfileSummary } from "@/components/profile/profile-summary";
 import { MyRetentionSnapshot } from "@/components/profile/my-retention-snapshot";
 import { PersonalizationInsightsPanel } from "@/components/profile/personalization-insights-panel";
 import { DataExportCard } from "@/components/profile/data-export-card";
+import { FeedbackInsightsPanel } from "@/components/profile/feedback-insights-panel";
 import { ThemePreferenceCard } from "@/components/profile/theme-preference-card";
 import { OfflinePrepChecklist } from "@/components/offline/offline-prep-checklist";
 import { SavedItemsHub } from "@/components/profile/saved-items-hub";
@@ -27,6 +28,7 @@ export default function MyPage() {
         <>
           <ProfileSummary />
           <DataExportCard />
+          <FeedbackInsightsPanel />
           <ThemePreferenceCard />
           <MyRetentionSnapshot />
           <PersonalizationInsightsPanel />

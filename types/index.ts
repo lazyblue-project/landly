@@ -657,6 +657,21 @@ export interface BetaFeedbackRecord {
   createdAt: string;
 }
 
+export type UserFeedbackCategory = "useful" | "confusing" | "missing" | "bug" | "idea";
+
+export interface UserFeedbackRecord {
+  id: string;
+  context: string;
+  category: UserFeedbackCategory;
+  rating: 1 | 2 | 3 | 4 | 5;
+  note: string;
+  path?: string;
+  language: Language;
+  mode: AppMode;
+  submittedToApi?: boolean;
+  createdAt: string;
+}
+
 export type PilotQaCheckCategory = "setup" | "offline" | "journey" | "trust" | "commercial" | "handoff";
 
 export interface PilotQaCheck {

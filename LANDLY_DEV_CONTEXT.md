@@ -1,11 +1,11 @@
 # Landly — Developer Context for AI-Assisted Development
 
-> Current baseline: **v49** — QA Guardrails & Release Health  
+> Current baseline: **v50** — Beta Launch Feedback Loop  
 > Date: 2026-05-02
 
 ## Project overview
 
-Landly is a mobile-first PWA that helps foreigners visit or live in Korea. It is organized around real-life situations rather than generic menus: arrival, transport, shopping/refund, care/pharmacy, SOS, Korean phrases, long-stay settlement, saved items, offline safety, and trust/freshness checks.
+Landly is a mobile-first PWA that helps foreigners visit or live in Korea. It is organized around real-life situations rather than generic menus: arrival, transport, shopping/refund, care/pharmacy, SOS, Korean phrases, long-stay settlement, saved items, offline safety, trust/freshness checks, and beta feedback loops.
 
 ## Tech stack
 
@@ -25,6 +25,7 @@ Landly is a mobile-first PWA that helps foreigners visit or live in Korea. It is
 npm install
 npm run dev       # http://localhost:3001
 npm run audit:phrases
+npm run audit:feedback
 npm run audit:release
 npm run lint
 npm run build
@@ -32,7 +33,7 @@ npm run build
 
 ## Current data model
 
-Landly is still an MVP/prototype build. It uses static/demo data and localStorage. v47 added API route shells for map preview and place discovery. v48 added local data portability. v49 adds release guardrails, health checks, and safe route fallbacks.
+Landly is still an MVP/prototype build. It uses static/demo data and localStorage. v47 added API route shells for map preview and place discovery. v48 added local data portability. v49 added release guardrails, health checks, and safe route fallbacks. v50 adds in-app feedback capture and a guarded feedback API shell.
 
 Important trust rule: demo/static information must stay clearly labeled and should not be treated as guaranteed live information.
 
@@ -70,87 +71,109 @@ Important trust rule: demo/static information must stay clearly labeled and shou
 - Dark-mode bridge CSS.
 - API route fallback metadata.
 
-### v49 implementation summary
+### v49
 
-#### 1. Safe route fallbacks
+- `app/error.tsx` and `app/not-found.tsx` safe route fallbacks.
+- `/api/health` deployment smoke endpoint.
+- Trust Center release-readiness panel.
+- `scripts/audit-release-readiness.mjs`.
 
-New files:
+### v50 implementation summary
 
-```text
-app/error.tsx
-app/not-found.tsx
-```
-
-The error fallback lets users retry the current route or jump to Home/SOS. The not-found fallback guides users away from stale links or hidden feature-flagged routes.
-
-#### 2. Health endpoint
-
-New file:
-
-```text
-app/api/health/route.ts
-```
-
-The endpoint returns release metadata, core route count, feature flag state, provider key presence, API shell paths, and fallback data mode. It uses `Cache-Control: no-store` and does not expose secret values.
-
-#### 3. Release metadata and Trust Center readiness
-
-New files:
-
-```text
-lib/release-metadata.ts
-data/release-readiness.ts
-components/trust/release-readiness-panel.tsx
-```
+#### 1. In-app feedback capture
 
 Updated file:
 
 ```text
-app/trust/page.tsx
+components/common/feedback-prompt.tsx
 ```
 
-Trust Center now shows release-readiness status, guarded live-data notes, and operator checklist items.
+The shared feedback prompt now supports local feedback capture with category, rating, note, page path, language, and app mode. It keeps the external feedback form/mail link as a fallback.
 
-#### 4. Release audit script
-
-New file:
-
-```text
-scripts/audit-release-readiness.mjs
-```
-
-Updated file:
-
-```text
-package.json
-```
-
-Run:
-
-```bash
-npm run audit:release
-```
-
-The audit checks v49 required files, phrase coverage, service worker version, backup metadata version, release docs, API route shells, and Trust Center wiring.
-
-#### 5. Version updates
+#### 2. Feedback state and backup support
 
 Updated files:
 
 ```text
-public/sw.js
+types/index.ts
+store/app-store.ts
 components/profile/data-export-card.tsx
-.env.example
-README.md
-LANDLY_DEV_CONTEXT.md
-PATCH_NOTES_v49.md
-CHATGPT_HANDOFF_v49.md
 ```
 
-## Recommended next step — v50
+New type:
 
-v50 should focus on a controlled beta handoff package:
+```ts
+UserFeedbackRecord
+```
 
-1. Add a tester landing page or checklist summary for external reviewers.
-2. Add a lightweight issue-export bundle combining beta feedback, translation feedback, and route readiness.
-3. Start a single live provider pilot only after server-side key handling and source freshness labels are verified.
+New persisted state:
+
+```ts
+userFeedbackRecords
+```
+
+Backups now include `userFeedbackRecords` and use metadata version `v50`.
+
+#### 3. My feedback insights
+
+New file:
+
+```text
+components/profile/feedback-insights-panel.tsx
+```
+
+Updated file:
+
+```text
+app/my/page.tsx
+```
+
+The My page shows feedback count, average clarity score, category distribution, recent notes, and JSON export.
+
+#### 4. Guarded feedback API shell
+
+New file:
+
+```text
+app/api/feedback/route.ts
+```
+
+The route validates feedback payloads and returns an accepted response, but does not persist data in the MVP. It is intended for future server-side webhook/database wiring.
+
+Relevant env vars:
+
+```bash
+NEXT_PUBLIC_ENABLE_FEEDBACK_API=false
+LANDLY_FEEDBACK_WEBHOOK_URL=
+```
+
+#### 5. Release/audit updates
+
+Updated files:
+
+```text
+lib/release-metadata.ts
+data/release-readiness.ts
+app/api/health/route.ts
+public/sw.js
+scripts/audit-release-readiness.mjs
+```
+
+New file:
+
+```text
+scripts/audit-feedback-readiness.mjs
+```
+
+Package command:
+
+```bash
+npm run audit:feedback
+```
+
+## Next recommended direction after v50
+
+1. Run a closed beta with 5-10 users and collect local feedback exports.
+2. Convert repeated `confusing`, `missing`, and `bug` notes into a v51 product patch.
+3. Only then connect `/api/feedback` to real storage or a private webhook.
+4. Keep live map/place/care APIs in fallback mode until provider terms, caching, quota, and source freshness labels are finalized.
