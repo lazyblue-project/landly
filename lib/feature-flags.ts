@@ -13,3 +13,7 @@ export function isFeedbackApiEnabled() {
 export function isAdminToolsEnabled(isBetaTester = false) {
   return process.env.NEXT_PUBLIC_ENABLE_ADMIN_TOOLS === "true" || isBetaToolsEnabled(isBetaTester);
 }
+
+export function isLaunchToolsEnabled(isBetaTester = false) {
+  return process.env.NEXT_PUBLIC_ENABLE_LAUNCH_TOOLS === "true" || isAdminToolsEnabled(isBetaTester);
+}

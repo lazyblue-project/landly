@@ -30,6 +30,7 @@ export async function GET() {
         partners: process.env.NEXT_PUBLIC_ENABLE_PARTNERS === "true",
         feedbackApi: process.env.NEXT_PUBLIC_ENABLE_FEEDBACK_API === "true",
         adminTools: process.env.NEXT_PUBLIC_ENABLE_ADMIN_TOOLS === "true",
+        launchTools: process.env.NEXT_PUBLIC_ENABLE_LAUNCH_TOOLS === "true",
       },
       providerKeys: {
         kakaoRestApiKey: isConfigured(process.env.KAKAO_REST_API_KEY),
@@ -43,6 +44,7 @@ export async function GET() {
         placeDiscovery: "/api/place-discovery",
         feedback: "/api/feedback",
         admin: "/admin",
+        launch: "/launch",
       },
       dataMode: "fallback-first",
     },

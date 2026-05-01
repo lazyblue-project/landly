@@ -1,9 +1,9 @@
-export const LANDLY_RELEASE_VERSION = "v51";
-export const LANDLY_RELEASE_NAME = "Operator Insights & Beta Triage";
+export const LANDLY_RELEASE_VERSION = "v52";
+export const LANDLY_RELEASE_NAME = "Beta Launch Control Room";
 export const LANDLY_RELEASE_DATE = "2026-05-02";
 
 export const LANDLY_RELEASE_SUMMARY =
-  "Adds a guarded Operator Insights page for beta triage, local release metrics, translation QA summaries, and operator snapshot export.";
+  "Adds a guarded beta launch control room with launch checklist, smoke signals, launch report export, and release audits for closed-beta deployment.";
 
 export const LANDLY_CORE_ROUTES = [
   "/",
@@ -22,6 +22,7 @@ export const LANDLY_CORE_ROUTES = [
   "/explore",
   "/more",
   "/admin",
+  "/launch",
 ] as const;
 
 export const LANDLY_RELEASE_CHECKS = [
@@ -36,6 +37,12 @@ export const LANDLY_RELEASE_CHECKS = [
     label: "Health endpoint",
     status: "ready",
     detail: "/api/health exposes release version, feature flag state, provider key presence, API shells, and core route count.",
+  },
+  {
+    id: "launch-control",
+    label: "Beta launch control",
+    status: "ready",
+    detail: "A guarded /launch page turns local tester signals into a required launch checklist, readiness score, and exportable launch report.",
   },
   {
     id: "operator-insights",
@@ -59,7 +66,7 @@ export const LANDLY_RELEASE_CHECKS = [
     id: "release-audit",
     label: "Release audit script",
     status: "ready",
-    detail: "npm run audit:release checks phrase coverage, service worker version, feedback loop files, required docs, and API shells.",
+    detail: "npm run audit:release checks phrase coverage, service worker version, launch/admin/feedback files, required docs, and API shells.",
   },
   {
     id: "api-live-data",

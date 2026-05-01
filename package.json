@@ -10,7 +10,8 @@
     "audit:phrases": "node scripts/audit-phrase-coverage.mjs",
     "audit:release": "node scripts/audit-release-readiness.mjs",
     "audit:feedback": "node scripts/audit-feedback-readiness.mjs",
-    "audit:admin": "node scripts/audit-admin-readiness.mjs"
+    "audit:admin": "node scripts/audit-admin-readiness.mjs",
+    "audit:launch": "node scripts/audit-launch-readiness.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

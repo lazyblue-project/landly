@@ -1,6 +1,6 @@
 # Landly — Developer Context for AI-Assisted Development
 
-> Current baseline: **v51** — Beta Launch Feedback Loop  
+> Current baseline: **v52** — Beta Launch Feedback Loop  
 > Date: 2026-05-02
 
 ## Project overview
@@ -239,3 +239,18 @@ npm run audit:admin
 1. Run closed-beta sessions and export `landly-operator-snapshot-YYYY-MM-DD.json` from /admin.
 2. Fix the highest-confusion route before adding broad live-data features.
 3. Consider private feedback storage only after privacy copy, retention policy, and operator workflow are defined.
+
+### v52 implementation summary
+
+Landly v52 adds the guarded `/launch` Beta Launch Control Room. It provides a required launch checklist, readiness score, automatic local smoke signals, `/api/health` handoff, and `landly-beta-launch-report` export. Use `/launch` before sharing a beta link and `/admin` after each tester round.
+
+New/updated files include:
+
+- `app/launch/page.tsx`
+- `components/admin/beta-launch-control-room.tsx`
+- `data/beta-launch-checklist.ts`
+- `scripts/audit-launch-readiness.mjs`
+- `lib/release-metadata.ts`
+- `app/api/health/route.ts`
+
+Next recommended direction: run a real tester round, export `/launch` and `/admin` reports, then patch the most repeated confusing/missing/bug signals before adding live API dependencies.

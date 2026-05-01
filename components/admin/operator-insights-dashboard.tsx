@@ -13,6 +13,7 @@ import {
   MessageSquareText,
   ShieldCheck,
   Sparkles,
+  Rocket,
 } from "lucide-react";
 import { LANDLY_CORE_ROUTES, LANDLY_RELEASE_NAME, LANDLY_RELEASE_VERSION } from "@/lib/release-metadata";
 import { isFeedbackApiEnabled, isPartnerOffersEnabled } from "@/lib/feature-flags";
@@ -152,7 +153,7 @@ export function OperatorInsightsDashboard() {
   const handleExport = () => {
     const payload = {
       exportedAt: new Date().toISOString(),
-      version: "v51",
+      version: "v52",
       schema: "landly-operator-snapshot",
       release: {
         version: LANDLY_RELEASE_VERSION,
@@ -229,6 +230,10 @@ export function OperatorInsightsDashboard() {
           >
             <Activity size={16} />
             {lt("Open health API")}
+          </Link>
+          <Link href="/launch" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-sky-200 px-4 py-3 text-sm font-bold text-sky-800 active:scale-[0.99] dark:border-sky-800 dark:text-sky-200">
+            <Rocket size={16} />
+            {lt("Open launch checklist")}
           </Link>
         </div>
       </section>

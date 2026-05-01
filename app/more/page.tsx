@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart3, FlaskConical, MessageSquarePlus, ExternalLink } from "lucide-react";
+import { BarChart3, FlaskConical, MessageSquarePlus, ExternalLink, Rocket } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
 import { PageSkeleton } from "@/components/common/page-skeleton";
@@ -71,6 +71,13 @@ export default function MorePage() {
                 <div>
                   <p className="text-sm font-semibold text-gray-900">{lt("Operator Insights")}</p>
                   <p className="mt-0.5 text-xs text-gray-500">{lt("Review beta signals and export an operator snapshot")}</p>
+                </div>
+              </Link>
+              <Link href="/launch" className="flex items-center gap-3 rounded-2xl border border-violet-100 bg-white px-4 py-3 transition-colors hover:bg-violet-50">
+                <div className="rounded-2xl bg-sky-100 p-2 text-sky-700 shadow-sm"><Rocket size={18} /></div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">{lt("Beta Launch Control")}</p>
+                  <p className="mt-0.5 text-xs text-gray-500">{lt("Review launch checklist, smoke signals, and export a launch report")}</p>
                 </div>
               </Link>
               <a href={FEEDBACK_URL} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-violet-100 bg-white px-4 py-3 transition-colors hover:bg-violet-50">

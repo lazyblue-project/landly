@@ -746,3 +746,18 @@ export interface ReminderItem {
 }
 
 export type ReminderStatus = "upcoming" | "due-soon" | "overdue" | "done";
+
+// ─── Landly Launch Readiness ────────────────────────────────────────────────
+
+export type LaunchChecklistCategory = "setup" | "journey" | "safety" | "feedback" | "operations" | "handoff";
+
+export interface LaunchChecklistItem {
+  id: string;
+  category: LaunchChecklistCategory;
+  title: string;
+  description: string;
+  required: boolean;
+  href?: string;
+  owner: "product" | "ops" | "tester" | "engineering";
+  successSignal: string;
+}
