@@ -38,9 +38,9 @@ export async function POST(request: Request) {
   }
 
   const payload = body as Record<string, unknown>;
-  const userFeedbackRecords = isRecordArray(payload.userFeedbackRecords) ? (payload.userFeedbackRecords as UserFeedbackRecord[]) : [];
-  const betaFeedbackRecords = isRecordArray(payload.betaFeedbackRecords) ? (payload.betaFeedbackRecords as BetaFeedbackRecord[]) : [];
-  const translationFeedbackRecords = isRecordArray(payload.translationFeedbackRecords) ? (payload.translationFeedbackRecords as TranslationFeedbackRecord[]) : [];
+  const userFeedbackRecords = isRecordArray(payload.userFeedbackRecords) ? (payload.userFeedbackRecords as unknown as UserFeedbackRecord[]) : [];
+  const betaFeedbackRecords = isRecordArray(payload.betaFeedbackRecords) ? (payload.betaFeedbackRecords as unknown as BetaFeedbackRecord[]) : [];
+  const translationFeedbackRecords = isRecordArray(payload.translationFeedbackRecords) ? (payload.translationFeedbackRecords as unknown as TranslationFeedbackRecord[]) : [];
 
   const report = buildBetaTriageReport({
     userFeedbackRecords,
