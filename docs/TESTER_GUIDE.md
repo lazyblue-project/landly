@@ -1,4 +1,4 @@
-# Landly 테스터 안내
+# Landly 테스터 안내 — v53
 
 Landly 베타 테스트에 참여해주셔서 감사합니다.  
 이 문서는 테스터분들을 위한 접속 및 사용 안내입니다.
@@ -8,13 +8,10 @@ Landly 베타 테스트에 참여해주셔서 감사합니다.
 ## 1. 접속 방법
 
 ### 웹 브라우저 (PC / 모바일)
-공유받은 링크를 브라우저에서 열어주세요.
 
 ```
-https://landly-git-staging-xxx.vercel.app
+https://landly-drab.vercel.app
 ```
-
-> 링크는 운영자가 직접 전달드립니다.
 
 ---
 
@@ -46,12 +43,12 @@ https://landly-git-staging-xxx.vercel.app
 | Arrival Test | `/pass` | 경로 저장, 72h 플로우 |
 | Care Test | `/care` | 증상 선택, 병원/약국 안내 |
 | SOS Test | `/sos` | 긴급 시나리오, 표현 확인 |
-| Stay Test | `/life?tab=first90` | 90일 미션, 문서 보관 |
-| Calendar Test | `/calendar` | 일정 저장, 달력 확인 |
-| Language Test | `/my` | 한국어 ↔ 영어 전환 |
+| Stay Test | `/life` | 90일 미션, 문서 보관 |
+| Calendar Test | `/calendar` | 일정 저장, ICS 내보내기 |
+| Language Test | `/my` | 한국어 ↔ 영어 ↔ 일본어 ↔ 중국어 전환 |
 
 ### 언어 전환 방법
-`My` 탭 → 프로필 → Language 설정에서 **Korean / English** 전환
+`My` 탭 → Language 설정에서 전환
 
 ---
 
@@ -59,11 +56,12 @@ https://landly-git-staging-xxx.vercel.app
 
 ### 앱 내 버튼
 - `More` → **Send Feedback** 버튼
-- `/test` 페이지 하단 **Send Feedback** 버튼
+- `/test` 페이지 → **Send Feedback** 버튼
+- `/my` 페이지 → **My Feedback** 패널에서 직접 입력 및 내보내기
 
 ### 직접 이메일
-문제를 재현하기 어려운 경우 이메일로 보내주세요.  
-`hwani.project@gmail.com`
+`hwani.project@gmail.com`  
+제목 형식: `[Landly 피드백] 버그/UX/번역/기능요청 - 간단한 설명`
 
 ---
 
@@ -71,6 +69,7 @@ https://landly-git-staging-xxx.vercel.app
 - 현재 버전은 **웹 기반 테스트**입니다. 앱스토어 배포 버전이 아닙니다.
 - 데이터는 기기 로컬(브라우저 저장소)에 저장됩니다.
 - 다른 기기에서 열면 저장 데이터가 동기화되지 않습니다.
+- 지도/의료/관광 API는 아직 연동 전으로 목업 데이터가 표시됩니다.
 
 ---
 
