@@ -22,8 +22,8 @@ const requiredFiles = [
   "components/layout/bottom-nav.tsx",
   "app/api/health/route.ts",
   "lib/release-metadata.ts",
-  "PATCH_NOTES_v52.md",
-  "CHATGPT_HANDOFF_v52.md",
+  "PATCH_NOTES_v53.md",
+  "CHATGPT_HANDOFF_v53.md",
 ];
 
 for (const file of requiredFiles) {
@@ -35,7 +35,7 @@ addCheck("launch route is guarded", launchPage.includes("isLaunchToolsEnabled") 
 addCheck("launch dashboard rendered", launchPage.includes("BetaLaunchControlRoom"), "launch page renders beta launch control room when enabled");
 
 const launchComponent = read("components/admin/beta-launch-control-room.tsx");
-addCheck("launch report export", launchComponent.includes("landly-beta-launch-report") && launchComponent.includes('version: "v52"'), "launch component exports v52 launch report");
+addCheck("launch report export", launchComponent.includes("landly-beta-launch-report") && launchComponent.includes('version: "v53"'), "launch component exports v53 launch report");
 addCheck("launch component uses local signals", launchComponent.includes("userFeedbackRecords") && launchComponent.includes("translationFeedbackRecords"), "launch component summarizes local tester signals");
 addCheck("launch component links health API", launchComponent.includes('href="/api/health"'), "launch component links health API smoke check");
 
@@ -58,7 +58,7 @@ const env = read(".env.example");
 addCheck("launch env documented", env.includes("NEXT_PUBLIC_ENABLE_LAUNCH_TOOLS"), "launch tools env var is documented");
 
 const release = read("lib/release-metadata.ts");
-addCheck("release metadata v52", release.includes('LANDLY_RELEASE_VERSION = "v52"') && release.includes("launch-control"), "release metadata describes v52 launch control");
+addCheck("release metadata v53", release.includes('LANDLY_RELEASE_VERSION = "v53"') && release.includes("launch-control"), "release metadata describes v53 launch control");
 addCheck("launch route registered", release.includes('"/launch"'), "launch route is in core routes");
 
 console.log("Landly launch readiness audit");

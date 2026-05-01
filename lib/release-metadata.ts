@@ -1,9 +1,9 @@
-export const LANDLY_RELEASE_VERSION = "v52";
-export const LANDLY_RELEASE_NAME = "Beta Launch Control Room";
+export const LANDLY_RELEASE_VERSION = "v53";
+export const LANDLY_RELEASE_NAME = "Beta Feedback Triage Board";
 export const LANDLY_RELEASE_DATE = "2026-05-02";
 
 export const LANDLY_RELEASE_SUMMARY =
-  "Adds a guarded beta launch control room with launch checklist, smoke signals, launch report export, and release audits for closed-beta deployment.";
+  "Adds a guarded beta triage board, local-first triage report export, /api/triage analysis shell, and release audits for prioritizing the next patch from tester signals.";
 
 export const LANDLY_CORE_ROUTES = [
   "/",
@@ -23,6 +23,7 @@ export const LANDLY_CORE_ROUTES = [
   "/more",
   "/admin",
   "/launch",
+  "/triage",
 ] as const;
 
 export const LANDLY_RELEASE_CHECKS = [
@@ -37,6 +38,18 @@ export const LANDLY_RELEASE_CHECKS = [
     label: "Health endpoint",
     status: "ready",
     detail: "/api/health exposes release version, feature flag state, provider key presence, API shells, and core route count.",
+  },
+  {
+    id: "triage-board",
+    label: "Beta feedback triage",
+    status: "ready",
+    detail: "A guarded /triage page turns local tester notes, beta mission feedback, and translation reports into P0/P1/P2/P3 patch priorities.",
+  },
+  {
+    id: "triage-api-stub",
+    label: "Triage API stub",
+    status: "guarded",
+    detail: "/api/triage accepts local feedback arrays and returns a computed triage report without persisting payloads.",
   },
   {
     id: "launch-control",
@@ -66,7 +79,7 @@ export const LANDLY_RELEASE_CHECKS = [
     id: "release-audit",
     label: "Release audit script",
     status: "ready",
-    detail: "npm run audit:release checks phrase coverage, service worker version, launch/admin/feedback files, required docs, and API shells.",
+    detail: "npm run audit:release checks phrase coverage, service worker version, triage/launch/admin/feedback files, required docs, and API shells.",
   },
   {
     id: "api-live-data",

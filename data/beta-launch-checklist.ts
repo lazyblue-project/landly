@@ -79,7 +79,7 @@ export const betaLaunchChecklist: LaunchChecklistItem[] = [
     required: true,
     href: "/api/health",
     owner: "engineering",
-    successSignal: "/api/health returns status ok and v52 metadata.",
+    successSignal: "/api/health returns status ok and v53 metadata.",
   },
   {
     id: "operator-snapshot",

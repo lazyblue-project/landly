@@ -70,7 +70,7 @@ function buildReportPayload({
   return {
     generatedAt: new Date().toISOString(),
     app: "Landly",
-    version: "v52",
+    version: "v53",
     testerContext: {
       mode: modeLabel,
       language: languageLabel,

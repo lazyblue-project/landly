@@ -31,6 +31,7 @@ export async function GET() {
         feedbackApi: process.env.NEXT_PUBLIC_ENABLE_FEEDBACK_API === "true",
         adminTools: process.env.NEXT_PUBLIC_ENABLE_ADMIN_TOOLS === "true",
         launchTools: process.env.NEXT_PUBLIC_ENABLE_LAUNCH_TOOLS === "true",
+        triageTools: process.env.NEXT_PUBLIC_ENABLE_TRIAGE_TOOLS === "true",
       },
       providerKeys: {
         kakaoRestApiKey: isConfigured(process.env.KAKAO_REST_API_KEY),
@@ -45,6 +46,7 @@ export async function GET() {
         feedback: "/api/feedback",
         admin: "/admin",
         launch: "/launch",
+        triage: "/triage",
       },
       dataMode: "fallback-first",
     },

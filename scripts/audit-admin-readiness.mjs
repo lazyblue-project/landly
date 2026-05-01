@@ -21,8 +21,8 @@ const requiredFiles = [
   "app/more/page.tsx",
   "app/api/health/route.ts",
   "lib/release-metadata.ts",
-  "PATCH_NOTES_v52.md",
-  "CHATGPT_HANDOFF_v52.md",
+  "PATCH_NOTES_v53.md",
+  "CHATGPT_HANDOFF_v53.md",
 ];
 
 for (const file of requiredFiles) {
@@ -34,7 +34,7 @@ addCheck("admin route is guarded", adminPage.includes("isAdminToolsEnabled") && 
 addCheck("admin dashboard rendered", adminPage.includes("OperatorInsightsDashboard"), "admin page renders insights dashboard when enabled");
 
 const dashboard = read("components/admin/operator-insights-dashboard.tsx");
-addCheck("operator snapshot export", dashboard.includes("landly-operator-snapshot") && dashboard.includes('version: "v52"'), "dashboard exports v52 operator snapshot");
+addCheck("operator snapshot export", dashboard.includes("landly-operator-snapshot") && dashboard.includes('version: "v53"'), "dashboard exports v53 operator snapshot");
 addCheck("dashboard uses local feedback", dashboard.includes("userFeedbackRecords") && dashboard.includes("translationFeedbackRecords"), "dashboard summarizes local feedback and translation QA");
 addCheck("dashboard links health API", dashboard.includes('href="/api/health"'), "dashboard links health API smoke check");
 addCheck("dashboard links launch checklist", dashboard.includes('href="/launch"'), "dashboard links beta launch checklist");
@@ -56,7 +56,7 @@ addCheck("admin env documented", env.includes("NEXT_PUBLIC_ENABLE_ADMIN_TOOLS"),
 addCheck("launch env documented", env.includes("NEXT_PUBLIC_ENABLE_LAUNCH_TOOLS"), "launch tools env var is documented");
 
 const release = read("lib/release-metadata.ts");
-addCheck("release metadata v52", release.includes('LANDLY_RELEASE_VERSION = "v52"') && release.includes("operator-insights"), "release metadata describes v52 admin insights");
+addCheck("release metadata v53", release.includes('LANDLY_RELEASE_VERSION = "v53"') && release.includes("operator-insights"), "release metadata describes v53 admin insights");
 addCheck("admin route registered", release.includes('"/admin"'), "admin route is in core routes");
 addCheck("launch route registered", release.includes('"/launch"'), "launch route is in core routes");
 

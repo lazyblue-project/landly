@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import { Activity, AlertTriangle, CheckCircle2, ClipboardCheck, Download, ExternalLink, Rocket, ShieldCheck } from "lucide-react";
+import { Activity, AlertTriangle, CheckCircle2, ClipboardCheck, Download, ExternalLink, Rocket, ShieldCheck, GitPullRequestArrow } from "lucide-react";
 import { betaLaunchChecklist } from "@/data/beta-launch-checklist";
 import { LANDLY_RELEASE_DATE, LANDLY_RELEASE_NAME, LANDLY_RELEASE_VERSION } from "@/lib/release-metadata";
 import { isFeedbackApiEnabled, isPartnerOffersEnabled } from "@/lib/feature-flags";
@@ -97,7 +97,7 @@ export function BetaLaunchControlRoom() {
   const handleExport = () => {
     const payload = {
       exportedAt: new Date().toISOString(),
-      version: "v52",
+      version: "v53",
       schema: "landly-beta-launch-report",
       release: {
         version: LANDLY_RELEASE_VERSION,
@@ -177,6 +177,13 @@ export function BetaLaunchControlRoom() {
             <Activity size={16} />
             {lt("Open health API")}
             <ExternalLink size={13} />
+          </Link>
+          <Link
+            href="/triage"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-indigo-200 px-4 py-3 text-sm font-bold text-indigo-800 active:scale-[0.99] dark:border-indigo-800 dark:text-indigo-200"
+          >
+            <GitPullRequestArrow size={16} />
+            {lt("Open triage board")}
           </Link>
         </div>
       </section>

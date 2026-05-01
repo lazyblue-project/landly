@@ -37,6 +37,7 @@ const morePrefixes = [
   "/my",
   "/admin",
   "/launch",
+  "/triage",
 ];
 
 function isNavActive(pathname: string, href: string) {

@@ -41,7 +41,7 @@ const insights = read("components/profile/feedback-insights-panel.tsx");
 addCheck("My feedback insights export", insights.includes("landly-user-feedback") && insights.includes("Export feedback JSON"), "feedback export is available");
 
 const backup = read("components/profile/data-export-card.tsx");
-addCheck("backup includes user feedback", backup.includes("userFeedbackRecords") && backup.includes('version: "v52"'), "backup exports v52 feedback records");
+addCheck("backup includes user feedback", backup.includes("userFeedbackRecords") && backup.includes('version: "v53"'), "backup exports v53 feedback records");
 
 const api = read("app/api/feedback/route.ts");
 addCheck("feedback API is guarded", api.includes("not-persisted-in-this-mvp-api-stub") && api.includes("LANDLY_FEEDBACK_WEBHOOK_URL"), "API validates but does not persist by default");

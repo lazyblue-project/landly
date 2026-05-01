@@ -74,7 +74,7 @@ export function DataExportCard() {
   const handleExport = () => {
     const snapshot = {
       exportedAt: new Date().toISOString(),
-      version: "v52",
+      version: "v53",
       schema: "landly-local-backup",
       user: state.user,
       savedPassPlans: state.savedPassPlans,
