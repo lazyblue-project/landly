@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import { AlertTriangle, CheckCircle2, Download, Flag, GitPullRequestArrow, Layers3, MessageSquareWarning, RefreshCw } from "lucide-react";
+import { AlertTriangle, CheckCircle2, ClipboardCheck, Download, Flag, GitPullRequestArrow, Layers3, MessageSquareWarning, RefreshCw } from "lucide-react";
 import { buildBetaTriageReport, type TriageIssue, type TriagePriority } from "@/lib/beta-triage";
 import { LANDLY_RELEASE_NAME, LANDLY_RELEASE_VERSION } from "@/lib/release-metadata";
 import { useLocalizedText } from "@/lib/text-localizer";
@@ -52,7 +52,7 @@ export function FeedbackTriageDashboard() {
     userFeedbackRecords: state.userFeedbackRecords,
     betaFeedbackRecords: state.betaFeedbackRecords,
     translationFeedbackRecords: state.translationFeedbackRecords,
-    version: "v53",
+    version: "v54",
   }), [state.userFeedbackRecords, state.betaFeedbackRecords, state.translationFeedbackRecords]);
 
   const grouped = report.issues.reduce<Record<TriagePriority, TriageIssue[]>>(
@@ -137,6 +137,10 @@ export function FeedbackTriageDashboard() {
           <Link href="/launch" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-sky-200 px-4 py-3 text-sm font-bold text-sky-800 active:scale-[0.99] dark:border-sky-800 dark:text-sky-200">
             <Flag size={16} />
             {lt("Launch control")}
+          </Link>
+          <Link href="/plan" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-emerald-200 px-4 py-3 text-sm font-bold text-emerald-800 active:scale-[0.99] dark:border-emerald-800 dark:text-emerald-200">
+            <ClipboardCheck size={16} />
+            {lt("Patch plan")}
           </Link>
         </div>
       </section>

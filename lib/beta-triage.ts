@@ -220,7 +220,7 @@ export function buildBetaTriageReport(input: {
 
   return {
     generatedAt: input.generatedAt ?? new Date().toISOString(),
-    version: input.version ?? "v53",
+    version: input.version ?? "v54",
     schema: "landly-beta-triage",
     metrics: {
       totalSignals: userFeedbackRecords.length + betaFeedbackRecords.length + translationFeedbackRecords.length,

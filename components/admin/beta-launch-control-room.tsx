@@ -97,7 +97,7 @@ export function BetaLaunchControlRoom() {
   const handleExport = () => {
     const payload = {
       exportedAt: new Date().toISOString(),
-      version: "v53",
+      version: "v54",
       schema: "landly-beta-launch-report",
       release: {
         version: LANDLY_RELEASE_VERSION,
@@ -184,6 +184,13 @@ export function BetaLaunchControlRoom() {
           >
             <GitPullRequestArrow size={16} />
             {lt("Open triage board")}
+          </Link>
+          <Link
+            href="/plan"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-emerald-200 px-4 py-3 text-sm font-bold text-emerald-800 active:scale-[0.99] dark:border-emerald-800 dark:text-emerald-200"
+          >
+            <ClipboardCheck size={16} />
+            {lt("Open patch plan")}
           </Link>
         </div>
       </section>

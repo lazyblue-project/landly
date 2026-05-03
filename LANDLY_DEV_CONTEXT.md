@@ -1,6 +1,6 @@
 # Landly — Developer Context for AI-Assisted Development
 
-> Current baseline: **v53** — Beta Launch Feedback Loop  
+> Current baseline: **v54** — Beta Launch Feedback Loop  
 > Date: 2026-05-02
 
 ## Project overview
@@ -240,9 +240,9 @@ npm run audit:admin
 2. Fix the highest-confusion route before adding broad live-data features.
 3. Consider private feedback storage only after privacy copy, retention policy, and operator workflow are defined.
 
-### v53 implementation summary
+### v54 implementation summary
 
-Landly v53 adds the guarded `/launch` Beta Feedback Triage Board. It provides a required launch checklist, readiness score, automatic local smoke signals, `/api/health` handoff, and `landly-beta-launch-report` export. Use `/launch` before sharing a beta link and `/admin` after each tester round.
+Landly v54 adds the guarded `/launch` Beta Feedback Triage Board. It provides a required launch checklist, readiness score, automatic local smoke signals, `/api/health` handoff, and `landly-beta-launch-report` export. Use `/launch` before sharing a beta link and `/admin` after each tester round.
 
 New/updated files include:
 
@@ -255,9 +255,9 @@ New/updated files include:
 
 Next recommended direction: run a real tester round, export `/launch` and `/admin` reports, then patch the most repeated confusing/missing/bug signals before adding live API dependencies.
 
-## v53 — Beta Feedback Triage Board
+## v54 — Beta Feedback Triage Board
 
-v53 converts locally captured feedback into a next-patch decision board.
+v54 converts locally captured feedback into a next-patch decision board.
 
 New files:
 
@@ -268,3 +268,17 @@ New files:
 - `scripts/audit-triage-readiness.mjs`
 
 The triage engine consumes `userFeedbackRecords`, `betaFeedbackRecords`, and `translationFeedbackRecords`, then produces P0/P1/P2/P3 issues with evidence and suggested actions. `/api/triage` does not persist payloads.
+
+## v54 — Beta Patch Planning Board
+
+v54 adds the guarded `/plan` Patch Plan Board. It converts v53 triage issues into concrete next-patch work items with priority, workstream, status, suggested owner, effort estimate, release target, acceptance criteria, evidence, and source contexts.
+
+New files:
+
+- `app/plan/page.tsx`
+- `app/api/patch-plan/route.ts`
+- `components/admin/beta-patch-planner-dashboard.tsx`
+- `lib/beta-patch-plan.ts`
+- `scripts/audit-plan-readiness.mjs`
+
+The `/api/patch-plan` route is non-persistent and returns `persisted: false`.

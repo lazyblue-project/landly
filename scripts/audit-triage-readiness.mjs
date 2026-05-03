@@ -23,8 +23,8 @@ const requiredFiles = [
   "app/api/health/route.ts",
   "components/layout/bottom-nav.tsx",
   "lib/release-metadata.ts",
-  "PATCH_NOTES_v53.md",
-  "CHATGPT_HANDOFF_v53.md",
+  "PATCH_NOTES_v54.md",
+  "CHATGPT_HANDOFF_v54.md",
 ];
 
 for (const file of requiredFiles) {
@@ -36,7 +36,7 @@ addCheck("triage route is guarded", triagePage.includes("isTriageToolsEnabled") 
 addCheck("triage dashboard rendered", triagePage.includes("FeedbackTriageDashboard"), "triage page renders triage dashboard when enabled");
 
 const triageComponent = read("components/admin/feedback-triage-dashboard.tsx");
-addCheck("triage report export", triageComponent.includes("landly-beta-triage-report") && triageComponent.includes('version: "v53"'), "triage component exports v53 report");
+addCheck("triage report export", triageComponent.includes("landly-beta-triage-report") && triageComponent.includes('version: "v54"'), "triage component exports v54 report");
 addCheck("triage component uses all signal types", triageComponent.includes("userFeedbackRecords") && triageComponent.includes("betaFeedbackRecords") && triageComponent.includes("translationFeedbackRecords"), "triage component summarizes local feedback, beta, and translation signals");
 addCheck("triage component shows patch recommendation", triageComponent.includes("Recommended next patch") && triageComponent.includes("report.recommendedNextPatch"), "triage dashboard surfaces next patch guidance");
 
@@ -66,7 +66,7 @@ const env = read(".env.example");
 addCheck("triage env documented", env.includes("NEXT_PUBLIC_ENABLE_TRIAGE_TOOLS"), "triage tools env var is documented");
 
 const release = read("lib/release-metadata.ts");
-addCheck("release metadata v53", release.includes('LANDLY_RELEASE_VERSION = "v53"') && release.includes("triage-board"), "release metadata describes v53 triage board");
+addCheck("release metadata v54", release.includes('LANDLY_RELEASE_VERSION = "v54"') && release.includes("triage-board"), "release metadata describes v54 triage board");
 addCheck("triage route registered", release.includes('"/triage"'), "triage route is in core routes");
 
 console.log("Landly triage readiness audit");

@@ -1,0 +1,45 @@
+import fs from "node:fs";
+import path from "node:path";
+import process from "node:process";
+const projectRoot = process.cwd();
+const checks = [];
+function addCheck(name, ok, detail) { checks.push({ name, ok, detail }); }
+function read(relativePath) { return fs.readFileSync(path.join(projectRoot, relativePath), "utf8"); }
+const requiredFiles = ["app/plan/page.tsx", "app/api/patch-plan/route.ts", "components/admin/beta-patch-planner-dashboard.tsx", "lib/beta-patch-plan.ts", "lib/feature-flags.ts", "app/more/page.tsx", "app/api/health/route.ts", "components/layout/bottom-nav.tsx", "lib/release-metadata.ts", "PATCH_NOTES_v54.md", "CHATGPT_HANDOFF_v54.md"];
+for (const file of requiredFiles) addCheck(`required file: ${file}`, fs.existsSync(path.join(projectRoot, file)), "file exists");
+const packageJson = JSON.parse(read("package.json"));
+addCheck("package script audit:plan", packageJson.scripts?.["audit:plan"] === "node scripts/audit-plan-readiness.mjs", "plan audit script is registered");
+const planPage = read("app/plan/page.tsx");
+addCheck("plan route is guarded", planPage.includes("isPlanToolsEnabled") && planPage.includes("Enable beta tester mode"), "plan page has local beta/admin/triage gate");
+addCheck("plan dashboard rendered", planPage.includes("BetaPatchPlannerDashboard"), "plan page renders patch planner dashboard when enabled");
+const planComponent = read("components/admin/beta-patch-planner-dashboard.tsx");
+addCheck("patch plan export", planComponent.includes("landly-beta-patch-plan") && planComponent.includes('version: "v54"'), "plan component exports v54 patch plan");
+addCheck("plan component uses all signal types", planComponent.includes("userFeedbackRecords") && planComponent.includes("betaFeedbackRecords") && planComponent.includes("translationFeedbackRecords"), "plan component consumes local feedback, beta, and translation signals");
+addCheck("plan component shows acceptance criteria", planComponent.includes("Acceptance criteria") && planComponent.includes("acceptanceCriteria"), "patch tasks include acceptance criteria");
+const planLib = read("lib/beta-patch-plan.ts");
+addCheck("patch plan builder exists", planLib.includes("buildBetaPatchPlanReport") && planLib.includes("landly-beta-patch-plan"), "patch plan report builder exists");
+addCheck("patch plan consumes triage", planLib.includes("buildBetaTriageReport") && planLib.includes("TriageIssue"), "patch plan is built from triage issues");
+addCheck("patch plan has owner effort target", ["suggestedOwner", "effort", "releaseTarget", "acceptanceCriteria"].every((token) => planLib.includes(token)), "patch tasks have execution metadata");
+const apiRoute = read("app/api/patch-plan/route.ts");
+addCheck("patch plan API GET", apiRoute.includes("export async function GET") && apiRoute.includes("acceptedPayload"), "patch-plan API exposes schema guidance");
+addCheck("patch plan API POST", apiRoute.includes("export async function POST") && apiRoute.includes("buildBetaPatchPlanReport"), "patch-plan API can compute a report from a payload");
+addCheck("patch plan API does not persist", apiRoute.includes("persisted: false"), "patch-plan API marks local-first non-persistence");
+const flags = read("lib/feature-flags.ts");
+addCheck("plan feature flag", flags.includes("isPlanToolsEnabled") && flags.includes("NEXT_PUBLIC_ENABLE_PLAN_TOOLS"), "plan tools env gate exists");
+const morePage = read("app/more/page.tsx");
+addCheck("more page plan link", morePage.includes('href="/plan"') && morePage.includes("Patch Plan Board"), "beta tools area links patch planner");
+const bottomNav = read("components/layout/bottom-nav.tsx");
+addCheck("plan grouped under more", bottomNav.includes('"/plan"'), "bottom nav treats plan as More section");
+const health = read("app/api/health/route.ts");
+addCheck("health reports plan flag", health.includes("planTools") && health.includes('patchPlan: "/plan"') && health.includes('patchPlanApi: "/api/patch-plan"'), "health includes plan flag and shell links");
+const env = read(".env.example");
+addCheck("plan env documented", env.includes("NEXT_PUBLIC_ENABLE_PLAN_TOOLS"), "plan tools env var is documented");
+const release = read("lib/release-metadata.ts");
+addCheck("release metadata v54", release.includes('LANDLY_RELEASE_VERSION = "v54"') && release.includes("patch-plan-board"), "release metadata describes v54 patch planner");
+addCheck("plan route registered", release.includes('"/plan"'), "plan route is in core routes");
+console.log("Landly patch plan readiness audit");
+for (const check of checks) console.log(`${check.ok ? "✓" : "✗"} ${check.name} — ${check.detail}`);
+const failed = checks.filter((check) => !check.ok);
+if (failed.length > 0) { console.error(`\n${failed.length} patch plan readiness check(s) failed.`); process.exit(1); }
+console.log("\nAll patch plan readiness checks passed.");
+process.exit(0);

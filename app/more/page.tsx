@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart3, FlaskConical, MessageSquarePlus, ExternalLink, Rocket, GitPullRequestArrow } from "lucide-react";
+import { BarChart3, FlaskConical, MessageSquarePlus, ExternalLink, Rocket, GitPullRequestArrow, ClipboardCheck } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { TopBar } from "@/components/layout/top-bar";
 import { PageSkeleton } from "@/components/common/page-skeleton";
@@ -85,6 +85,14 @@ export default function MorePage() {
                 <div>
                   <p className="text-sm font-semibold text-gray-900">{lt("Beta Triage Board")}</p>
                   <p className="mt-0.5 text-xs text-gray-500">{lt("Prioritize feedback into the next patch queue")}</p>
+                </div>
+              </Link>
+
+              <Link href="/plan" className="flex items-center gap-3 rounded-2xl border border-violet-100 bg-white px-4 py-3 transition-colors hover:bg-violet-50">
+                <div className="rounded-2xl bg-emerald-100 p-2 text-emerald-700 shadow-sm"><ClipboardCheck size={18} /></div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">{lt("Patch Plan Board")}</p>
+                  <p className="mt-0.5 text-xs text-gray-500">{lt("Turn triage issues into concrete patch tasks")}</p>
                 </div>
               </Link>
               <a href={FEEDBACK_URL} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-violet-100 bg-white px-4 py-3 transition-colors hover:bg-violet-50">

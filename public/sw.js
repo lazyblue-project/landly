@@ -1,4 +1,4 @@
-const LANDLY_SW_VERSION = "v53";
+const LANDLY_SW_VERSION = "v54";
 const LANDLY_CORE_CACHE = `landly-core-${LANDLY_SW_VERSION}`;
 const LANDLY_RUNTIME_CACHE = `landly-runtime-${LANDLY_SW_VERSION}`;
 
@@ -27,6 +27,7 @@ const CORE_ASSETS = [
   "/admin",
   "/launch",
   "/triage",
+  "/plan",
   "/manifest.webmanifest",
   "/icons/icon-192.png",
   "/icons/icon-512.png",

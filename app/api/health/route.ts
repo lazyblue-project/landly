@@ -32,6 +32,7 @@ export async function GET() {
         adminTools: process.env.NEXT_PUBLIC_ENABLE_ADMIN_TOOLS === "true",
         launchTools: process.env.NEXT_PUBLIC_ENABLE_LAUNCH_TOOLS === "true",
         triageTools: process.env.NEXT_PUBLIC_ENABLE_TRIAGE_TOOLS === "true",
+        planTools: process.env.NEXT_PUBLIC_ENABLE_PLAN_TOOLS === "true",
       },
       providerKeys: {
         kakaoRestApiKey: isConfigured(process.env.KAKAO_REST_API_KEY),
@@ -47,6 +48,8 @@ export async function GET() {
         admin: "/admin",
         launch: "/launch",
         triage: "/triage",
+        patchPlan: "/plan",
+        patchPlanApi: "/api/patch-plan",
       },
       dataMode: "fallback-first",
     },

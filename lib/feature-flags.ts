@@ -21,3 +21,7 @@ export function isLaunchToolsEnabled(isBetaTester = false) {
 export function isTriageToolsEnabled(isBetaTester = false) {
   return process.env.NEXT_PUBLIC_ENABLE_TRIAGE_TOOLS === "true" || isAdminToolsEnabled(isBetaTester);
 }
+
+export function isPlanToolsEnabled(isBetaTester = false) {
+  return process.env.NEXT_PUBLIC_ENABLE_PLAN_TOOLS === "true" || isTriageToolsEnabled(isBetaTester);
+}

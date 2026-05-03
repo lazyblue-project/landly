@@ -66,7 +66,7 @@ export function FeedbackInsightsPanel() {
   const handleExport = () => {
     const payload = {
       exportedAt: new Date().toISOString(),
-      version: "v53",
+      version: "v54",
       schema: "landly-user-feedback",
       records: sortedRecords,
     };

@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   BarChart3,
   CheckCircle2,
+  ClipboardCheck,
   Download,
   FileJson,
   Languages,
@@ -154,7 +155,7 @@ export function OperatorInsightsDashboard() {
   const handleExport = () => {
     const payload = {
       exportedAt: new Date().toISOString(),
-      version: "v53",
+      version: "v54",
       schema: "landly-operator-snapshot",
       release: {
         version: LANDLY_RELEASE_VERSION,
@@ -239,6 +240,10 @@ export function OperatorInsightsDashboard() {
           <Link href="/triage" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-indigo-200 px-4 py-3 text-sm font-bold text-indigo-800 active:scale-[0.99] dark:border-indigo-800 dark:text-indigo-200">
             <GitPullRequestArrow size={16} />
             {lt("Open triage board")}
+          </Link>
+          <Link href="/plan" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-emerald-200 px-4 py-3 text-sm font-bold text-emerald-800 active:scale-[0.99] dark:border-emerald-800 dark:text-emerald-200">
+            <ClipboardCheck size={16} />
+            {lt("Open patch plan")}
           </Link>
         </div>
       </section>
